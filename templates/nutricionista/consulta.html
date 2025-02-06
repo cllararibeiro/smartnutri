@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de atendimento </title>
+    <link rel="stylesheet" type="text/css" href="/static/css/consulta.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}"><img src="../static/assets/seta.png"></a>
+        <h1>Ficha de atendimento nutricional</h1>
+    </header>
+    <div class="container">
+        <form id="form" class="form">
+            <!-- Dados antropométricos -->
+            <section class="form-section">
+                <h2>Dados Antropométricos</h2>
+                <div class="input-group">
+                    <label for="peso">Peso Atual (kg):</label>
+                    <input type="number" id="peso" name="peso" step="0.1" required>
+                </div>
+                <div class="input-group">
+                    <label for="altura">Altura (m):</label>
+                    <input type="number" id="altura" name="altura" step="0.01" required>
+                </div>
+                <div class="input-group">
+                    <label for="imc">IMC:</label>
+                    <input type="text" id="imc" name="imc" readonly>
+                </div>
+                <div class="input-group">
+                    <label for="circunferenciaAbdominal">Circunferência Abdominal (cm):</label>
+                    <input type="number" id="circunferenciaAbdominal" name="circunferenciaAbdominal" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="circunferenciaQuadril">Circunferência do Quadril (cm):</label>
+                    <input type="number" id="circunferenciaQuadril" name="circunferenciaQuadril" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="composicaoCorporal">Composição Corporal:</label>
+                    <textarea type="text" id="composicaoCorporal" name="composicaoCorporal" placeholder="Ex.: % gordura corporal, massa muscular, etc."></textarea>
+                </div>
+            </section>
+             <!-- Histórico de Saúde -->
+             <section class="form-section">
+                <h2>Histórico de Saúde</h2>
+                <div class="input-group">
+                    <label for="doencas">Doenças Preexistentes:</label>
+                    <textarea id="doencas" name="doencas" placeholder="Ex.: Diabetes, Hipertensão"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="cirurgias">Cirurgias Realizadas:</label>
+                    <textarea id="cirurgias" name="cirurgias" placeholder="Ex.: Apendicite, etc."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="medicamentos">Uso de Medicamentos:</label>
+                    <textarea id="medicamentos" name="medicamentos" placeholder="Ex.: Losartana, etc."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="alergias">Alergias Alimentares:</label>
+                    <textarea id="alergias" name="alergias" placeholder="Ex.: Leite, glúten"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="internacoes">Histórico de Internações ou Tratamentos Relevantes:</label>
+                    <textarea id="internacoes" name="internacoes" placeholder="Ex.: Internação por problemas respiratórios"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="historicoFamiliar">Histórico Familiar de Doenças:</label>
+                    <textarea id="historicoFamiliar" name="historicoFamiliar" placeholder="Ex.: Doenças cardiovasculares, diabetes"></textarea>
+                </div>
+            </section>
+
+            <!-- Histórico Alimentar -->
+            <section class="form-section">
+                <h2>Histórico Alimentar</h2>
+                <div class="input-group">
+                    <label for="cafeManha">Café da Manhã:</label>
+                    <textarea id="cafeManha" name="cafeManha" placeholder="Ex.: pães, café, frutas"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="almoco">Almoço:</label>
+                    <textarea id="almoco" name="almoco" placeholder="Ex.: arroz, feijão, carne, salada"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="jantar">Jantar:</label>
+                    <textarea id="jantar" name="jantar" placeholder="Ex.: sopa, salada, sanduíche"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="lanches">Lanches:</label>
+                    <textarea id="lanches" name="lanches" placeholder="Ex.: bolachas, frutas, sucos"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="bebidas">Bebidas Consumidas:</label>
+                    <textarea id="bebidas" name="bebidas" placeholder="Ex.: quantidade de água/dia, refrigerantes, sucos"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="frequenciaAlimentacao">Frequência de Alimentação Fora de Casa:</label>
+                    <textarea id="frequenciaAlimentacao" name="frequenciaAlimentacao" placeholder="Ex.: Almoça fora de casa todos os dias, come fast food uma vez por semana, etc."></textarea>
+                </div>
+            </section>
+
+            <!-- Suplementação Nutricional -->
+            <section class="form-section">
+                <h2>Suplementação Nutricional</h2>
+                <div class="input-group">
+                    <label for="suplementos">Suplementos ou Vitaminas Usadas:</label>
+                    <textarea id="suplementos" name="suplementos" placeholder="Ex.: Whey protein, creatina, multivitamínico"></textarea>
+                </div>
+            </section>
+
+            <!-- Preferências Alimentares -->
+            <section class="form-section">
+                <h2>Preferências Alimentares</h2>
+                <div class="input-group">
+                    <label for="preferencias">Preferências Alimentares:</label>
+                    <textarea id="preferencias" name="preferencias" placeholder="Ex.: Gosta de carne, prefere alimentos vegetarianos"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="aversoes">Aversões Alimentares:</label>
+                    <textarea id="aversoes" name="aversoes" placeholder="Ex.: Não gosta de brócolis, aversão a leite"></textarea>
+                </div>
+            </section>
+
+            <!-- Estilo de Vida e Hábitos -->
+            <section class="form-section">
+                <h2>Estilo de Vida e Hábitos</h2>
+                <div class="input-group">
+                    <label for="atividadeFisica">Atividade Física:</label>
+                    <textarea id="atividadeFisica" name="atividadeFisica" placeholder="Ex.: caminhada, musculação, natação, etc."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="frequenciaAtividade">Frequência de Atividade Física (semana):</label>
+                    <textarea id="frequenciaAtividade" name="frequenciaAtividade" placeholder="Ex.: 2x na semana"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="intensidadeAtividade">Intensidade da Atividade Física:</label>
+                    <select id="intensidadeAtividade" name="intensidadeAtividade">
+                        <option value="leve">Leve</option>
+                        <option value="moderada">Moderada</option>
+                        <option value="intensa">Intensa</option>
+                        <option value="sedentario">Sedentário</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="qualidadeSono">Qualidade do Sono:</label>
+                    <textarea id="qualidadeSono" name="qualidadeSono" placeholder="Ex.: dorme bem, tem dificuldade para dormir, acorda várias vezes durante a noite"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="nivelEstresse">Estresse e Saúde Mental:</label>
+                    <textarea id="nivelEstresse" name="nivelEstresse" placeholder="Ex.: Nível de estresse, ansiedade, depressão"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="habitosSubstancias">Hábitos de Consumo de Substâncias:</label>
+                    <textarea id="habitosSubstancias" name="habitosSubstancias" placeholder="Ex.: Fumo, consumo de álcool, uso de drogas recreativas"></textarea>
+                </div>
+            </section>
+
+            <!-- Objetivos Nutricionais -->
+            <section class="form-section">
+                <h2>Objetivos Nutricionais</h2>
+                <div class="input-group">
+                    <label for="objetivoPrincipal">Objetivo Principal:</label>
+                    <input type="text" id="objetivoPrincipal" name="objetivoPrincipal" placeholder="Ex.: Emagrecimento, aumento de massa muscular">
+                </div>
+                <div class="input-group">
+                    <label for="outrosObjetivos">Outros Objetivos:</label>
+                    <textarea id="outrosObjetivos" name="outrosObjetivos" placeholder="Descrever objetivos adicionais, se houver"></textarea>
+                </div>
+            </section>
+
+            <!-- Exames e Resultados Clínicos -->
+            <section class="form-section">
+                <h2>Exames e Resultados Clínicos</h2>
+                <div class="input-group">
+                    <label for="exames">Exames de Sangue:</label>
+                    <textarea id="exames" name="exames" placeholder="Ex.: glicemia, colesterol, hemoglobina glicada, etc."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="observacoes">Observações Importantes para o Plano Alimentar:</label>
+                    <textarea id="observacoes" name="observacoes" placeholder="Descrever condições específicas"></textarea>
+                </div>
+            </section>
+
+            <!-- Botão de Envio -->
+            <div class="form-footer">
+                <button type="submit">Enviar Ficha</button>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

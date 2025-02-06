@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartNutri</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href = "{{url_for('index')}}"><img src="static/img/smartnutri.png" alt="logo"></a>
+            <ul>
+                <li><a href="{{ url_for('nutricionista.consulta')}}">consulta</a></li>
+                <li><a href="{{ url_for('nutricionista.dieta')}}"id="contato">Dieta</a></li>
+            </ul>
+            <a href="{{ url_for('auth.login')}}" class="button">Entrar</a>
+        </nav>
+    </header>
+
+    <section class="main-content">
+        <div class="text-content">
+            <p>Com o SmartNutri você ...</p>
+            <h1>Atende <br> onde estiver.</h1>
+            <br>
+            <a href="{{ url_for('auth.cadastro')}}" class="experiment-button">Experimente</a>
+        </div>
+        <div class="image-container">
+            <img src="static/img/designsemnome.jpg" alt="Coração de frutas">
+        </div>
+    </section>
+    <section>
+        <div class="container2">
+            <div class="left">
+                <h1>CRIE PLANOS <br> ALIMENTARES</h1>
+                <br>
+                <div class="buttons">
+                    <button>PRESCRIÇÃO</button>
+                    <button>ANTROPOMETRIA</button>
+                    <button>MARKETING</button>
+                </div>
+                <div class="video-box">
+                    <p>VÍDEO DE CADA TELA DE FUNÇÕES</p>
+                </div>
+            </div>
+            <div class="right">
+                <img src="static/img/foto2.png" alt="comida e tanana" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container3">
+            <h1>Benefícios</h1>
+            <div class="beneficios">
+                <div class="cards">
+                    <div class="strelas">
+                        <span class="strela">★★★★</span>
+                        <span class="strela">★</span>
+                    </div>
+                    <p>Aproveite as ferramentas disponíveis e não leve mais trabalho para casa!</p>
+                    <h3 id="txt1">Gestão de tempo</h3>
+                </div>
+    
+                <div class="cards">
+                    <div class="strelas">
+                        <span class="strela">★★★★</span>
+                        <span class="strela">★</span>
+                    </div>
+                    <p>Aproveite as ferramentas disponíveis e não leve mais trabalho para casa!</p>
+                    <h3 id="txt2">Atendimento excelente</h3>
+                </div>
+                
+                <div class="cards">
+                    <div class="strelas">
+                        <span class="strela">★★★★</span>
+                        <span class="strela">★</span>
+                    </div>
+                    <p>Aproveite as ferramentas disponíveis e não leve mais trabalho para casa!</p>
+                    <h3 id="txt3">Acompanhamento</h3>
+                </div>
+            </div>
+        </div>
+    
+        <footer>
+            <div class="footer-container">
+                <div class="footer-left">
+                    <h2>SmartNutri</h2>
+                    <p>O melhor ecossistema de Nutrição do Brasil.</p>
+                    <div class="social-icons">
+                        <img src="static/img/instagramicon.png" alt="Instagram">
+                        <img src="static/img/facebookicon.png" alt="Facebook">
+                        <img src="static/img/whatsappicon.png" alt="WhatsApp">
+                    </div>
+                </div>
+                <div class="footer-center">
+                    <h3>Conteúdos</h3>
+                    <p>Central de ajuda</p>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2024 SmartNutri | Caicó- RN</p>
+                    <p><a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a></p>
+                </div>
+            </div>
+        </footer>
+    </section>
+</body>
+</html>

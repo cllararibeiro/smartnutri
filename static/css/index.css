@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #037936c5; /* Cor principal do fundo */
+    color: #333;
+    font-size: 1rem;
+}
+
+header {
+    background-color: #fff;
+    padding: 1rem 3%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a img {
+    width: 150px; /* Ajusta o logo */
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+ul li a {
+    text-decoration: none;
+    font-weight: 500;
+    color: #037936c5;
+    font-size: 1.1rem;
+}
+
+ul li a:hover {
+    color: #026a2a; /* Cor do hover */
+}
+
+.button {
+    background-color: #037936c5;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.button:hover {
+    background-color: #026a2a;
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 10%;
+    background-color: #f4f4f4;
+}
+
+.text-content {
+    max-width: 50%;
+}
+
+.text-content p {
+    font-size: 1.2rem;
+    color: #000;
+    margin-bottom: 1rem;
+}
+
+.text-content h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #037936c5;
+}
+
+.experiment-button {
+    padding: 0.8rem 2rem;
+    background-color: #037936c5;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.experiment-button:hover {
+    background-color: #026a2a;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container2 {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 10%;
+    background-color: #fff;
+}
+
+.container2 .left {
+    max-width: 50%;
+}
+
+.container2 .left h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #037936c5;
+    margin-bottom: 2rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.buttons button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    background-color: #037936c5;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #026a2a;
+}
+
+.video-box {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.container2 .right img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container3 {
+    padding: 3rem 10%;
+    background-color: #f4f4f4;
+}
+
+.container3 h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #037936c5;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.beneficios {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.cards {
+    flex: 1;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.strelas {
+    font-size: 1.2rem;
+    color: #ffd700;
+}
+
+.strela {
+    margin-right: 0.3rem;
+}
+
+.cards p {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 1rem;
+}
+
+.cards h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #037936c5;
+    margin-top: 1rem;
+}
+
+footer {
+    background-color: #037936c5;
+    color: white;
+    padding: 3rem 10%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3rem;
+}
+
+.footer-left h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.footer-left p {
+    margin-top: 1rem;
+}
+
+.social-icons img {
+    width: 30px;
+    margin-right: 1rem;
+}
+
+.footer-center h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.footer-bottom p {
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.footer-bottom a {
+    text-decoration: none;
+    color: white;
+    margin-left: 1rem;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 5%;
+    }
+
+    .text-content {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .image-container {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .container2 {
+        flex-direction: column;
+        padding: 2rem 5%;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #037936c5; /* Cor de fundo */
+}
+
+.container {
+    width: 60%; /* Ajustar a largura do contêiner */
+    height: 70vh; /* Ajustar a altura do contêiner */
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+}
+
+.form-image {
+    width: 50%; /* Manter a largura da imagem */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fae37ffb; /* Cor de fundo da imagem */
+    padding: 1rem;
+}
+
+.form-image img {
+    width: 40rem; /* Ajustar a largura da imagem */
+}
+
+.form {
+    width: 50%; /* Manter a largura do formulário */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centralizar verticalmente */
+    align-items: stretch; /* Esticar os elementos para ocupar todo o espaço */
+    background-color: #ffffff; /* Cor de fundo do formulário */
+    padding: 2rem; /* Reduzir o padding para compactar */
+}
+
+.form-header {
+    margin-bottom: 1rem; /* Reduzir a margem inferior */
+    display: flex;
+    flex-direction: column; /* Mudar para coluna para empilhar logo e título */
+    align-items: center; /* Centralizar horizontalmente */
+    width: 100%;
+}
+
+.signup-button {
+    display: flex;
+    justify-content: center; /* Centralizar o botão */
+    margin-top: 1rem; /* Espaço acima do botão "Cadastrar" */
+}
+
+.signup-button button {
+    border: none;
+    background-color: #037936c5; /* Cor do botão */
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signup-button button:hover {
+    background-color:#037936c5;; /* Cor do botão ao passar o mouse */
+}
+
+.signup-button button a {
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff; /* Cor do texto do botão */
+}
+
+.form-header h1 {
+    margin: 0; /* Remover margens do título */
+}
+
+.form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #037936c5;; /* Linha abaixo do título */
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column; /* Mudado para coluna para centralizar os inputs */
+    width: 100%; /* Para ocupar toda a largura */
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem; /* Reduzir a margem inferior */
+}
+
+.input-box input {
+    margin: 0.4rem 0; /* Reduzir a margem entre os inputs */
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.9rem; /* Aumentar o tamanho da fonte */
+}
+
+.input-box input:hover {
+    background-color: #eeeeee75; /* Cor ao passar o mouse */
+}
+
+.input-box input:focus-visible {
+    outline: 1px solid #003315ab; /* Cor do contorno ao focar */
+}
+
+.input-box label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #000000c0; /* Cor do texto do label */
+}
+
+.input-box input::placeholder {
+    color: #000000be; /* Cor do placeholder */
+}
+
+.forgot-password {
+    margin: 0.5rem 0; /* Reduzir a margem para o link de esqueci a senha */
+}
+
+.forgot-password a {
+    color: #003315ab; /* Cor do link */
+    text-decoration: none; /* Sem sublinhado */
+}
+
+.login-button {
+    margin-top: 1rem; /* Reduzir a margem para o botão de login */
+}
+
+.login-button button {
+    width: 100%; /* Botão ocupa toda a largura */
+    border: none;
+    background-color:#037936c5; /* Cor do botão */
+    padding: 0.62rem;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white; /* Cor do texto do botão */
+}
+
+.login-button button:hover {
+    background-color:#037936c5;; /* Cor do botão ao passar o mouse */
+}
+
+/* Media Queries para responsividade */
+@media screen and (max-width: 1330px) {
+    .form-image {
+        display: none; /* Esconder imagem em telas menores */
+    }
+    .container {
+        width: 90%; /* Largura do container em telas menores */
+    }
+    .form {
+        width: 100%; /* Formulário ocupa toda a largura */
+    }
+}
+
+@media screen and (max-width: 1064px) {
+    .container {
+        width: 90%; /* Largura do container em telas ainda menores */
+        height: auto;
+    }
+}

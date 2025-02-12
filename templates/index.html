@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartNutri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg bg-dark text-white py-4" >
+        <div class="container">
+            <a class="navbar-brand" href="{{url_for('index')}}">
+                <img src="/static/img/smartnutri.png" alt="logo" height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-label="Alternar navegação" title="Abrir menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('nutricionista.consulta')}}">Consulta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('nutricionista.dieta')}}">Dieta</a></li>
+                </ul>
+                <a href="{{ url_for('auth.login')}}" class="btn btn-primary ms-3 btn-lg">Entrar</a>
+            </div>
+        </div>
+    </nav>
+
+    
+    
+    <section class="container text-center py-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="fw-bold">Atende <br> onde estiver.</h1>
+                <p>Com o SmartNutri você pode criar planos e acompanhar seus clientes com facilidade.</p>
+                <a href="{{ url_for('auth.cadastro')}}" class="btn btn-success btn-lg w-50 mt-3">Experimente</a>
+            </div>
+            <div class="col-md-6">
+                <img src="/static/img/heartsaude.png" alt="Coração de frutas" class="img-fluid rounded">
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="container text-center py-5 bg-light">
+        <h2 class="fw-bold mb-4">Crie Planos Alimentares</h2>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <button class="btn btn-outline-primary btn-lg">Prescrição</button>
+            <button class="btn btn-outline-success btn-lg">Antropometria</button>
+            <button class="btn btn-outline-warning btn-lg">Marketing</button>
+        </div>
+    </section>
+
+
+    <section class="container py-5">
+        <h2 class="text-center fw-bold">Benefícios</h2>
+        <div class="row text-center mt-4">
+            <div class="col-md-4">
+                <div class="card p-4 shadow">
+                    <span class="text-warning fs-3">★★★★☆</span>
+                    <h4 class="mt-3">Gestão de tempo</h4>
+                    <p>Aproveite as ferramentas disponíveis e não leve mais trabalho para casa!</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 shadow">
+                    <span class="text-warning fs-3">★★★★☆</span>
+                    <h4 class="mt-3">Atendimento excelente</h4>
+                    <p>Melhore a experiência dos seus clientes com um sistema eficiente.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 shadow">
+                    <span class="text-warning fs-3">★★★★☆</span>
+                    <h4 class="mt-3">Acompanhamento</h4>
+                    <p>Monitore a evolução dos seus pacientes com relatórios detalhados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <h3>SmartNutri</h3>
+            <p>O melhor ecossistema de Nutrição do Brasil.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <img src="/static/img/instagramicon.png " alt="Instagram" height="30">
+                <img src="/static/img/facebookicon.png" alt="Facebook" height="30">
+                <img src="/static/img/whatsappicon.png"alt="WhatsApp" height="30">
+            </div>
+            <p class="mt-3">© 2024 SmartNutri | Caicó-RN</p>
+            <p><a href="#" class="text-white">Termos de Uso</a> | <a href="#" class="text-white">Política de Privacidade</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

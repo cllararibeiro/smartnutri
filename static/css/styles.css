@@ -1,0 +1,234 @@
+:root {
+    --verde-cabeçalho: #0a5247;
+    --verde-botao-borda: #70883A;
+    --verde-claro: #bfd202;
+    --bege: #e4dedc;
+    --verde-medio: #6d872e;
+    --verde-hover: #D9E021;
+    --branco: #fff;
+    --laranja: #d47f50;
+    --rosa: #e14e61;
+    --preto: #000;
+    --amarelo: goldenrod;
+    --amarelo-queimado: gold;
+    --azul: #3a9dd6;
+    --borda-botao-verde: #004033;
+    --hover-nav: #5d6d31;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #F8F9FA;
+}
+
+.navbar {
+    padding: 15px 0;
+}
+
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-nav {
+    gap: 15px;
+}
+
+.nav-link {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #198754;
+}
+
+.btn-lg {
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.main-content {
+    padding: 80px 0;
+}
+
+.text-content {
+    max-width: 600px;
+}
+
+.text-content h1 {
+    display: flex;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #202020;
+    text-align: start;
+}
+
+.text-content p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.experiment-button {
+    width: 50%;
+    padding: 15px;
+    font-size: 18px;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.container2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    background-color: #fff;
+}
+
+.container2 h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #202020;
+}
+
+.container2 .buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.container2 button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.video-box {
+    background-color: #198754;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.video-box p {
+    color: white;
+    font-size: 1.3rem;
+}
+
+.right img {
+    width: 100%;
+    border-radius: 15px;
+    height: auto;
+}
+
+.container3 {
+    background-color: #677C3E;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.container3 h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.beneficios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.cards {
+    background-color: #FFC107;
+    width: 280px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.cards h3 {
+    font-size: 1.2em;
+    margin-top: 20px;
+    color: #264F3A;
+}
+
+.cards p {
+    font-size: 1.1em;
+    margin-top: 10px;
+    color: #264F3A;
+}
+
+.strelas {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.strela {
+    font-size: 1.5em;
+    color: #264F3A;
+}
+
+.strela:last-child {
+    color: #fff;
+}
+
+footer {
+    padding: 40px 0;
+    color: white;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.footer-left, .footer-center {
+    max-width: 300px;
+}
+
+.footer-left h3, .footer-center h3 {
+    font-size: 1.5rem;
+}
+
+.footer-bottom {
+    font-size: 0.9em;
+}
+
+.footer-bottom a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}

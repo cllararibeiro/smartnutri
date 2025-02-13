@@ -8,14 +8,14 @@
 }
 
 body {
-    background-color: #037936c5; /* Cor principal do fundo */
-    color: #333;
+    background-color: #02a93dc5; /* Cor principal do fundo */
+    color: #ffffff;
     font-size: 1rem;
 }
 
 header {
     background-color: #fff;
-    padding: 1rem 3%;
+    padding: 1rem 1%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -26,7 +26,7 @@ nav {
 }
 
 nav a img {
-    width: 150px; /* Ajusta o logo */
+    width: 100px; /* Ajusta o logo */
 }
 
 ul {
@@ -38,7 +38,7 @@ ul {
 ul li a {
     text-decoration: none;
     font-weight: 500;
-    color: #037936c5;
+    color: hsla(58, 99%, 68%, 0.984);
     font-size: 1.1rem;
 }
 
@@ -47,7 +47,7 @@ ul li a:hover {
 }
 
 .button {
-    background-color: #037936c5;
+    background-color: hsla(58, 99%, 68%, 0.984);
     color: white;
     padding: 0.5rem 1.2rem;
     border-radius: 5px;
@@ -56,7 +56,7 @@ ul li a:hover {
 }
 
 .button:hover {
-    background-color: #026a2a;
+    background-color: hsla(58, 99%, 68%, 0.984);
 }
 
 .main-content {
@@ -85,7 +85,7 @@ ul li a:hover {
 
 .experiment-button {
     padding: 0.8rem 2rem;
-    background-color: #037936c5;
+    background-color: hsla(58, 99%, 68%, 0.984);
     color: #fff;
     border-radius: 5px;
     text-decoration: none;
@@ -127,7 +127,7 @@ ul li a:hover {
 .buttons button {
     padding: 0.8rem 1.5rem;
     border: none;
-    background-color: #037936c5;
+    background-color: hsla(58, 99%, 68%, 0.984);
     color: #fff;
     font-weight: 500;
     border-radius: 5px;
@@ -141,7 +141,7 @@ ul li a:hover {
 .video-box {
     margin-top: 2rem;
     font-size: 1.1rem;
-    color: #333;
+    color: #ffffff;
 }
 
 .container2 .right img {
@@ -151,7 +151,7 @@ ul li a:hover {
 
 .container3 {
     padding: 3rem 10%;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
 }
 
 .container3 h1 {

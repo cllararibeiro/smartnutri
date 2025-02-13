@@ -34,13 +34,13 @@ class Paciente(Base):
     pac_data_nasc = mapped_column(Date, nullable=False)
     pac_idade = mapped_column(Integer, nullable=False)
     pac_sexo = mapped_column(Enum('M', 'F', 'Outro'), nullable=False)
-    pac_tel = mapped_column(String(15))
-    pac_cpf = mapped_column(String(20), nullable=False)
+    pac_tel = mapped_column(String(15), nullable=False, unique=True)
+    pac_cpf = mapped_column(String(20), nullable=False,  unique=True)
     pac_doencas_preexistentes = mapped_column(Text)
-    pac_cirurgias_realizadas = mapped_column(Text)
-    pac_medicamentos_uso_atual = mapped_column(Text)
-    pac_alergias_intolerancias = mapped_column(Text)
     pac_historico_familiar = mapped_column(Text)
+    pac_nutri_id = mapped_column(Integer, ForeignKey('tb_nutricionista.nutri_id'), nullable=False)
+
+    nutricionista = relationship('Nutricionista', backref='pacientes')
 
 
 class RegistroConsulta(Base):

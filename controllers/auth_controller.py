@@ -45,7 +45,7 @@ def cadastro():
         telefone = request.form['telefone']
         if session.query(Nutricionista).filter_by(nutri_email=email).first():
                 flash('E-mail já cadastrado. Tente novamente.')
-                return redirect(url_for('cadastro'))
+                return redirect(url_for('auth.cadastro'))
         novo_nutricionista = Nutricionista(nutri_nome=nome,nutri_email=email,nutri_cpf=cpf,nutri_telefone=telefone,nutri_senha=senha, nutri_crn=crn)
         novo_nutricionista.set_password(senha)
         session.add(novo_nutricionista)

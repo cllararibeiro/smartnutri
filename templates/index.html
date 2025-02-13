@@ -9,39 +9,39 @@
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg bg-verde text-white py-4" >
+    <nav class="navbar navbar-expand-lg bg-verde text-white py-0" >
         <div class="container">
             <a class="navbar-brand" href="{{url_for('index')}}">
-                <img src="/static/img/smartnutri.png" alt="logo" height="150">
+                <img src="/static/img/smartnutri.png" alt="logo" height="100">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Alternar navegação" title="Abrir menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <a href="{{ url_for('auth.cadastro')}}" class="btn btn-primary ms-3 btn-lg">Cadastre-se</a>
-                <a href="{{ url_for('auth.login')}}" class="btn btn-primary ms-3 btn-lg">Entrar</a>
+                <a href="{{ url_for('auth.cadastro')}}" class="btn  btn-custom-white ms-3 btn-sm">Cadastre-se</a>
+                <a href="{{ url_for('auth.login')}}" class="btn  btn-custom-white ms-3 btn-sm">Entrar</a>
             </div>
         </div>
     </nav>
 
     
     
-    <section class="container text-left py-5" style="height: 600px; margin-top: 3.6rem;">
+    <section class="container text-left py-5" >
         <div class="row align-items-center">
             <div class="col-md-6">
                 <h1 class="fw-bold">Com SmartNutri você...</h1>
                 <h1 class="fw-bold">atende onde estiver.</h1>
-                <p>Com o SmartNutri você pode criar planos e acompanhar seus clientes com facilidade.</p>
-                <a href="{{ url_for('auth.cadastro')}}" class="btn btn-warning btn-lg w-50 mt-3">Experimente</a>
+                <p>Com o SmartNutri você pode criar planos alimentares e acompanhar seus clientes com facilidade.</p>
+                <a href="{{ url_for('auth.cadastro')}}" class="btn btn-warning btn-lg w-50 mt-3 btn-custom-blue">Experimente</a>
             </div>
             <div class="col-md-6">
-                <img src="/static/img/planoal.png" alt="Coração de frutas" class="img-fluid rounded">
+                <img src="/static/img/headsaude.png" alt="Coração de frutas" class="img-fluid rounded">
             </div>
         </div>
     </section>
 
     
-    <section class="container text-center py-5 bg-light" style="height: 500px;">
+    <section class="container text-center py-1 bg-light" >
         <h2 class="fw-bold mb-4">Crie Planos Alimentares</h2>
         <div class="d-flex flex-wrap justify-content-center gap-3">
             <button class="btn btn-outline-primary btn-lg">Prescrição</button>

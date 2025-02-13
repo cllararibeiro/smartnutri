@@ -24,11 +24,11 @@
 
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: #F8F9FA;
+    background-color: #faf9f8;
 }
 
 .bg-verde {
-    background-color: #0a5247;
+    background-color:#15ad52;
 }
 
 .bg-bege{
@@ -54,7 +54,7 @@ a col-md-6 :hover {
 }
 
 .navbar {
-    padding: 15px 0;
+    padding: 2px 0;
 }
 
 .navbar-toggler {
@@ -66,7 +66,7 @@ a col-md-6 :hover {
 }
 
 .navbar-nav {
-    gap: 15px;
+    gap: 5px;
 }
 
 .nav-link {
@@ -82,7 +82,7 @@ a col-md-6 :hover {
 }
 
 .main-content {
-    padding: 80px 0;
+    padding: 10px 0;
 }
 
 .text-content {
@@ -256,4 +256,25 @@ footer {
 
 .footer-bottom a:hover {
     text-decoration: underline;
+}
+
+.btn-custom-white {
+    background-color: #f8830eeb; 
+    color: #ffffff;
+    border-radius: 2px; 
+}
+
+.btn-custom-white:hover {
+    background-color: #f8830eeb; /* Fundo verde ao passar o mouse */
+    color: rgb(255, 255, 255); /* Texto branco ao passar o mouse */
+}
+
+.btn-custom-blue {
+    background-color: #f8830eeb; /* Fundo azul */
+    color: white; /* Texto branco */
+    border: none; /* Remover a borda */
+}
+
+.btn-custom-blue:hover {
+    background-color: #f8830eeb; /* Cor do fundo quando o mouse passa sobre o botão */
 }

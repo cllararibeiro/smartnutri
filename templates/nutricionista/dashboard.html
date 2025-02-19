@@ -1,0 +1,32 @@
+{% extends "nutricionista/base.html" %}
+
+{% block title %}Dashboard de Pacientes{% endblock %}
+
+{% block content %}
+    <h2>Meus Pacientes</h2>
+
+    <form method="get" action="{{ url_for('nutricionista.dashboard') }}" class="busca-container">
+        <input type="text" name="busca" placeholder="Buscar paciente por nome..." value="{{ request.args.get('busca', '') }}">
+        <button id="busca-btn" type="submit">Pesquisar</button>
+        <button><a href="{{ url_for('nutricionista.cadastro_paciente') }}">Cadastrar Novo Paciente</a></button>
+    </form>
+
+    <div id="dashboard">
+        {% for paciente in pacientes %}
+            <div class="card">
+                <p><strong>{{ paciente.pac_nome }}</strong></p>
+                <p>Idade: {{ paciente.pac_idade }} anos</p>
+                <p>Telefone: {{ paciente.pac_tel }}</p>
+                
+                <div class="button-container">
+                    <a href="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}">
+                        <button>Realizar Consulta</button>
+                    </a>
+                    <a href="{{ url_for('nutricionista.cadastro_paciente', paciente_id=paciente.pac_id) }}">
+                        <button>Editar</button>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

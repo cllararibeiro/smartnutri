@@ -9,10 +9,12 @@ nutricionista_bp = Blueprint('nutricionista', __name__, url_prefix='/nutricionis
 
 session = Session()
 
-@nutricionista_bp.route('/dashboard', methods=['GET', 'POST'])
+@nutricionista_bp.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('nutricionista/dashboard.html')
+    busca = request.args.get('busca', '')
+    pacientes = session.query(Paciente).filter(Paciente.pac_nome.like(f'%{busca}%')).filter_by(pac_nutri_id=current_user.nutri_id).all()
+    return render_template('nutricionista/dashboard.html', pacientes=pacientes)
 
 @nutricionista_bp.route('/consulta', methods=['GET', 'POST'])
 @login_required

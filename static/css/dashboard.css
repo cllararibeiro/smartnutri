@@ -75,7 +75,7 @@ main {
 }
 
 .side-item.active {
-    background-color: #178833;
+    background-color: #B9CC95;
 }
 
 .side-item:hover:not(.active),
@@ -125,7 +125,7 @@ main {
     position: absolute;
     top: 30px;
     right: -10px;
-    background-color: #178833;
+    background-color: #B9CC95;
     color: #e3e9f7;
     border-radius: 100%;
     width: 20px;
@@ -195,7 +195,7 @@ main {
 }
 
 .card button {
-    background-color: #178833;
+    background-color: #E984A2;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -207,7 +207,7 @@ main {
 }
 
 .card button:hover {
-    background-color: #178833;
+    background-color: #f5c5d3;
 }
 
 .busca-container {
@@ -226,7 +226,7 @@ main {
 }
 
 .busca-container button {
-    background-color: #178833;
+    background-color: #E984A2;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -242,5 +242,65 @@ main {
 }
 
 .busca-container button:hover {
-    background-color: #155c26;
+    background-color: #f5c5d3;
+}
+
+
+
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Cabeçalho cobrindo toda a largura da tela */
+    background: #B9CC95;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* Para garantir que o cabeçalho fique por cima da sidebar */
+}
+
+/* Logo à esquerda */
+#header_logo {
+    position: absolute;
+    left: 60px; /* Ajuste para o botão de abrir sidebar */
+    height: 60px;
+    max-width: 180px;
+}
+
+/* Texto central */
+#welcome_text {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+
+/* Conteúdo principal */
+#content-wrapper {
+    margin-left: 250px;
+    margin-top: 80px;
+    padding: 20px;
+}
+
+
+
+/* Botão de expandir a sidebar */
+#open_btn_header {
+    position: absolute;
+    left: 20px;
+    background-color: #B9CC95;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+#open_btn_icon {
+    font-size: 20px;
 }

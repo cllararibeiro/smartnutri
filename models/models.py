@@ -1,9 +1,10 @@
-from sqlalchemy import create_engine, Integer, String, Date, Enum, Text, ForeignKey, DECIMAL, DATETIME
+from sqlalchemy import create_engine, Integer, String, Date, Enum,\
+Text, ForeignKey, DECIMAL, DATETIME, DateTime
 from sqlalchemy.orm import mapped_column, sessionmaker, relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from database.config import Base
-
+from datetime import datetime
 
 class Nutricionista(Base, UserMixin):
     __tablename__ = 'tb_nutricionista'
@@ -43,6 +44,7 @@ class Paciente(Base):
     pac_cpf = mapped_column(String(20), nullable=False, unique=True)
     pac_doencas_preexistentes = mapped_column(Text)
     pac_historico_familiar = mapped_column(Text)
+    pac_data_cadastro = mapped_column(DateTime, default=datetime.utcnow) 
 
     nutricionista = relationship('Nutricionista', back_populates='pacientes')
     consultas = relationship('Consulta', back_populates='paciente')

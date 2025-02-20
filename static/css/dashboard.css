@@ -11,14 +11,18 @@ body {
     display: flex;
     min-height: 100vh;
     background-color: #e3e9f7;
+    height: 100%;
+    overflow-y: auto; 
+    overflow-x: hidden;
 }
 
 main {
     padding: 20px;
-    position: fixed;
     z-index: 1;
     padding-left: calc(82px + 20px);
+    overflow-y: auto;
 }
+
 
 #sidebar {
     display: flex;
@@ -27,7 +31,7 @@ main {
     background-color: #ffffff;
     height: 100vh;
     border-radius: 0px 18px 18px 0px;
-    position: relative;
+    position: fixed;
     transition: all .5s;
     min-width: 82px;
     z-index: 2;

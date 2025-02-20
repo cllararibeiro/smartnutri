@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from database.config import Session
 from datetime import datetime
+from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 from models.models import Nutricionista, Paciente, Consulta, Dieta
 
@@ -13,7 +14,9 @@ session = Session()
 @login_required
 def dashboard():
     busca = request.args.get('busca', '')
-    pacientes = session.query(Paciente).filter(Paciente.pac_nome.like(f'%{busca}%')).filter_by(pac_nutri_id=current_user.nutri_id).all()
+    pacientes = session.query(Paciente).filter(Paciente.pac_nome.like(f'%{busca}%'))\
+    .filter_by(pac_nutri_id=current_user.nutri_id)\
+    .order_by(desc(Paciente.pac_data_cadastro)).all() 
     return render_template('nutricionista/dashboard.html', pacientes=pacientes)
 
 @nutricionista_bp.route('/consulta', methods=['GET', 'POST'])
@@ -57,7 +60,7 @@ def cadastro_paciente():
             session.add(paciente)
             session.commit()
             flash("Paciente cadastrado com sucesso!", "success")
-            return redirect(url_for('nutricionista.funcionalidades'))
+            return redirect(url_for('nutricionista.dashboard'))
         except IntegrityError:
             session.rollback()
             flash("Erro: Já existe um paciente com esse e-mail ou telefone.", "danger")

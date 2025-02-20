@@ -28,7 +28,7 @@ def login():
         if nutricionista and nutricionista.check_password(senha):
             login_user(nutricionista)
             flash('Login realizado com sucesso!')
-            return redirect(url_for('nutricionista.consulta'))
+            return redirect(url_for('nutricionista.dashboard'))
         else:
             flash('Email ou senha incorretos.')
 
@@ -60,4 +60,4 @@ def cadastro():
 def logout():
     logout_user()
     flash('Você foi desconectado.')
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('index'))

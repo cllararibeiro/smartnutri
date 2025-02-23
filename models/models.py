@@ -39,7 +39,7 @@ class Paciente(Base):
     pac_email = mapped_column(String(500), nullable=False, unique=True)
     pac_data_nasc = mapped_column(Date, nullable=False)
     pac_idade = mapped_column(Integer, nullable=False)
-    pac_sexo = mapped_column(Enum('M', 'F', 'Outro'), nullable=False)
+    pac_sexo = mapped_column(Enum('Masculino', 'Feminino'), nullable=False)
     pac_tel = mapped_column(String(15), nullable=False, unique=True)
     pac_cpf = mapped_column(String(20), nullable=False, unique=True)
     pac_doencas_preexistentes = mapped_column(Text)
@@ -139,6 +139,14 @@ class DadosAntropometricos(Base):
     dad_circun_quadri = mapped_column(DECIMAL(5, 2))
     dad_gord_corporal = mapped_column(DECIMAL(5, 2))
     dad_massa_muscular = mapped_column(DECIMAL(5, 2))
-    dad_outras_medidas = mapped_column(Text)
+
+    # Medidas das dobras cutâneas
+    dad_dobra_tricipital = mapped_column(DECIMAL(5, 2))
+    dad_dobra_subescapular = mapped_column(DECIMAL(5, 2))
+    dad_dobra_supra_iliaca = mapped_column(DECIMAL(5, 2))
+    dad_dobra_abdominal = mapped_column(DECIMAL(5, 2))
+    dad_dobra_peitoral = mapped_column(DECIMAL(5, 2))
+    dad_dobra_coxa = mapped_column(DECIMAL(5, 2))
+    dad_dobra_axilar = mapped_column(DECIMAL(5, 2))
 
     consulta = relationship('Consulta', back_populates='dados_antropometricos')

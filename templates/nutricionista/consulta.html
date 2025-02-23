@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha de atendimento </title>
+    <title>Ficha de Atendimento</title>
     <link rel="stylesheet" type="text/css" href="/static/css/consulta.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,11 +12,19 @@
 <body>
     <header>
         <a href="{{ url_for('nutricionista.dashboard') }}"><img src="../static/assets/seta.png"></a>
-        <h1>Ficha de atendimento nutricional</h1>
+        <h1>Ficha de Atendimento Nutricional</h1>
     </header>
     <div class="container">
         <form id="form" class="form">
         
+            <div class="input-group">
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                </select>
+            </div>
+            
             <section class="form-section">
                 <h2>Dados Antropométricos</h2>
                 <div class="input-group">
@@ -39,13 +47,84 @@
                     <label for="circunferenciaQuadril">Circunferência do Quadril (cm):</label>
                     <input type="number" id="circunferenciaQuadril" name="circunferenciaQuadril" step="0.1">
                 </div>
+            </section>
+
+            <!-- Seletor de Método de Cálculo de Gordura -->
+            <section class="form-section">
+                <h2>Selecione o Método de Cálculo de Gordura Corporal</h2>
                 <div class="input-group">
-                    <label for="composicaoCorporal">Composição Corporal:</label>
-                    <textarea type="text" id="composicaoCorporal" name="composicaoCorporal" placeholder="Ex.: % gordura corporal, massa muscular, etc."></textarea>
+                    <label for="metodo">Método:</label>
+                    <select id="metodo" name="metodo" onchange="toggleDobras()">
+                        <option value="3">3 Dobras Cutâneas</option>
+                        <option value="7">7 Dobras Cutâneas</option>
+                    </select>
                 </div>
             </section>
-      
-             <section class="form-section">
+
+            <!-- Seção de Dobras Cutâneas -->
+            <section class="form-section" id="dobras-section">
+                <h2>Dobras Cutâneas</h2>
+                <!-- Formulário para 3 dobras -->
+                <div id="dobras-3" class="dobras-group">
+                    <div class="input-group">
+                        <label for="dobraTricipital">Dobra Tricipital (mm):</label>
+                        <input type="number" id="dobraTricipital" name="dobraTricipital" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="dobraSubescapular">Dobra Subescapular (mm):</label>
+                        <input type="number" id="dobraSubescapular" name="dobraSubescapular" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="dobraSupraIliaca">Dobra Supra-Iliaca (mm):</label>
+                        <input type="number" id="dobraSupraIliaca" name="dobraSupraIliaca" step="0.1">
+                    </div>
+                </div>
+
+                <!-- Formulário para 7 dobras -->
+                <div id="dobras-7" class="dobras-group" style="display: none;">
+                    <div class="input-group">
+                        <label for="dobraAbdominal">Dobra Abdominal (mm):</label>
+                        <input type="number" id="dobraAbdominal" name="dobraAbdominal" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="dobraPeitoral">Dobra Peitoral (mm):</label>
+                        <input type="number" id="dobraPeitoral" name="dobraPeitoral" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="dobraCoxa">Dobra da Coxa (mm):</label>
+                        <input type="number" id="dobraCoxa" name="dobraCoxa" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="dobraAxilar">Dobra Axilar (mm):</label>
+                        <input type="number" id="dobraAxilar" name="dobraAxilar" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="dobraSubabdominal">Dobra Subabdominal (mm):</label>
+                        <input type="number" id="dobraSubabdominal" name="dobraSubabdominal" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="dobraGlutea">Dobra Glútea (mm):</label>
+                        <input type="number" id="dobraGlutea" name="dobraGlutea" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="dobraToracica">Dobra Torácica (mm):</label>
+                        <input type="number" id="dobraToracica" name="dobraToracica" step="0.1">
+                    </div>
+                </div>
+                
+                <!-- Botão para Calcular -->
+                <div class="input-group">
+                    <button type="button" onclick="calcularPercentualGordura()">Calcular Percentual de Gordura e Massa Magra</button>
+                </div>
+
+                <!-- Exibição dos resultados -->
+                <div id="resultados">
+                    <p><strong>Percentual de Gordura: </strong><span id="percentualGordura"></span></p>
+                    <p><strong>Massa Magra: </strong><span id="massaMagra"></span></p>
+                </div>
+            </section>
+
+            <section class="form-section">
                 <h2>Histórico de Saúde</h2>
                 <div class="input-group">
                     <label for="doencas">Doenças Preexistentes:</label>
@@ -73,7 +152,6 @@
                 </div>
             </section>
 
-            
             <section class="form-section">
                 <h2>Histórico Alimentar</h2>
                 <div class="input-group">
@@ -110,7 +188,6 @@
                 </div>
             </section>
 
-           
             <section class="form-section">
                 <h2>Preferências Alimentares</h2>
                 <div class="input-group">
@@ -123,66 +200,17 @@
                 </div>
             </section>
 
-       
             <section class="form-section">
                 <h2>Estilo de Vida e Hábitos</h2>
                 <div class="input-group">
                     <label for="atividadeFisica">Atividade Física:</label>
-                    <textarea id="atividadeFisica" name="atividadeFisica" placeholder="Ex.: caminhada, musculação, natação, etc."></textarea>
+                    <textarea id="atividadeFisica" name="atividadeFisica" placeholder="Ex.: Faz caminhada 3x por semana, prática de musculação"></textarea>
                 </div>
                 <div class="input-group">
-                    <label for="frequenciaAtividade">Frequência de Atividade Física (semana):</label>
-                    <textarea id="frequenciaAtividade" name="frequenciaAtividade" placeholder="Ex.: 2x na semana"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="intensidadeAtividade">Intensidade da Atividade Física:</label>
-                    <select id="intensidadeAtividade" name="intensidadeAtividade">
-                        <option value="leve">Leve</option>
-                        <option value="moderada">Moderada</option>
-                        <option value="intensa">Intensa</option>
-                        <option value="sedentario">Sedentário</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label for="qualidadeSono">Qualidade do Sono:</label>
-                    <textarea id="qualidadeSono" name="qualidadeSono" placeholder="Ex.: dorme bem, tem dificuldade para dormir, acorda várias vezes durante a noite"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="nivelEstresse">Estresse e Saúde Mental:</label>
-                    <textarea id="nivelEstresse" name="nivelEstresse" placeholder="Ex.: Nível de estresse, ansiedade, depressão"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="habitosSubstancias">Hábitos de Consumo de Substâncias:</label>
-                    <textarea id="habitosSubstancias" name="habitosSubstancias" placeholder="Ex.: Fumo, consumo de álcool, uso de drogas recreativas"></textarea>
+                    <label for="horasSono">Horas de Sono por Noite:</label>
+                    <input type="number" id="horasSono" name="horasSono" step="0.1">
                 </div>
             </section>
-
-        
-            <section class="form-section">
-                <h2>Objetivos Nutricionais</h2>
-                <div class="input-group">
-                    <label for="objetivoPrincipal">Objetivo Principal:</label>
-                    <input type="text" id="objetivoPrincipal" name="objetivoPrincipal" placeholder="Ex.: Emagrecimento, aumento de massa muscular">
-                </div>
-                <div class="input-group">
-                    <label for="outrosObjetivos">Outros Objetivos:</label>
-                    <textarea id="outrosObjetivos" name="outrosObjetivos" placeholder="Descrever objetivos adicionais, se houver"></textarea>
-                </div>
-            </section>
-
-            
-            <section class="form-section">
-                <h2>Exames e Resultados Clínicos</h2>
-                <div class="input-group">
-                    <label for="exames">Exames de Sangue:</label>
-                    <textarea id="exames" name="exames" placeholder="Ex.: glicemia, colesterol, hemoglobina glicada, etc."></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="observacoes">Observações Importantes para o Plano Alimentar:</label>
-                    <textarea id="observacoes" name="observacoes" placeholder="Descrever condições específicas"></textarea>
-                </div>
-            </section>
-
 
             <div class="form-footer">
                 <button type="submit">Enviar Ficha</button>
@@ -190,5 +218,78 @@
 
         </form>
     </div>
+    
+    <script>
+        function toggleDobras() {
+            const metodo = document.getElementById('metodo').value;
+            if (metodo === '3') {
+                document.getElementById('dobras-3').style.display = 'block';
+                document.getElementById('dobras-7').style.display = 'none';
+            } else {
+                document.getElementById('dobras-3').style.display = 'none';
+                document.getElementById('dobras-7').style.display = 'block';
+            }
+        }
+    
+        function calcularPercentualGordura() {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const idade = parseFloat(document.getElementById('idade') ? document.getElementById('idade').value : 0); // Idade pode ser opcional
+            const sexo = document.getElementById('sexo').value; // Captura o sexo do paciente
+            const metodo = document.getElementById('metodo').value;
+    
+            // Verifica se os campos necessários foram preenchidos corretamente
+            if (isNaN(peso) || isNaN(altura)) {
+                alert('Por favor, insira peso e altura válidos.');
+                return;
+            }
+    
+            let percentualGordura = 0;
+            let massaMagra = 0;
+    
+            if (metodo === '3') {
+                // 3 dobras
+                const tricipital = parseFloat(document.getElementById('dobraTricipital').value);
+                const subescapular = parseFloat(document.getElementById('dobraSubescapular').value);
+                const supraIliaca = parseFloat(document.getElementById('dobraSupraIliaca').value);
+                const somaDobras = tricipital + subescapular + supraIliaca;
+    
+                // Fórmula para 3 dobras (exemplo considerando o sexo)
+                if (sexo === 'masculino') {
+                    percentualGordura = (0.29288 * somaDobras) - (0.0005 * somaDobras * somaDobras) + (0.15845 * idade) - 5.76377;
+                } else if (sexo === 'feminino') {
+                    percentualGordura = (0.29669 * somaDobras) - (0.00043 * somaDobras * somaDobras) + (0.15595 * idade) - 6.03522;
+                }
+    
+                massaMagra = peso - (peso * (percentualGordura / 100));
+            } else {
+                // 7 dobras
+                const abdominal = parseFloat(document.getElementById('dobraAbdominal').value);
+                const peitoral = parseFloat(document.getElementById('dobraPeitoral').value);
+                const coxa = parseFloat(document.getElementById('dobraCoxa').value);
+                const axilar = parseFloat(document.getElementById('dobraAxilar').value);
+                const subabdominal = parseFloat(document.getElementById('dobraSubabdominal').value);
+                const glutea = parseFloat(document.getElementById('dobraGlutea').value);
+                const toracica = parseFloat(document.getElementById('dobraToracica').value);
+                const somaDobras = abdominal + peitoral + coxa + axilar + subabdominal + glutea + toracica;
+    
+                // Fórmula para 7 dobras (exemplo considerando o sexo)
+                if (sexo === 'masculino') {
+                    percentualGordura = (0.29288 * somaDobras) - (0.0005 * somaDobras * somaDobras) + (0.15845 * idade) - 5.76377;
+                } else if (sexo === 'feminino') {
+                    percentualGordura = (0.29669 * somaDobras) - (0.00043 * somaDobras * somaDobras) + (0.15595 * idade) - 6.03522;
+                }
+    
+                massaMagra = peso - (peso * (percentualGordura / 100));
+            }
+    
+            // Exibir os resultados
+            document.getElementById('percentualGordura').textContent = percentualGordura.toFixed(2) + '%';
+            document.getElementById('massaMagra').textContent = massaMagra.toFixed(2) + ' kg';
+        }
+    
+        window.onload = toggleDobras;
+    </script>
+    
 </body>
 </html>

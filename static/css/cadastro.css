@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background:#15ad52;
+    background:#b1ff8ce2;
 }
 
 .container {
@@ -27,7 +27,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: hsla(58, 99%, 68%, 0.984);
+    background-color: #15ad52;
     padding: 1rem;
 }
 

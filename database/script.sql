@@ -1,4 +1,6 @@
-create database db_smartnutri;
+create DATABASE db_smartnutri;
+
+USE db_smartnutri;
 
 CREATE TABLE tb_nutricionista (
     nutri_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -17,11 +19,12 @@ CREATE TABLE tb_pacientes (
     pac_email VARCHAR(500) NOT NULL UNIQUE,
     pac_data_nasc DATE NOT NULL,
     pac_idade INT NOT NULL,
-    pac_sexo ENUM('M', 'F', 'Outro') NOT NULL,
+    pac_sexo ENUM('Masculino', 'Feminino') NOT NULL,
     pac_tel VARCHAR(15) NOT NULL UNIQUE,
     pac_cpf VARCHAR(20) NOT NULL UNIQUE,
     pac_doencas_preexistentes TEXT,
     pac_historico_familiar TEXT,
+    pac_data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (pac_nutri_id) REFERENCES tb_nutricionista(nutri_id)
 );
 
@@ -29,7 +32,9 @@ CREATE TABLE tb_registro_consulta (
     reg_con_id INT AUTO_INCREMENT PRIMARY KEY,
     reg_con_objetivos TEXT,
     reg_con_rotina TEXT,
-    reg_con_obs TEXT
+    reg_con_obs TEXT,
+    reg_con_preferencias TEXT,
+    reg_con_aversoes TEXT
 );
 
 CREATE TABLE tb_exames (
@@ -84,6 +89,12 @@ CREATE TABLE tb_dados_antro (
     dad_circun_quadri DECIMAL(5,2) DEFAULT NULL,
     dad_gord_corporal DECIMAL(5,2) DEFAULT NULL,
     dad_massa_muscular DECIMAL(5,2) DEFAULT NULL,
-    dad_outras_medidas TEXT DEFAULT NULL,
+    dad_dobra_tricipital DECIMAL(5,2) DEFAULT NULL,
+    dad_dobra_subescapular DECIMAL(5,2) DEFAULT NULL,
+    dad_dobra_supra_iliaca DECIMAL(5,2) DEFAULT NULL,
+    dad_dobra_abdominal DECIMAL(5,2) DEFAULT NULL,
+    dad_dobra_peitoral DECIMAL(5,2) DEFAULT NULL,
+    dad_dobra_coxa DECIMAL(5,2) DEFAULT NULL,
+    dad_dobra_axilar DECIMAL(5,2) DEFAULT NULL,
     FOREIGN KEY (dad_con_id) REFERENCES tb_consultas(con_id)
 );

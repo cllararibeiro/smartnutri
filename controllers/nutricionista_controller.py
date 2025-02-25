@@ -19,10 +19,39 @@ def dashboard():
     .order_by(desc(Paciente.pac_data_cadastro)).all() 
     return render_template('nutricionista/dashboard.html', pacientes=pacientes)
 
-@nutricionista_bp.route('/consulta', methods=['GET', 'POST'])
+@nutricionista_bp.route('/consulta/<int:paciente_id>', methods=['GET', 'POST'])
 @login_required
-def consulta():
-    return render_template('nutricionista/consulta.html')
+def consulta(paciente_id):
+    paciente = session.query(Paciente).get(paciente_id)
+    sexo = paciente.pac_sexo if paciente else None
+
+    if request.method == 'POST': 
+
+        peso = request.form.get('peso')
+        altura = request.form.get('altura')
+        imc = request.form.get('imc')
+        circun_abdomen = request.form.get('circunferenciaAbdominal')
+        circun_quadril = request.form.get('circunferenciaQuadril')
+        gordura_corporal = request.form.get('gorduraCorporal')
+        massa_muscular = request.form.get('massaMuscular')
+
+        dobra_tricipital = request.form.get('dobraTricipital')
+        dobra_subescapular = request.form.get('dobraSubescapular')
+        dobra_supra_iliaca = request.form.get('dobraSupraIliaca')
+        dobra_abdominal = request.form.get('dobraAbdominal')
+        dobra_peitoral = request.form.get('dobraPeitoral')
+        dobra_coxa = request.form.get('dobraCoxa')
+        dobra_axilar = request.form.get('dobraAxilar')
+
+        objetivos = request.form.get('objetivos')
+        rotina = request.form.get('rotina')
+        observacoes = request.form.get('observacoes')
+
+        return render_template('nutricionista/consulta.html', sexo=sexo)
+
+    return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente)  
+
+
 
 @nutricionista_bp.route('/dieta', methods=['GET', 'POST'])
 @login_required

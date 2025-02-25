@@ -19,7 +19,7 @@
                 <p>Telefone: {{ paciente.pac_tel }}</p>
                 
                 <div class="button-container">
-                    <a href="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}">
+                    <a href="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}"  method="POST">
                         <button>Realizar Consulta</button>
                     </a>
                     <a href="{{ url_for('nutricionista.cadastro_paciente', paciente_id=paciente.pac_id) }}">

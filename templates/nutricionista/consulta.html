@@ -15,25 +15,25 @@
         <h1>Ficha de Atendimento Nutricional</h1>
     </header>
     <div class="container">
-        <form id="form" class="form">
-        
-            <div class="input-group">
-                <label for="sexo">Sexo:</label>
-                <select id="sexo" name="sexo" required>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                </select>
-            </div>
+        <form id="form" class="form" method="POST" action="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}">
+            <input type="hidden" id="sexo" value="{{ sexo }}">
+            <section class="form-section">
+                <h2>Objetivos</h2>
+                <div class="input-group">
+                    <label for="objetivos">Objetivos:</label>
+                    <textarea id="objetivos" name="objetivos" placeholder="Ex.: Emagrecimento, ganho de massa muscular..."></textarea>
+                </div>
+            </section>
             
             <section class="form-section">
                 <h2>Dados Antropométricos</h2>
                 <div class="input-group">
                     <label for="peso">Peso Atual (kg):</label>
-                    <input type="number" id="peso" name="peso" step="0.1" required>
+                    <input type="number" id="peso" name="peso" step="0.1" required oninput="calcularIMC()">
                 </div>
                 <div class="input-group">
                     <label for="altura">Altura (m):</label>
-                    <input type="number" id="altura" name="altura" step="0.01" required>
+                    <input type="number" id="altura" name="altura" step="0.01" required oninput="calcularIMC()">
                 </div>
                 <div class="input-group">
                     <label for="imc">IMC:</label>
@@ -112,12 +112,11 @@
                     </div>
                 </div>
                 
-                <!-- Botão para Calcular -->
                 <div class="input-group">
                     <button type="button" onclick="calcularPercentualGordura()">Calcular Percentual de Gordura e Massa Magra</button>
                 </div>
 
-                <!-- Exibição dos resultados -->
+                
                 <div id="resultados">
                     <p><strong>Percentual de Gordura: </strong><span id="percentualGordura"></span></p>
                     <p><strong>Massa Magra: </strong><span id="massaMagra"></span></p>
@@ -125,66 +124,10 @@
             </section>
 
             <section class="form-section">
-                <h2>Histórico de Saúde</h2>
+                <h2>Rotina</h2>
                 <div class="input-group">
-                    <label for="doencas">Doenças Preexistentes:</label>
-                    <textarea id="doencas" name="doencas" placeholder="Ex.: Diabetes, Hipertensão"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="cirurgias">Cirurgias Realizadas:</label>
-                    <textarea id="cirurgias" name="cirurgias" placeholder="Ex.: Apendicite, etc."></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="medicamentos">Uso de Medicamentos:</label>
-                    <textarea id="medicamentos" name="medicamentos" placeholder="Ex.: Losartana, etc."></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="alergias">Alergias Alimentares:</label>
-                    <textarea id="alergias" name="alergias" placeholder="Ex.: Leite, glúten"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="internacoes">Histórico de Internações ou Tratamentos Relevantes:</label>
-                    <textarea id="internacoes" name="internacoes" placeholder="Ex.: Internação por problemas respiratórios"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="historicoFamiliar">Histórico Familiar de Doenças:</label>
-                    <textarea id="historicoFamiliar" name="historicoFamiliar" placeholder="Ex.: Doenças cardiovasculares, diabetes"></textarea>
-                </div>
-            </section>
-
-            <section class="form-section">
-                <h2>Histórico Alimentar</h2>
-                <div class="input-group">
-                    <label for="cafeManha">Café da Manhã:</label>
-                    <textarea id="cafeManha" name="cafeManha" placeholder="Ex.: pães, café, frutas"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="almoco">Almoço:</label>
-                    <textarea id="almoco" name="almoco" placeholder="Ex.: arroz, feijão, carne, salada"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="jantar">Jantar:</label>
-                    <textarea id="jantar" name="jantar" placeholder="Ex.: sopa, salada, sanduíche"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="lanches">Lanches:</label>
-                    <textarea id="lanches" name="lanches" placeholder="Ex.: bolachas, frutas, sucos"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="bebidas">Bebidas Consumidas:</label>
-                    <textarea id="bebidas" name="bebidas" placeholder="Ex.: quantidade de água/dia, refrigerantes, sucos"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="frequenciaAlimentacao">Frequência de Alimentação Fora de Casa:</label>
-                    <textarea id="frequenciaAlimentacao" name="frequenciaAlimentacao" placeholder="Ex.: Almoça fora de casa todos os dias, come fast food uma vez por semana, etc."></textarea>
-                </div>
-            </section>
-
-            <section class="form-section">
-                <h2>Suplementação Nutricional</h2>
-                <div class="input-group">
-                    <label for="suplementos">Suplementos ou Vitaminas Usadas:</label>
-                    <textarea id="suplementos" name="suplementos" placeholder="Ex.: Whey protein, creatina, multivitamínico"></textarea>
+                    <label for="rotina">Rotina:</label>
+                    <textarea id="rotina" name="rotina" placeholder="Ex.: Café da manhã, lanche, atividade física, horas de sono..."></textarea>
                 </div>
             </section>
 
@@ -201,14 +144,10 @@
             </section>
 
             <section class="form-section">
-                <h2>Estilo de Vida e Hábitos</h2>
+                <h2>Observações</h2>
                 <div class="input-group">
-                    <label for="atividadeFisica">Atividade Física:</label>
-                    <textarea id="atividadeFisica" name="atividadeFisica" placeholder="Ex.: Faz caminhada 3x por semana, prática de musculação"></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="horasSono">Horas de Sono por Noite:</label>
-                    <input type="number" id="horasSono" name="horasSono" step="0.1">
+                    <label for="obs">Observações:</label>
+                    <textarea id="obs" name="obs" placeholder="Vícios, falta de acessibilidade..."></textarea>
                 </div>
             </section>
 
@@ -220,6 +159,20 @@
     </div>
     
     <script>
+        
+        function calcularIMC() {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+
+            // Verifica se o peso e a altura foram preenchidos corretamente
+            if (isNaN(peso) || isNaN(altura) || altura === 0) {
+            document.getElementById('imc').value = ''; // 
+            return;
+            }
+            const imc = peso / (altura * altura);
+
+             document.getElementById('imc').value = imc.toFixed(2);}
+
         function toggleDobras() {
             const metodo = document.getElementById('metodo').value;
             if (metodo === '3') {
@@ -255,9 +208,9 @@
                 const somaDobras = tricipital + subescapular + supraIliaca;
     
                 // Fórmula para 3 dobras (exemplo considerando o sexo)
-                if (sexo === 'masculino') {
+                if (sexo === 'Masculino') {
                     percentualGordura = (0.29288 * somaDobras) - (0.0005 * somaDobras * somaDobras) + (0.15845 * idade) - 5.76377;
-                } else if (sexo === 'feminino') {
+                } else if (sexo === 'Feminino') {
                     percentualGordura = (0.29669 * somaDobras) - (0.00043 * somaDobras * somaDobras) + (0.15595 * idade) - 6.03522;
                 }
     
@@ -274,9 +227,9 @@
                 const somaDobras = abdominal + peitoral + coxa + axilar + subabdominal + glutea + toracica;
     
                 // Fórmula para 7 dobras (exemplo considerando o sexo)
-                if (sexo === 'masculino') {
+                if (sexo === 'Masculino') {
                     percentualGordura = (0.29288 * somaDobras) - (0.0005 * somaDobras * somaDobras) + (0.15845 * idade) - 5.76377;
-                } else if (sexo === 'feminino') {
+                } else if (sexo === 'Feminino') {
                     percentualGordura = (0.29669 * somaDobras) - (0.00043 * somaDobras * somaDobras) + (0.15595 * idade) - 6.03522;
                 }
     

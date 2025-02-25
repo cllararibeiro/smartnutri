@@ -60,6 +60,8 @@ class RegistroConsulta(Base):
     reg_con_objetivos = mapped_column(Text)
     reg_con_rotina = mapped_column(Text)
     reg_con_obs = mapped_column(Text)
+    reg_con_preferencias = mapped_column(Text)
+    reg_con_aversoes = mapped_column(Text)
 
     consultas = relationship('Consulta', back_populates='registro_consulta')
 

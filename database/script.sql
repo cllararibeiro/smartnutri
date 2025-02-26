@@ -97,5 +97,6 @@ CREATE TABLE tb_dados_antro (
     dad_dobra_coxa DECIMAL(5,2) DEFAULT NULL,
     dad_dobra_axilar DECIMAL(5,2) DEFAULT NULL,
     dad_tmb DECIMAL(6,2) DEFAULT NULL,
+    dad_imc DECIMAL(5,2) DEFAULT NULL,
     FOREIGN KEY (dad_con_id) REFERENCES tb_consultas(con_id)
 );

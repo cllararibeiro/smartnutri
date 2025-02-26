@@ -151,5 +151,6 @@ class DadosAntropometricos(Base):
     dad_dobra_coxa = mapped_column(DECIMAL(5, 2))
     dad_dobra_axilar = mapped_column(DECIMAL(5, 2))
     dad_tmb = mapped_column(DECIMAL(6, 2))
+    dad_imc = mapped_column(DECIMAL(5, 2))
     
     consulta = relationship('Consulta', back_populates='dados_antropometricos')

@@ -24,6 +24,11 @@ def dashboard():
 def consulta(paciente_id):
     paciente = session.query(Paciente).get(paciente_id)
     sexo = paciente.pac_sexo if paciente else None
+    data_nasc = paciente.pac_data_nasc
+    data_nasc_ = datetime.strptime(str(data_nasc), '%Y-%m-%d')
+
+    hoje = datetime.today().date() 
+    idade = hoje.year - data_nasc_.year - ((hoje.month, hoje.day) < (data_nasc_.month, data_nasc_.day))
 
     if request.method == 'POST': 
 
@@ -47,10 +52,9 @@ def consulta(paciente_id):
         rotina = request.form.get('rotina')
         observacoes = request.form.get('observacoes')
 
-        return render_template('nutricionista/consulta.html', sexo=sexo)
+        return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade)
 
-    return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente)  
-
+    return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade)  
 
 
 @nutricionista_bp.route('/dieta', methods=['GET', 'POST'])

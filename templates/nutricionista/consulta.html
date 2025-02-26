@@ -17,6 +17,9 @@
     <div class="container">
         <form id="form" class="form" method="POST" action="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}">
             <input type="hidden" id="sexo" value="{{ sexo }}">
+            <input type="hidden" id="idade" value="{{ idade }}">
+
+            <!-- Seção Objetivos -->
             <section class="form-section">
                 <h2>Objetivos</h2>
                 <div class="input-group">
@@ -25,16 +28,21 @@
                 </div>
             </section>
             
+            <!-- Seção Dados Antropométricos -->
             <section class="form-section">
                 <h2>Dados Antropométricos</h2>
                 <div class="input-group">
                     <label for="peso">Peso Atual (kg):</label>
-                    <input type="number" id="peso" name="peso" step="0.1" required oninput="calcularIMC()">
+                    <input type="number" id="peso" name="peso" step="0.1" required>
                 </div>
                 <div class="input-group">
                     <label for="altura">Altura (m):</label>
-                    <input type="number" id="altura" name="altura" step="0.01" required oninput="calcularIMC()">
+                    <input type="number" id="altura" name="altura" step="0.01" required>
                 </div>
+                <div class="input-group">
+                    <button type="button" onclick="calcularIMC()">Calcular IMC</button>
+                </div>
+                
                 <div class="input-group">
                     <label for="imc">IMC:</label>
                     <input type="text" id="imc" name="imc" readonly>
@@ -61,68 +69,64 @@
                 </div>
             </section>
 
-            <!-- Seção de Dobras Cutâneas -->
             <section class="form-section" id="dobras-section">
-                <h2>Dobras Cutâneas</h2>
-                <!-- Formulário para 3 dobras -->
-                <div id="dobras-3" class="dobras-group">
-                    <div class="input-group">
-                        <label for="dobraTricipital">Dobra Tricipital (mm):</label>
-                        <input type="number" id="dobraTricipital" name="dobraTricipital" step="0.1">
-                    </div>
-                    <div class="input-group">
-                        <label for="dobraSubescapular">Dobra Subescapular (mm):</label>
-                        <input type="number" id="dobraSubescapular" name="dobraSubescapular" step="0.1">
-                    </div>
-                    <div class="input-group">
-                        <label for="dobraSupraIliaca">Dobra Supra-Iliaca (mm):</label>
-                        <input type="number" id="dobraSupraIliaca" name="dobraSupraIliaca" step="0.1">
-                    </div>
-                </div>
-
-                <!-- Formulário para 7 dobras -->
-                <div id="dobras-7" class="dobras-group" style="display: none;">
-                    <div class="input-group">
+                <h2>Dobras Cutâneas</h2>            
+                
+                <div id="dobras" class="dobras-group">
+                    <div id="dobraAbdominalDiv" class="input-group" style="display: none;">
                         <label for="dobraAbdominal">Dobra Abdominal (mm):</label>
                         <input type="number" id="dobraAbdominal" name="dobraAbdominal" step="0.1">
                     </div>
-                    <div class="input-group">
+                    <div id="dobraPeitoralDiv" class="input-group" style="display: none;">
                         <label for="dobraPeitoral">Dobra Peitoral (mm):</label>
                         <input type="number" id="dobraPeitoral" name="dobraPeitoral" step="0.1">
                     </div>
-                    <div class="input-group">
+                    <div id="dobraCoxaDiv" class="input-group">
                         <label for="dobraCoxa">Dobra da Coxa (mm):</label>
                         <input type="number" id="dobraCoxa" name="dobraCoxa" step="0.1">
                     </div>
-                    <div class="input-group">
+                    <div id="dobraAxilarDiv" class="input-group" style="display: none;">
                         <label for="dobraAxilar">Dobra Axilar (mm):</label>
                         <input type="number" id="dobraAxilar" name="dobraAxilar" step="0.1">
                     </div>
-                    <div class="input-group">
-                        <label for="dobraSubabdominal">Dobra Subabdominal (mm):</label>
-                        <input type="number" id="dobraSubabdominal" name="dobraSubabdominal" step="0.1">
+                    <div id="dobraSubescapularDiv" class="input-group" style="display: none;">
+                        <label for="dobraSubescapular">Dobra Subescapular (mm):</label>
+                        <input type="number" id="dobraSubescapular" name="dobraSubescapular" step="0.1">
                     </div>
-                    <div class="input-group">
-                        <label for="dobraGlutea">Dobra Glútea (mm):</label>
-                        <input type="number" id="dobraGlutea" name="dobraGlutea" step="0.1">
+                    <div id="dobraSupraIliacaDiv" class="input-group" style="display: none;">
+                        <label for="dobraSupraIliaca">Dobra Supra-Iliaca (mm):</label>
+                        <input type="number" id="dobraSupraIliaca" name="dobraSupraIliaca" step="0.1">
                     </div>
-                    <div class="input-group">
-                        <label for="dobraToracica">Dobra Torácica (mm):</label>
-                        <input type="number" id="dobraToracica" name="dobraToracica" step="0.1">
+                    <div id="dobraTricipitalDiv" class="input-group" style="display: none;">
+                        <label for="dobraTricipital">Dobra Tricipital (mm):</label>
+                        <input type="number" id="dobraTricipital" name="dobraTricipital" step="0.1">
                     </div>
                 </div>
-                
+            
                 <div class="input-group">
                     <button type="button" onclick="calcularPercentualGordura()">Calcular Percentual de Gordura e Massa Magra</button>
                 </div>
 
-                
-                <div id="resultados">
-                    <p><strong>Percentual de Gordura: </strong><span id="percentualGordura"></span></p>
-                    <p><strong>Massa Magra: </strong><span id="massaMagra"></span></p>
+                <div class="input-group">
+                    <label for="percentualGordura">Percentual de Gordura (%):</label>
+                    <input type="text" id="percentualGordura" name="percentualGordura" readonly>
                 </div>
+                <div class="input-group">
+                    <label for="massaMagra">Massa Magra (kg):</label>
+                    <input type="text" id="massaMagra" name="massaMagra" readonly>
+                </div>          
+                <div class="input-group">
+                    <label for="massaGorda">Massa Gorda (kg):</label>
+                    <input type="text" id="massaGorda" name="massaGorda" readonly>
+                </div>    
+                <div class="input-group">
+                    <label for="tmb">Taxa Metabólica Basal (TMB):</label>
+                    <input type="text" id="tmb" name="tmb" readonly>
+                </div>
+                <button type="button" onclick="calcularTMB()">Calcular TMB</button>
             </section>
 
+            <!-- Seção de Rotina -->
             <section class="form-section">
                 <h2>Rotina</h2>
                 <div class="input-group">
@@ -131,6 +135,7 @@
                 </div>
             </section>
 
+            <!-- Seção de Preferências Alimentares -->
             <section class="form-section">
                 <h2>Preferências Alimentares</h2>
                 <div class="input-group">
@@ -143,6 +148,7 @@
                 </div>
             </section>
 
+            <!-- Seção de Observações -->
             <section class="form-section">
                 <h2>Observações</h2>
                 <div class="input-group">
@@ -151,6 +157,7 @@
                 </div>
             </section>
 
+            <!-- Rodapé com botão de envio -->
             <div class="form-footer">
                 <button type="submit">Enviar Ficha</button>
             </div>
@@ -158,91 +165,7 @@
         </form>
     </div>
     
-    <script>
-        
-        function calcularIMC() {
-            const peso = parseFloat(document.getElementById('peso').value);
-            const altura = parseFloat(document.getElementById('altura').value);
-
-            // Verifica se o peso e a altura foram preenchidos corretamente
-            if (isNaN(peso) || isNaN(altura) || altura === 0) {
-            document.getElementById('imc').value = ''; // 
-            return;
-            }
-            const imc = peso / (altura * altura);
-
-             document.getElementById('imc').value = imc.toFixed(2);}
-
-        function toggleDobras() {
-            const metodo = document.getElementById('metodo').value;
-            if (metodo === '3') {
-                document.getElementById('dobras-3').style.display = 'block';
-                document.getElementById('dobras-7').style.display = 'none';
-            } else {
-                document.getElementById('dobras-3').style.display = 'none';
-                document.getElementById('dobras-7').style.display = 'block';
-            }
-        }
-    
-        function calcularPercentualGordura() {
-            const peso = parseFloat(document.getElementById('peso').value);
-            const altura = parseFloat(document.getElementById('altura').value);
-            const idade = parseFloat(document.getElementById('idade') ? document.getElementById('idade').value : 0); // Idade pode ser opcional
-            const sexo = document.getElementById('sexo').value; // Captura o sexo do paciente
-            const metodo = document.getElementById('metodo').value;
-    
-            // Verifica se os campos necessários foram preenchidos corretamente
-            if (isNaN(peso) || isNaN(altura)) {
-                alert('Por favor, insira peso e altura válidos.');
-                return;
-            }
-    
-            let percentualGordura = 0;
-            let massaMagra = 0;
-    
-            if (metodo === '3') {
-                // 3 dobras
-                const tricipital = parseFloat(document.getElementById('dobraTricipital').value);
-                const subescapular = parseFloat(document.getElementById('dobraSubescapular').value);
-                const supraIliaca = parseFloat(document.getElementById('dobraSupraIliaca').value);
-                const somaDobras = tricipital + subescapular + supraIliaca;
-    
-                // Fórmula para 3 dobras (exemplo considerando o sexo)
-                if (sexo === 'Masculino') {
-                    percentualGordura = (0.29288 * somaDobras) - (0.0005 * somaDobras * somaDobras) + (0.15845 * idade) - 5.76377;
-                } else if (sexo === 'Feminino') {
-                    percentualGordura = (0.29669 * somaDobras) - (0.00043 * somaDobras * somaDobras) + (0.15595 * idade) - 6.03522;
-                }
-    
-                massaMagra = peso - (peso * (percentualGordura / 100));
-            } else {
-                // 7 dobras
-                const abdominal = parseFloat(document.getElementById('dobraAbdominal').value);
-                const peitoral = parseFloat(document.getElementById('dobraPeitoral').value);
-                const coxa = parseFloat(document.getElementById('dobraCoxa').value);
-                const axilar = parseFloat(document.getElementById('dobraAxilar').value);
-                const subabdominal = parseFloat(document.getElementById('dobraSubabdominal').value);
-                const glutea = parseFloat(document.getElementById('dobraGlutea').value);
-                const toracica = parseFloat(document.getElementById('dobraToracica').value);
-                const somaDobras = abdominal + peitoral + coxa + axilar + subabdominal + glutea + toracica;
-    
-                // Fórmula para 7 dobras (exemplo considerando o sexo)
-                if (sexo === 'Masculino') {
-                    percentualGordura = (0.29288 * somaDobras) - (0.0005 * somaDobras * somaDobras) + (0.15845 * idade) - 5.76377;
-                } else if (sexo === 'Feminino') {
-                    percentualGordura = (0.29669 * somaDobras) - (0.00043 * somaDobras * somaDobras) + (0.15595 * idade) - 6.03522;
-                }
-    
-                massaMagra = peso - (peso * (percentualGordura / 100));
-            }
-    
-            // Exibir os resultados
-            document.getElementById('percentualGordura').textContent = percentualGordura.toFixed(2) + '%';
-            document.getElementById('massaMagra').textContent = massaMagra.toFixed(2) + ' kg';
-        }
-    
-        window.onload = toggleDobras;
-    </script>
+    <script src="/static/js/consulta.js"></script>
     
 </body>
 </html>

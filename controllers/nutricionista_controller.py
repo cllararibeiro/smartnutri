@@ -30,6 +30,7 @@ def consulta(paciente_id):
     hoje = datetime.today().date() 
     idade = hoje.year - data_nasc_.year - ((hoje.month, hoje.day) < (data_nasc_.month, data_nasc_.day))
 
+
     if request.method == 'POST': 
 
         peso = request.form.get('peso')
@@ -39,7 +40,7 @@ def consulta(paciente_id):
         circun_quadril = request.form.get('circunferenciaQuadril')
         gordura_corporal = request.form.get('gorduraCorporal')
         massa_muscular = request.form.get('massaMuscular')
-
+        massa_gorda = request.form.get('massaGorda')
         dobra_tricipital = request.form.get('dobraTricipital')
         dobra_subescapular = request.form.get('dobraSubescapular')
         dobra_supra_iliaca = request.form.get('dobraSupraIliaca')
@@ -47,15 +48,36 @@ def consulta(paciente_id):
         dobra_peitoral = request.form.get('dobraPeitoral')
         dobra_coxa = request.form.get('dobraCoxa')
         dobra_axilar = request.form.get('dobraAxilar')
+        tmb = request.form.get('tmb')
 
         objetivos = request.form.get('objetivos')
         rotina = request.form.get('rotina')
-        observacoes = request.form.get('observacoes')
+        observacoes = request.form.get('obs')
+        preferencias = request.form.get('preferencias')
+        aversoes = request.form.get('aversoes')
 
+        consulta_obj = Consulta(con_data=datetime.utcnow(),con_nutri_id=current_user.nutri_id, con_pac_id=paciente_id)
+        session.add(consulta_obj)
+        session.commit()
+
+        registro_consulta = RegistroConsulta(reg_con_objetivos=objetivos,reg_con_rotina=rotina,reg_con_obs=observacoes,reg_con_preferencias=preferencias,reg_con_aversoes=aversoes)
+        session.add(registro_consulta)
+        session.commit()
+
+        dados_antro = DadosAntropometricos(dad_con_id=consulta_obj.con_id,dad_peso_atual=float(peso),dad_altura=float(altura),dad_imc=float(imc),
+            dad_circun_abdomen=float(circun_abdomen) if circun_abdomen else None,dad_circun_quadri=float(circun_quadril) if circun_quadril else None,
+            dad_gord_corporal=float(gordura_corporal) if gordura_corporal else None,dad_massa_muscular=float(massa_muscular) if massa_muscular else None,
+            dad_massa_gorda=float(massa_gorda) if massa_gorda else None,dad_dobra_tricipital=float(dobra_tricipital) if dobra_tricipital else None,
+            dad_dobra_subescapular=float(dobra_subescapular) if dobra_subescapular else None,dad_dobra_supra_iliaca=float(dobra_supra_iliaca) if dobra_supra_iliaca else None,
+            dad_dobra_abdominal=float(dobra_abdominal) if dobra_abdominal else None,dad_dobra_peitoral=float(dobra_peitoral) if dobra_peitoral else None,
+            dad_dobra_coxa=float(dobra_coxa) if dobra_coxa else None,dad_dobra_axilar=float(dobra_axilar) if dobra_axilar else None,dad_tmb=float(tmb) if tmb else None
+        )
+        session.add(dados_antro)
+        session.commit()
+        
         return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade)
 
-    return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade)  
-
+    return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade) 
 
 @nutricionista_bp.route('/dieta', methods=['GET', 'POST'])
 @login_required

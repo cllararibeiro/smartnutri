@@ -1,0 +1,41 @@
+<!-- templates/nutricionista/consultas.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas Realizadas</title>
+</head>
+<body>
+    <h1>Consultas Realizadas</h1>
+
+    <!-- Verifica se há consultas -->
+    {% if consultas %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Paciente</th>
+                    <th>Nutricionista</th>
+                    <th>Detalhes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Itera sobre todas as consultas -->
+                {% for consulta in consultas %}
+                    <tr>
+                        <td>{{ consulta.con_data.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ consulta.paciente.pac_nome }}</td> <!-- Exibe nome do paciente -->
+                        <td>{{ consulta.nutricionista.nut_nome }}</td> <!-- Exibe nome do nutricionista -->
+                        <td>
+                            <a href="{{ url_for('nutricionista.detalhes_con', consulta_id=consulta.con_id) }}">Ver Detalhes</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Não há consultas realizadas.</p>
+    {% endif %}
+</body>
+</html>

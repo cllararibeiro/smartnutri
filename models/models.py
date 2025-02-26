@@ -124,8 +124,6 @@ class Consulta(Base):
     paciente = relationship('Paciente', back_populates='consultas')
     registro_consulta = relationship('RegistroConsulta', back_populates='consultas')
     dados_antropometricos = relationship('DadosAntropometricos', back_populates='consulta')
-
-    # Relacionamento com Resultados de Exames
     resultados_exames = relationship('ResultadoExame', back_populates='consulta')
 
 
@@ -141,8 +139,8 @@ class DadosAntropometricos(Base):
     dad_circun_quadri = mapped_column(DECIMAL(5, 2))
     dad_gord_corporal = mapped_column(DECIMAL(5, 2))
     dad_massa_muscular = mapped_column(DECIMAL(5, 2))
+    dad_massa_gorda = mapped_column(DECIMAL(5, 2))
 
-    # Medidas das dobras cutâneas
     dad_dobra_tricipital = mapped_column(DECIMAL(5, 2))
     dad_dobra_subescapular = mapped_column(DECIMAL(5, 2))
     dad_dobra_supra_iliaca = mapped_column(DECIMAL(5, 2))
@@ -151,6 +149,5 @@ class DadosAntropometricos(Base):
     dad_dobra_coxa = mapped_column(DECIMAL(5, 2))
     dad_dobra_axilar = mapped_column(DECIMAL(5, 2))
     dad_tmb = mapped_column(DECIMAL(6, 2))
-    dad_imc = mapped_column(DECIMAL(5, 2))
     
     consulta = relationship('Consulta', back_populates='dados_antropometricos')

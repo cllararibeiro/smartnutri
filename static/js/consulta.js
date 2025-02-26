@@ -51,7 +51,6 @@ function toggleDobras() {
 }
 
 // Função para calcular o percentual de gordura e massa magra
-// Função para calcular o percentual de gordura e massa magra
 function calcularPercentualGordura() {
     const peso = parseFloat(document.getElementById('peso').value);
     const altura = parseFloat(document.getElementById('altura').value);
@@ -59,8 +58,15 @@ function calcularPercentualGordura() {
     const sexo = document.getElementById('sexo').value;
     const metodo = document.getElementById('metodo').value;
 
-    if (isNaN(peso) || isNaN(altura)) {
+    // Verificando se o peso e altura são válidos
+    if (isNaN(peso) || isNaN(altura) || altura <= 0 || peso <= 0) {
         alert('Por favor, insira peso e altura válidos.');
+        return;
+    }
+
+    // Verificar se idade e sexo são válidos
+    if (!sexo || isNaN(idade) || idade <= 0) {
+        alert('Por favor, insira uma idade válida e selecione o sexo.');
         return;
     }
 
@@ -74,6 +80,12 @@ function calcularPercentualGordura() {
         const coxa = parseFloat(document.getElementById('dobraCoxa').value) || 0;
         const peitoral = parseFloat(document.getElementById('dobraPeitoral').value) || 0;
         const abdominal = parseFloat(document.getElementById('dobraAbdominal').value) || 0;
+
+        // Verificando se algum valor das dobras é NaN ou inválido
+        if (isNaN(tricipital) || isNaN(supraIliaca) || isNaN(coxa) || isNaN(peitoral) || isNaN(abdominal)) {
+            alert('Por favor, preencha todos os campos das dobras corretamente.');
+            return; // Interrompe a execução se algum valor for inválido
+        }
 
         let somaDobras = sexo === 'Masculino' ? peitoral + abdominal + coxa : tricipital + supraIliaca + coxa;
 
@@ -93,6 +105,12 @@ function calcularPercentualGordura() {
         const supraIliaca = parseFloat(document.getElementById('dobraSupraIliaca').value) || 0;
         const coxa = parseFloat(document.getElementById('dobraCoxa').value) || 0;
 
+        // Verificando se algum valor das 7 dobras é NaN ou inválido
+        if (isNaN(tricipital) || isNaN(subescapular) || isNaN(peitoral) || isNaN(axilar) || isNaN(abdominal) || isNaN(supraIliaca) || isNaN(coxa)) {
+            alert('Por favor, preencha todos os campos das dobras corretamente.');
+            return; 
+        }
+
         const somaDobras = tricipital + subescapular + peitoral + axilar + abdominal + supraIliaca + coxa;
 
         // Fórmula de cálculo para 7 dobras com base no sexo
@@ -111,11 +129,12 @@ function calcularPercentualGordura() {
     const massaGorda = peso - massaMagra;
 
     // Exibir os resultados
-    document.getElementById('percentualGordura').value = percentualGordura.toFixed(2) + '%';
-    document.getElementById('massaMagra').value = massaMagra.toFixed(2) + ' kg';
-    document.getElementById('massaGorda').value = massaGorda.toFixed(2) + ' kg';
+    console.log('Percentual de Gordura:', percentualGordura);  // Para depuração
+    document.getElementById('percentualGordura').value = percentualGordura.toFixed(2);
+    document.getElementById('massaMagra').value = massaMagra.toFixed(2);
+    document.getElementById('massaGorda').value = massaGorda.toFixed(2);
+    
 }
-
 
 function calcularTMB() {
     const peso = parseFloat(document.getElementById('peso').value);
@@ -128,8 +147,7 @@ function calcularTMB() {
         : 447.593 + (9.247 * peso) + (3.098 * altura) - (4.330 * idade);
 
     // Exibir o resultado da TMB
-    document.getElementById('tmb').value = tmb.toFixed(2) + ' kcal/dia';
+    document.getElementById('tmb').value = tmb.toFixed(2);
 }
 
-// Chama a função toggleDobras ao carregar a página
 window.onload = toggleDobras;

@@ -48,7 +48,7 @@ CREATE TABLE tb_consultas (
     con_data DATETIME NOT NULL,
     con_nutri_id INT NOT NULL,
     con_pac_id INT NOT NULL,
-    con_reg_con_id INT DEFAULT NULL,
+    con_reg_con_id INT NOT NULL,
     FOREIGN KEY (con_nutri_id) REFERENCES tb_nutricionista(nutri_id),
     FOREIGN KEY (con_pac_id) REFERENCES tb_pacientes(pac_id),
     FOREIGN KEY (con_reg_con_id) REFERENCES tb_registro_consulta(reg_con_id)
@@ -89,6 +89,7 @@ CREATE TABLE tb_dados_antro (
     dad_circun_quadri DECIMAL(5,2) DEFAULT NULL,
     dad_gord_corporal DECIMAL(5,2) DEFAULT NULL,
     dad_massa_muscular DECIMAL(5,2) DEFAULT NULL,
+    dad_massa_gorda DECIMAL(5,2) DEFAULT NULL,
     dad_dobra_tricipital DECIMAL(5,2) DEFAULT NULL,
     dad_dobra_subescapular DECIMAL(5,2) DEFAULT NULL,
     dad_dobra_supra_iliaca DECIMAL(5,2) DEFAULT NULL,
@@ -97,6 +98,5 @@ CREATE TABLE tb_dados_antro (
     dad_dobra_coxa DECIMAL(5,2) DEFAULT NULL,
     dad_dobra_axilar DECIMAL(5,2) DEFAULT NULL,
     dad_tmb DECIMAL(6,2) DEFAULT NULL,
-    dad_imc DECIMAL(5,2) DEFAULT NULL,
     FOREIGN KEY (dad_con_id) REFERENCES tb_consultas(con_id)
 );

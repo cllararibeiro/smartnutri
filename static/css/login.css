@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
 
+:root {
+    --verde-cabeçalho: #0a5247;
+    --verde-botao-borda: #70883A;
+    --verde-claro: #bfd202;
+    --bege: #e4dedc;
+    --verde-medio: #6d872e;
+    --verde-hover: #D9E021;
+    --verde-padrao:#15ad52;
+    --branco: #fff;
+    --laranja: #d47f50;
+    --rosa: #e86975;
+    --preto: #000;
+    --amarelo: #ffc107;
+    --amarelo-queimado: gold;
+    --azul: #0d6efd;
+    --borda-botao-verde: #004033;
+    --hover-nav: #5d6d31;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -13,7 +32,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #b1ff8ce2; /* Cor de fundo */
+    background: var(--branco); /* Cor de fundo */
 }
 
 .container {
@@ -28,7 +47,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #15ad52; /* Cor de fundo da imagem */
+    background-color: var(--verde-padrao); /* Cor de fundo da imagem */
     padding: 1rem;
 }
 
@@ -67,7 +86,7 @@ body {
     width: 100%;
     height: 40px;
     border: none;
-    background-color: #15ad52; /* Cor do botão */
+    background-color: var(--verde-padrao); /* Cor do botão */
     padding: 0.4rem 1rem;
     border-radius: 5px;
     cursor: pointer;
@@ -93,7 +112,7 @@ body {
     display: block;
     width: 5rem;
     height: 0.3rem;
-    background-color: #15ad52; /* Linha abaixo do título */
+    background-color: var(--verde-padrao); /* Linha abaixo do título */
     margin: 0 auto;
     border-radius: 10px;
 }
@@ -160,7 +179,7 @@ body {
     height: 40px;
     font-size: 15px;
     border: none;
-    background-color:#15ad52; /* Cor do botão */
+    background-color:var(--verde-padrao); /* Cor do botão */
     padding: 0.62rem;
     border-radius: 5px;
     cursor: pointer;

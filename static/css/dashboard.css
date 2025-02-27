@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+:root {
+    --verde-cabeçalho: #0a5247;
+    --verde-botao-borda: #70883A;
+    --verde-claro: #bfd202;
+    --bege: #e4dedc;
+    --verde-medio: #6d872e;
+    --verde-hover: #D9E021;
+    --verde-padrao:#15ad52;
+    --branco: #fff;
+    --laranja: #d47f50;
+    --rosa: #e86975;
+    --preto: #000;
+    --amarelo: #ffc107;
+    --amarelo-queimado: gold;
+    --azul: #0d6efd;
+    --borda-botao-verde: #004033;
+    --hover-nav: #5d6d31;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +29,7 @@
 body {
     display: flex;
     min-height: 100vh;
-    background-color: #e3e9f7;
+    background-color: var(--branco);
     height: 100%;
     overflow-y: auto; 
     overflow-x: hidden;
@@ -23,6 +42,9 @@ main {
     overflow-y: auto;
 }
 
+nav {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+}
 
 #sidebar {
     display: flex;
@@ -76,10 +98,11 @@ main {
     border-radius: 8px;
     padding: 14px;
     cursor: pointer;
+    color: var(--branco);
 }
 
 .side-item.active {
-    background-color: #B9CC95;
+    background-color: var(--verde-padrao);
 }
 
 .side-item:hover:not(.active),
@@ -96,7 +119,7 @@ main {
 }
 
 .side-item.active a {
-    color: #e3e9f7;
+    color: var(--branco);
 }
 
 .side-item a i {
@@ -123,14 +146,15 @@ main {
     text-align: start;
     cursor: pointer;
     background-color: transparent;
+    color: var(--azul);
 }
 
 #open_btn {
     position: absolute;
     top: 30px;
     right: -10px;
-    background-color: #B9CC95;
-    color: #e3e9f7;
+    background-color: var(--verde-padrao);
+    color: var(--branco);
     border-radius: 100%;
     width: 20px;
     height: 20px;
@@ -199,7 +223,7 @@ main {
 }
 
 .card button {
-    background-color: #E984A2;
+    background-color: var(--rosa);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -230,7 +254,7 @@ main {
 }
 
 .busca-container button {
-    background-color: #E984A2;
+    background-color: var(--rosa);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -253,16 +277,16 @@ main {
 
 
 #header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%; /* Cabeçalho cobrindo toda a largura da tela */
-    background: #B9CC95;
+    background-color: var(--verde-padrao);
     color: white;
     padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 80px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 10; /* Para garantir que o cabeçalho fique por cima da sidebar */
@@ -298,7 +322,7 @@ main {
 #open_btn_header {
     position: absolute;
     left: 20px;
-    background-color: #B9CC95;
+    background-color: var(--verde-padrao);
     color: white;
     border: none;
     padding: 10px;
@@ -307,4 +331,8 @@ main {
 }
 #open_btn_icon {
     font-size: 20px;
+}
+
+.btn-voltar {
+    background-color: var(--verde-padrao);
 }

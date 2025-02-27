@@ -1,5 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
+:root {
+  --verde-cabeçalho: #0a5247;
+  --verde-botao-borda: #70883A;
+  --verde-claro: #bfd202;
+  --bege: #e4dedc;
+  --verde-medio: #6d872e;
+  --verde-hover: #D9E021;
+  --verde-padrao:#15ad52;
+  --branco: #fff;
+  --laranja: #d47f50;
+  --rosa: #e86975;
+  --preto: #000;
+  --amarelo: #ffc107;
+  --amarelo-queimado: gold;
+  --azul: #0d6efd;
+  --borda-botao-verde: #004033;
+  --hover-nav: #5d6d31;
+  --bege-claro:#f7f7f7;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,14 +33,14 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: #f7f7f7; 
+  background-color: var(--branco); 
 }
 
 .container {
   position: relative;
   max-width: 800px;
   width: 100%;
-  background: #146b0ba9;
+  background-color: var(--verde-padrao);
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -125,7 +145,7 @@ body {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: #FF8C42;
+  background: var(--rosa);
 }
 
 .form button:hover {

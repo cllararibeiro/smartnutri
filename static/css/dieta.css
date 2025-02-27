@@ -1,29 +1,31 @@
 /* styles.css */
 
 :root {
-    --verde-cabeçalho:  #0a5247;
+    --verde-cabeçalho: #0a5247;
     --verde-botao-borda: #70883A;
     --verde-claro: #bfd202;
     --bege: #e4dedc;
     --verde-medio: #6d872e;
     --verde-hover: #D9E021;
+    --verde-padrao:#15ad52;
     --branco: #fff;
     --laranja: #d47f50;
-    --rosa: #e14e61;
+    --rosa: #e86975;
     --preto: #000;
-    --amarelo: goldenrod;
+    --amarelo: #ffc107;
     --amarelo-queimado: gold;
-    --azul: #3a9dd6;
+    --azul: #0d6efd;
     --borda-botao-verde: #004033;
-    --bege-claro: #f9f4ed;
-}
+    --hover-nav: #5d6d31;
+    --bege-claro:#f7f7f7;
+  }
 
 /* Estilo global */
 body {
     font-family: "Montserrat";
     margin: 0;
     padding: 0;
-    background-color: var(--bege);
+    background-color: var(--branco);
     color: #333;
 }
 
@@ -38,7 +40,7 @@ img {
     font-family: "Montserrat";
 }
 header {
-    background-color: var(--verde-cabeçalho);
+    background-color: var(--verde-padrao);
     color: var(--branco);
     padding: 15px;
     text-align: center;
@@ -75,7 +77,7 @@ h1 {
 h2 {
     font-size: 18px;
     margin: 10px 0;
-    color: var(--verde-cabeçalho);
+    color: var(--verde-padrao);
 }
 
 .meal {
@@ -94,7 +96,7 @@ h2 {
     border-radius: 4px;
     font-size: 14px;
     font-weight: bold;
-    color: var(--verde-cabeçalho);
+    color: var(--verde-padrao);
 }
 
 .options {
@@ -114,7 +116,7 @@ textarea {
 }
 
 button {
-    background-color: var(--verde-cabeçalho);
+    background-color: var(--verde-padrao);
     color: var(--branco);
     border: none;
     padding: 10px 16px;
@@ -132,7 +134,7 @@ button:hover {
 
 footer {
     text-align: center;
-    background-color: var(--verde-cabeçalho);
+    background-color: var(--verde-padrao);
     color: var(--branco);
     position:fixed;
     bottom: 0;
@@ -156,7 +158,7 @@ footer {
 }
 
 .remove-meal {
-    background-color: var(--laranja);
+    background-color: var(--amarelo);
     margin-top: 10px;
 }
 

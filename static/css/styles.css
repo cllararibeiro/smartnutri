@@ -5,13 +5,14 @@
     --bege: #e4dedc;
     --verde-medio: #6d872e;
     --verde-hover: #D9E021;
+    --verde-padrao:#15ad52;
     --branco: #fff;
     --laranja: #d47f50;
-    --rosa: #e14e61;
+    --rosa: #e86975;
     --preto: #000;
-    --amarelo: goldenrod;
+    --amarelo: #ffc107;
     --amarelo-queimado: gold;
-    --azul: #3a9dd6;
+    --azul: #0d6efd;
     --borda-botao-verde: #004033;
     --hover-nav: #5d6d31;
 }
@@ -28,15 +29,27 @@ body {
 }
 
 .bg-verde {
-    background-color:#15ad52;
+    background-color:var(--verde-padrao);
 }
 
 .bg-bege{
     background-color:  #e4dedc;
 }
 
-.bg-rosa {
+.btn-danger {
     background-color: var(--rosa);
+}
+
+.btn-rosa {
+    background-color: var(--rosa);
+}
+
+.btn-azul {
+    background-color: var(--azul);
+}
+
+.btn-amarelo {
+    background-color:var(--amarelo) ;
 }
 
 .nav-item-ex {

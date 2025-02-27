@@ -48,8 +48,7 @@ class Paciente(Base):
 
     nutricionista = relationship('Nutricionista', back_populates='pacientes')
     consultas = relationship('Consulta', back_populates='paciente')
-    
-    # Relação com Dieta
+
     dietas = relationship('Dieta', back_populates='paciente')
 
 

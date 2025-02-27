@@ -90,6 +90,13 @@ def historico_con():
     
     return render_template('nutricionista/con_historico.html', consultas=consultas)
 
+@nutricionista_bp.route('/historico_con_paciente/<int:paciente_id>', methods=['GET'])
+@login_required
+def historico_con_paciente(paciente_id):
+    consultas = session.query(Consulta).filter_by(con_nutri_id=current_user.nutri_id, con_pac_id = paciente_id).all()
+    
+    return render_template('nutricionista/con_historico.html', consultas=consultas)
+
 @nutricionista_bp.route('/detalhes_con/<int:consulta_id>', methods=['GET'])
 @login_required
 def detalhes_con(consulta_id):
@@ -133,16 +140,9 @@ def cadastro_paciente():
             pac_sexo=sexo,pac_tel=tel,pac_cpf=cpf,pac_doencas_preexistentes=doencas_preexistentes,
             pac_historico_familiar=historico_familiar,pac_nutri_id=current_user.nutri_id)
         
-        try:
-            session.add(paciente)
-            session.commit()
-            flash("Paciente cadastrado com sucesso!", "success")
-            return redirect(url_for('nutricionista.dashboard'))
-        except IntegrityError:
-            session.rollback()
-            flash("Erro: Já existe um paciente com esse e-mail ou telefone.", "danger")
-        except Exception as e:
-            session.rollback()
-            flash(f"Ocorreu um erro: {e}", "danger")
+    
+        session.add(paciente)
+        session.commit()
+        return redirect(url_for('nutricionista.dashboard'))
 
     return render_template('nutricionista/cadastro_paciente.html')

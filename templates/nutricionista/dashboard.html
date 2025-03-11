@@ -14,17 +14,22 @@
     <div id="dashboard">
         {% for paciente in pacientes %}
             <div class="card">
-                <p><strong>{{ paciente.pac_nome }}</strong></p>
-                <p>Idade: {{ paciente.pac_idade }} anos</p>
-                <p>Telefone: {{ paciente.pac_tel }}</p>
+                <div class="editar">
+                    <p><strong>{{ paciente.pac_nome }}</strong></p>
+                    <a href="{{ url_for('nutricionista.cadastro_paciente', paciente_id=paciente.pac_id) }}">
+                        <img src="/static/img/pencil-regular-24.png" class="lapis">
+                    </a>
+                </div>
+                <div>
+                    <p>Idade: {{ paciente.pac_idade }} anos</p>
+                    <p>Telefone: {{ paciente.pac_tel }}</p>
+                </div>
                 
                 <div class="button-container">
                     <a href="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}"  method="POST">
                         <button>Realizar Consulta</button>
                     </a>
-                    <a href="{{ url_for('nutricionista.cadastro_paciente', paciente_id=paciente.pac_id) }}">
-                        <button>Editar</button>
-                    </a>
+                    
                 </div>
             </div>
         {% endfor %}

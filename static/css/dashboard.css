@@ -111,10 +111,10 @@ nav {
 }
 
 .side-item a {
-    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
     color: #0a0a0a;
 }
 
@@ -136,12 +136,12 @@ nav {
 }
 
 #logout_btn {
-    border: none;
-    padding: 12px;
-    font-size: 14px;
     display: flex;
     gap: 20px;
     align-items: center;
+    border: none;
+    padding: 12px;
+    font-size: 14px;
     border-radius: 8px;
     text-align: start;
     cursor: pointer;
@@ -203,6 +203,10 @@ nav {
 }
 
 .card {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     background-color: #fff;
     padding: 25px;
     border-radius: 10px;
@@ -273,7 +277,28 @@ nav {
     background-color: #f5c5d3;
 }
 
+.button-container {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 12px;
+}
 
+.editar {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+
+}
+
+.lapis {
+    margin-top: 12px;
+    color: var(--rosa);
+    width: auto;
+    height: 24px;
+    padding-right: 0;
+}
 
 
 #header {

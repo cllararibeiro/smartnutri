@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="editar">
                     <p><strong>{{ paciente.pac_nome }}</strong></p>
-                    <a href="{{ url_for('nutricionista.cadastro_paciente', paciente_id=paciente.pac_id) }}">
+                    <a href="{{ url_for('nutricionista.historico_con_paciente', paciente_id=paciente.pac_id) }}">
                         <img src="/static/img/pencil-regular-24.png" class="lapis">
                     </a>
                 </div>

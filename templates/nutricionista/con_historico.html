@@ -23,7 +23,6 @@
                     <tr>
                         <th>Data</th>
                         <th>Paciente</th>
-                        <th>Nutricionista</th>
                         <th>Detalhes</th>
                     </tr>
                 </thead>
@@ -32,7 +31,6 @@
                         <tr>
                             <td>{{ consulta.con_data.strftime('%d/%m/%Y') }}</td>
                             <td>{{ consulta.paciente.pac_nome }}</td> <!-- Exibe nome do paciente -->
-                            <td>{{ consulta.nutricionista.nut_nome }}</td> <!-- Exibe nome do nutricionista -->
                             <td>
                                 <a href="{{ url_for('nutricionista.detalhes_con', consulta_id=consulta.con_id) }}">Ver Detalhes</a>
                             </td>

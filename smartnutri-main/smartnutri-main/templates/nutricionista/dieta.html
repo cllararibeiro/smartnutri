@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/dieta.css">
+    <title>Prescrição Dietética</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-verde text-white py-4" >
+            <div class="container">
+                <a class="navbar-brand" href="{{url_for('index')}}">
+                    <img src="/static/img/smartnutri.png" alt="logo" height="100">
+                </a>
+            </div>
+        </nav>
+    </header>
+    
+
+    <div class="container">
+        <!-- Parte de Prescrição Dietética -->
+        <div class="section">
+            <h1>Prescrição Dietética</h1>
+            <form id="prescricao-form" class="persistent-form">
+                <div>
+                    <label for="paciente">Paciente:</label>
+                    <select id="paciente" name="paciente" required>
+                        <option value="">Selecione o paciente</option>
+                        <option value="João Silva">João Silva</option>
+                        <option value="Maria Oliveira">Maria Oliveira</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="refeicao">Tipo de Refeição:</label>
+                    <select id="refeicao" name="refeicao" required>
+                        <option value="">Selecione a refeição</option>
+                        <option value="Café da manhã">Café da manhã</option>
+                        <option value="Almoço">Almoço</option>
+                        <option value="Jantar">Jantar</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="alimento">Alimento:</label>
+                    <select id="alimento" name="alimento" required>
+                        <option value="">Selecione o alimento</option>
+                        <option value="Arroz">Arroz</option>
+                        <option value="Feijão">Feijão</option>
+                        <option value="Frango">Frango</option>
+                        <option value="Brócolis">Brócolis</option>
+                        <option value="Maçã">Maçã</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="quantidade">Quantidade (g):</label>
+                    <input type="number" id="quantidade" name="quantidade" required min="1">
+                </div>
+
+                <button type="submit" class="btn-add">Adicionar Alimento</button>
+            </form>
+        </div>
+
+        <!-- Parte de Visualização da Prescrição -->
+        <div class="section">
+            <h1>Prescrição Final</h1>
+            <div class="prescricao-final" id="prescricao-final">
+                <h3>Resumo da Prescrição</h3>
+                <!-- Resumo das refeições será exibido aqui -->
+            </div>
+
+            <button class="btn-gerar-pdf" id="gerar-pdf" type="button">Gerar PDF</button>
+        </div>
+    </div>
+
+    <footer class="bg-verde text-white text-center py-4">
+        <div class="container">
+            <h3>SmartNutri</h3>
+            <p>O melhor ecossistema de Nutrição do Brasil.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <img src="/static/img/instagramicon.png " alt="Instagram" height="30">
+                <img src="/static/img/facebookicon.png" alt="Facebook" height="30">
+                <img src="/static/img/whatsappicon.png"alt="WhatsApp" height="30">
+            </div>
+            <p class="mt-3">© 2024 SmartNutri | Caicó-RN</p>
+            <p><a href="#" class="text-white">Termos de Uso</a> | <a href="#" class="text-white">Política de Privacidade</a></p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const prescricaoForm = document.getElementById('prescricao-form');
+        const prescricaoFinal = document.getElementById('prescricao-final');
+        const gerarPdfButton = document.getElementById('gerar-pdf');
+
+        // Objeto para armazenar as prescrições
+        let prescricoes = {
+            "Café da manhã": [],
+            "Almoço": [],
+            "Jantar": []
+        };
+
+        // Variáveis para persistir dados do paciente e refeição selecionados
+        let pacienteSelecionado = "";
+        let refeicaoSelecionada = "";
+
+        prescricaoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const paciente = document.getElementById('paciente').value;
+            const refeicao = document.getElementById('refeicao').value;
+            const alimento = document.getElementById('alimento').value;
+            const quantidade = document.getElementById('quantidade').value;
+
+            // Se os campos de paciente e refeição não foram alterados, mantenha os valores
+            if (paciente) pacienteSelecionado = paciente;
+            if (refeicao) refeicaoSelecionada = refeicao;
+
+            // Adiciona o alimento à refeição correspondente
+            if (refeicao && alimento && quantidade) {
+                prescricoes[refeicao].push({ alimento, quantidade });
+
+                // Atualiza a prescrição final
+                renderPrescricaoFinal();
+            }
+
+            // Limpa o campo de alimento e quantidade, mas mantém paciente e refeição
+            document.getElementById('alimento').value = "";
+            document.getElementById('quantidade').value = "";
+        });
+
+        // Função para renderizar a prescrição final
+        function renderPrescricaoFinal() {
+            prescricaoFinal.innerHTML = <h3>Resumo da Prescrição</h3>;
+            
+            if (pacienteSelecionado) {
+                prescricaoFinal.innerHTML += <p><strong>Paciente:</strong> ${pacienteSelecionado}</p>;
+            }
+            if (refeicaoSelecionada) {
+                prescricaoFinal.innerHTML += <p><strong>Refeição:</strong> ${refeicaoSelecionada}</p>;
+            }
+
+            // Para cada refeição, exibe seus alimentos
+            for (const refeicao in prescricoes) {
+                const refeicaoContainer = document.createElement('div');
+                refeicaoContainer.innerHTML = <h4>${refeicao}:</h4>;
+
+                prescricoes[refeicao].forEach(item => {
+                    const alimentoItem = document.createElement('p');
+                    alimentoItem.textContent = ${item.alimento} - ${item.quantidade}g;
+                    refeicaoContainer.appendChild(alimentoItem);
+                });
+
+                prescricaoFinal.appendChild(refeicaoContainer);
+            }
+        }
+
+        // Função para gerar PDF
+        gerarPdfButton.addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.text('Prescrição Dietética', 20, 20);
+
+            // Escreve paciente e refeição no PDF
+            if (pacienteSelecionado) {
+                doc.text(Paciente: ${pacienteSelecionado}, 20, 30);
+            }
+            if (refeicaoSelecionada) {
+                doc.text(Refeição: ${refeicaoSelecionada}, 20, 40);
+            }
+
+            // Para cada refeição, escreve os alimentos no PDF
+            let yPosition = 50;
+            for (const refeicao in prescricoes) {
+                doc.text(${refeicao}:, 20, yPosition);
+                yPosition += 10;
+
+                prescricoes[refeicao].forEach(item => {
+                    doc.text(${item.alimento} - ${item.quantidade}g, 20, yPosition);
+                    yPosition += 10;
+                });
+
+                yPosition += 10; // Espaço entre refeições
+            }
+
+            doc.save('prescricao_dietetica.pdf');
+        });
+    </script>
+</body>
+</html>

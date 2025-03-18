@@ -1,0 +1,46 @@
+<!-- templates/nutricionista/consultas.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/con_historico.css">
+    <title>Consultas Realizadas</title>
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('nutricionista.dashboard') }}" class="btn-voltar">
+            <img src="/static/img/arrow-back-regular-24.png" class="seta">
+        </a>
+        <h1>Consultas Realizadas</h1>
+    </header>
+
+    <!-- Verifica se há consultas -->
+    {% if consultas %}
+        <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Paciente</th>
+                        <th>Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consulta in consultas %}
+                        <tr>
+                            <td>{{ consulta.con_data.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ consulta.paciente.pac_nome }}</td> <!-- Exibe nome do paciente -->
+                            <td>
+                                <a href="{{ url_for('nutricionista.detalhes_con', consulta_id=consulta.con_id) }}">Ver Detalhes</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>Não há consultas realizadas.</p>
+    {% endif %}
+</body>
+</html>

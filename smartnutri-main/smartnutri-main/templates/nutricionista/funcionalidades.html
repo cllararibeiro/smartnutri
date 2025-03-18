@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SmartNutri</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/funcionalidades.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href = "{{ url_for('index')}}">
+                  <img src="../static/img/smartnutri.png" alt="logo">
+                </a>
+                <ul>
+                    <li><a href="{{ url_for('nutricionista.consulta')}}">Consulta</a></li>
+                    <li><a href="{{ url_for('nutricionista.dieta')}}" id="contato">Dieta</a></li>
+                    <li><a href="{{ url_for('auth.logout')}}" id="logout">sair</a></li>
+                </ul>
+                <a href="{{ url_for('auth.login')}}" class="button">Entrar</a>
+            </nav>
+        </header>
+
+        <main class="main">
+            <h1>Crie um plano alimentar exclusivo para o seu cliente e tanana</h1>
+            <div class="image-container">
+            <img src="../static/img/plano-alimentar.jpg" alt="Alimentos e plano alimentar">
+            </div>
+            <div class="div2">
+                <div class="gallery">
+                <img src="../static/img/plano-alimentar.jpg" alt="Imagem 1">
+                <img src="../static/img/balanca.jpeg" alt="Imagem 2">
+                <img src="../static/img/comida.jpeg" alt="Imagem 3">
+                </div>
+                <button class="btn-experimente"><a href="{{ url_for('funcionalidades')}}">EXPERIMENTE</a></button>
+            </div>
+        </main>
+
+
+        <section class="registro-alimentos">
+            <div class="conteudo-secao">
+              <div class="imagem-registro">
+                <img src="../static/img/plano-alimentar.jpg" alt="Registro de alimentos">
+              </div>
+              <div class="texto-registro">
+                <h2><span class="numero">01</span><br> Registro de alimentos</h2>
+                <p>
+                  O software permite que os usuários registrem suas refeições diárias, 
+                  facilitando o acompanhamento dos alimentos consumidos e suas quantidades.
+                </p>
+              </div>
+            </div>
+          </section>
+
+
+          <section class="secao-sugestoes-planejamento">
+            <div class="conteudo-sugestoes">
+              <div class="item">
+                <div class="imagem-sugestao">
+                  <img src="../static/img/comida.jpeg" alt="Sugestão de alimentos">
+                </div>
+                <div class="texto-sugestao">
+                  <h2><span class="numero">02</span><br> Sugestão de alimentos</h2>
+                  <p>
+                    Com base nas preferências e restrições alimentares do usuário, o software pode sugerir receitas e combinações de alimentos saudáveis.
+                  </p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="texto-planejamento">
+                  <h2><span class="numero">03</span><br> Planejamento</h2>
+                  <p>
+                    Os usuários podem planejar suas refeições, ajudando a economizar tempo e garantir que suas escolhas alimentares sejam saudáveis.
+                  </p>
+                </div>
+                <div class="imagem-planejamento">
+                  <img src="../static/img/comida.jpeg" alt="Planejamento alimentar">
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+                    
+    </body>
+</html>

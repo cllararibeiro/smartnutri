@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Consulta</title>
+    <link rel="stylesheet" href="/static/css/con_historico.css">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('nutricionista.historico_con') }}" class="btn-voltar">
+            <img src="/static/img/arrow-back-regular-24.png" class="seta">
+        </a>
+        <h1 class="detalhes">Detalhes da Consulta</h1>
+        
+    </header>
+    <div class="container">
+        
+
+        <div class="consulta-info">
+            <h2 class="h2-1">Informações da Consulta</h2>
+            <div class="consulta-info-1">
+                <p><strong>Data:</strong> {{ consulta.con_data.strftime('%d/%m/%Y') }}</p>
+                <p><strong>Paciente:</strong> {{ consulta.paciente.pac_nome }}</p>
+                <p><strong>Idade:</strong> {{idade}} anos</p>
+                <p><strong>Sexo:</strong> {{ consulta.paciente.pac_sexo }}</p>
+            </div>
+
+            <div class="consulta-info-2">
+                <h3>Observações:</h3>
+                <p>{{ consulta.registro_consulta.reg_con_obs or 'Sem observações' }}</p>
+
+                <h3>Objetivos:</h3>
+                <p>{{ consulta.registro_consulta.reg_con_objetivos or 'Não definidos' }}</p>
+
+                <h3>Rotina:</h3>
+                <p>{{ consulta.registro_consulta.reg_con_rotina or 'Não informada' }}</p>
+
+                <h3>Preferências Alimentares:</h3>
+                <p>{{ consulta.registro_consulta.reg_con_preferencias or 'Não informadas' }}</p>
+
+                <h3>Aversões Alimentares:</h3>
+                <p>{{ consulta.registro_consulta.reg_con_aversoes or 'Não informadas' }}</p>
+            </div>
+        </div>
+
+        <div class="dados-antro">
+            <h2>Dados Antropométricos</h2>
+            <div class="dados">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Peso Atual</th>
+                            <th>Altura</th>
+                            <th>IMC</th>
+                            <th>Circunferência Abdominal</th>
+                            <th>Circunferência do Quadril</th>
+                            <th>Gordura Corporal</th>
+                            <th>Massa Muscular</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if dados %}
+                        <tr>
+                            <td>{{ dados.dad_peso_atual or 'Não informado' }} kg</td>
+                            <td>{{ dados.dad_altura or 'Não informado' }} cm</td>
+                            <td>{{ dados.dad_imc or 'Não informado' }}</td>
+                            <td>{{ dados.dad_circun_abdomen or 'Não informado' }} cm</td>
+                            <td>{{ dados.dad_circun_quadri or 'Não informado' }} cm</td>
+                            <td>{{ dados.dad_gord_corporal or 'Não informado' }} %</td>
+                            <td>{{ dados.dad_massa_muscular or 'Não informado' }} kg</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7">Dados antropométricos não disponíveis</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dobras Cutâneas</h3>
+            <div class="dados">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dobra Tricipital</th>
+                            <th>Dobra Subescapular</th>
+                            <th>Dobra Supra-Iliaca</th>
+                            <th>Dobra Abdominal</th>
+                            <th>Dobra Peitoral</th>
+                            <th>Dobra Coxa</th>
+                            <th>Dobra Axilar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if dados %}
+                        <tr>
+                            <td>{{ dados.dad_dobra_tricipital or 'Não informada' }} mm</td>
+                            <td>{{ dados.dad_dobra_subescapular or 'Não informada' }} mm</td>
+                            <td>{{ dados.dad_dobra_supra_iliaca or 'Não informada' }} mm</td>
+                            <td>{{ dados.dad_dobra_abdominal or 'Não informada' }} mm</td>
+                            <td>{{ dados.dad_dobra_peitoral or 'Não informada' }} mm</td>
+                            <td>{{ dados.dad_dobra_coxa or 'Não informada' }} mm</td>
+                            <td>{{ dados.dad_dobra_axilar or 'Não informada' }} mm</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7">Dobras cutâneas não disponíveis</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+    
+                <h3>TMB (Taxa de Metabolismo Basal)</h3>
+                <p>{{ dados.dad_tmb or 'Não informado' }} kcal/dia</p>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

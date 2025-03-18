@@ -1,0 +1,251 @@
+:root {
+  --verde-cabeçalho: #0a5247;
+  --verde-botao-borda: #70883A;
+  --verde-claro: #bfd202;
+  --bege: #e4dedc;
+  --verde-medio: #6d872e;
+  --verde-hover: #D9E021;
+  --verde-padrao:#15ad52;
+  --branco: #fff;
+  --laranja: #d47f50;
+  --rosa: #e86975;
+  --preto: #000;
+  --amarelo: #ffc107;
+  --amarelo-queimado: gold;
+  --azul: #0d6efd;
+  --borda-botao-verde: #004033;
+  --hover-nav: #5d6d31;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: var(--bege);
+}
+
+/* Header */
+header {
+  background-color: var(--verde-padrao);
+  padding: 20px;
+  height: 120px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+nav img {
+  width: 150px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+nav ul li a {
+  color: var(--branco);
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: var(--rosa);
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  background-color: var(--hover-nav);
+}
+
+.button {
+  background-color: var(--rosa);
+  color: var(--branco);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: -10px;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: var(--verde-hover);
+}
+
+/* Main Content Section */
+.main {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.main h1 {
+  font-size: 2.4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.image-container img {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-experimente {
+  background-color: var(--amarelo);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 40px;
+  width: 20%;
+  margin-top: 25px;
+}
+
+.btn-experimente a {
+  color: #fdfdfd;
+}
+
+.btn-experimente:hover {
+  background-color: #3e2723;
+}
+
+.gallery {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  flex-direction: row;
+  margin: 20px;
+}
+
+.gallery img {
+  width: 150px;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.div2 {
+  display: flex;
+  width: 80%;
+  height: 200px;
+  margin-left: 20%;
+}
+
+/* Registro de Alimentos Section */
+.registro-alimentos {
+  background-color: #f8f8f8;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.conteudo-secao {
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.imagem-registro img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.texto-registro {
+  max-width: 600px;
+}
+
+.texto-registro h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4a4a4a;
+  margin-bottom: 20px;
+}
+
+.texto-registro .numero {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #795548;
+  margin-right: 10px;
+}
+
+.texto-registro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+/* Sugestões e Planejamento Section */
+.secao-sugestoes-planejamento {
+  background-color: var(--bege);
+  padding: 40px 20px;
+}
+
+.conteudo-sugestoes {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 40%;
+}
+
+.item.sugestao {
+  flex-direction: row;
+}
+
+.item.planejamento {
+  flex-direction: row-reverse;
+}
+
+.imagem img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.texto {
+  max-width: 500px;
+}
+
+.texto h2 {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.texto .numero {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #795548;
+  margin-right: 10px;
+}
+
+.texto p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+}

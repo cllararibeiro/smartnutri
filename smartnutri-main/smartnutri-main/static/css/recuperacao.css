@@ -1,0 +1,103 @@
+:root{
+    --fundo-branco: #f5ede9;
+    --fundo-programacao: #f6a9cb;
+    --fundo-amostra: #4bb7bf;
+    --letra-cabecalho: #ffffff;
+    --letra-apresentacao: #142842;
+    --shadow-programacao: #d64a87;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: var(--fundo-branco);
+    display: flex;
+    height: 700px;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 700px;
+    background-color:#ccc;
+}
+
+.recuperar-senha {
+    display: inline-flex;
+    max-width: 900px;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.imagem-lateral {
+    background-color: #d27448;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 400px;
+    height: 500px;
+}
+
+.imagem-lateral img {
+    border-radius: 20px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.formulario-recuperacao {
+    background-color: #5e4123;
+    display: inline-flex;
+    justify-content: center;
+    padding: 40px;
+    color: #fff;
+}
+
+.formulario-recuperacao h1 {
+    font-size: 2rem;
+    color: #245c43;
+    margin-bottom: 30px;
+}
+
+.formulario-recuperacao form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario-recuperacao label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.formulario-recuperacao input {
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #5e4123;
+}
+
+.formulario-recuperacao button {
+    padding: 15px;
+    font-size: 1.1rem;
+    background-color: #d27448;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.formulario-recuperacao button:hover {
+    background-color: #c16238;
+}

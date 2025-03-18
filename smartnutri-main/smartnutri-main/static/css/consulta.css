@@ -1,0 +1,136 @@
+:root {
+    --verde-cabeçalho: #0a5247;
+    --verde-botao-borda: #70883A;
+    --verde-claro: #bfd202;
+    --bege: #e4dedc;
+    --verde-medio: #6d872e;
+    --verde-hover: #D9E021;
+    --verde-padrao:#15ad52;
+    --branco: #fff;
+    --laranja: #d47f50;
+    --rosa: #e86975;
+    --preto: #000;
+    --amarelo: #ffc107;
+    --amarelo-queimado: gold;
+    --azul: #0d6efd;
+    --borda-botao-verde: #004033;
+    --hover-nav: #5d6d31;
+    --bege-claro:#f7f7f7;
+  }
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: "Montserrat";
+}
+
+body {
+    background-color: var(--branco);
+    color:#333;
+}
+
+header {
+    background-color: var(--verde-padrao);
+    color: var(--branco);
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+}
+
+img {
+    width: 2.25rem;
+    height:auto;
+    float: left;
+    
+}
+
+h1 {
+    font-size: larger;
+    font-family: "Montserrat";
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 12px auto;
+    background-color: var(--branco);
+    padding: 20px;
+    border-radius: 12px;
+    color:var(--verde-padrao);
+    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.form-section {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+}
+
+input{
+    width: 100%;
+    max-width: 860px;
+    height: 2.4rem;
+    border-radius: 9px;
+    margin: 2px;
+    border: 1px solid var(--preto);
+    padding: 8px;
+    resize: none;
+}
+
+textarea {
+    width: 100%;
+    max-width: 860px;
+    height: 2.5rem;
+    border-radius: 9px;
+    margin: 2px;
+    border: 1px solid var(--preto);
+    padding: 10px;
+    resize: none;
+}
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+
+button {
+    background-color: var(--verde-padrao);
+    color: var(--branco);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-top: 4px;
+    transition: background-color 0.3s ease;
+
+}
+
+button:hover {
+    background-color: var(--verde-medio);
+}
+
+.form-footer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+select {
+    width: 100%;
+    max-width: 250px;
+    height: 2.3rem;
+    border-radius: 8px;
+    margin: 2px;
+    padding:6px;
+    border: 1px solid var(--preto);
+}

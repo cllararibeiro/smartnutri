@@ -87,16 +87,55 @@ class ResultadoExame(Base):
     consulta = relationship('Consulta', back_populates='resultados_exames')
 
 
-class Refeicao(Base):
-    __tablename__ = 'tb_refeicoes'
+class TipoRefeicao(Base):
+    __tablename__ = 'tb_tipos_refeicoes'
 
-    ref_id = mapped_column(Integer, primary_key=True, autoincrement=True)
-    ref_nome = mapped_column(String(500), nullable=False)
-    ref_opcao1 = mapped_column(Text, nullable=False)
-    ref_opcao2 = mapped_column(Text)
-    ref_observacoes = mapped_column(Text)
+    tipo_refeicao_id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    tipo_nome = mapped_column(String(255), nullable=False)
 
-    dietas = relationship('Dieta', back_populates='refeicao')
+    cardapios = relationship('Cardapio', back_populates='tipo_refeicao')
+
+
+class Alimento(Base):
+    __tablename__ = 'tb_alimentos'
+
+    alimento_id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    alimento_nome = mapped_column(String(500), nullable=False)
+    alimento_categoria = mapped_column(String(255))
+    alimento_calorias = mapped_column(DECIMAL(10, 2))
+    alimento_proteinas = mapped_column(DECIMAL(10, 2))
+    alimento_carboidratos = mapped_column(DECIMAL(10, 2))
+    alimento_gorduras = mapped_column(DECIMAL(10, 2))
+    alimento_fibras = mapped_column(DECIMAL(10, 2))
+
+    substituicoes = relationship('Substituicao', back_populates='alimento_original', foreign_keys='Substituicao.alimento_original_id')
+    substituicoes_substitutos = relationship('Substituicao', back_populates='alimento_substituto', foreign_keys='Substituicao.alimento_substituto_id')
+
+
+class Substituicao(Base):
+    __tablename__ = 'tb_substituicoes'
+
+    substituicao_id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    alimento_original_id = mapped_column(Integer, ForeignKey('tb_alimentos.alimento_id'), nullable=False)
+    alimento_substituto_id = mapped_column(Integer, ForeignKey('tb_alimentos.alimento_id'), nullable=False)
+    quantidade = mapped_column(DECIMAL(10, 2), nullable=False)
+
+    alimento_original = relationship('Alimento', foreign_keys=[alimento_original_id], back_populates='substituicoes')
+    alimento_substituto = relationship('Alimento', foreign_keys=[alimento_substituto_id], back_populates='substituicoes_substitutos')
+
+
+class Cardapio(Base):
+    __tablename__ = 'tb_cardapio'
+
+    cardapio_id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    ref_id = mapped_column(Integer, ForeignKey('tb_tipos_refeicoes.tipo_refeicao_id'), nullable=False)
+    alimento_id = mapped_column(Integer, ForeignKey('tb_alimentos.alimento_id'), nullable=False)
+    quantidade = mapped_column(DECIMAL(10, 2), nullable=False)
+    dieta_id = mapped_column(Integer, ForeignKey('tb_dietas.dieta_id'), nullable=False)
+
+    tipo_refeicao = relationship('TipoRefeicao', back_populates='cardapios')
+    alimento = relationship('Alimento')
+    dieta = relationship('Dieta')
 
 
 class Dieta(Base):
@@ -104,11 +143,10 @@ class Dieta(Base):
 
     dieta_id = mapped_column(Integer, primary_key=True, autoincrement=True)
     dieta_pac_id = mapped_column(Integer, ForeignKey('tb_pacientes.pac_id'), nullable=False)
-    dieta_ref_id = mapped_column(Integer, ForeignKey('tb_refeicoes.ref_id'), nullable=False)
+    dieta_objetivo = mapped_column(String(255))
 
     paciente = relationship('Paciente', back_populates='dietas')
-    refeicao = relationship('Refeicao', back_populates='dietas')
-
+    cardapios = relationship('Cardapio', back_populates='dieta')
 
 class Consulta(Base):
     __tablename__ = 'tb_consultas'

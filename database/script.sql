@@ -63,20 +63,47 @@ CREATE TABLE tb_resultados_exames (
     FOREIGN KEY (res_exame_exame_id) REFERENCES tb_exames(exame_id)
 );
 
-CREATE TABLE tb_refeicoes (
-    ref_id INT AUTO_INCREMENT PRIMARY KEY,
-    ref_nome VARCHAR(500) NOT NULL,
-    ref_opcao1 TEXT NOT NULL,
-    ref_opcao2 TEXT DEFAULT NULL,
-    ref_observacoes TEXT DEFAULT NULL
+CREATE TABLE tb_tipos_refeicoes (
+    tipo_refeicao_id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_nome VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE tb_dietas (
+CREATE TABLE tb_alimentos (
+    alimento_id INT AUTO_INCREMENT PRIMARY KEY,
+    alimento_nome VARCHAR(500) NOT NULL,  -- Nome do alimento
+    alimento_categoria VARCHAR(255),  -- Categoria do alimento (ex: Proteína, Carboidrato, etc.)
+    alimento_calorias DECIMAL(10, 2),  -- Calorias por 100g
+    alimento_proteinas DECIMAL(10, 2),  -- Proteínas por 100g
+    alimento_carboidratos DECIMAL(10, 2),  -- Carboidratos por 100g
+    alimento_gorduras DECIMAL(10, 2),  -- Gorduras por 100g
+    alimento_fibras DECIMAL(10, 2)  -- Fibras por 100g
+);
+ 
+ CREATE TABLE tb_substituicoes (
+    substituicao_id INT AUTO_INCREMENT PRIMARY KEY,  
+    alimento_original_id INT NOT NULL,  -- O alimento original que será substituído
+    alimento_substituto_id INT NOT NULL,  -- O alimento que irá substituir o original
+    quantidade DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento substituto (em gramas ou outra unidade)
+    FOREIGN KEY (alimento_original_id) REFERENCES tb_alimentos(alimento_id),  -- Relacionamento com o alimento original
+    FOREIGN KEY (alimento_substituto_id) REFERENCES tb_alimentos(alimento_id)  -- Relacionamento com o alimento substituto
+);
+ 
+ CREATE TABLE tb_dietas (
     dieta_id INT AUTO_INCREMENT PRIMARY KEY,
-    dieta_pac_id INT NOT NULL,
-    dieta_ref_id INT NOT NULL,
-    FOREIGN KEY (dieta_pac_id) REFERENCES tb_pacientes(pac_id),
-    FOREIGN KEY (dieta_ref_id) REFERENCES tb_refeicoes(ref_id)
+    dieta_pac_id INT NOT NULL,  -- Paciente associado à dieta
+    dieta_objetivo VARCHAR(255),
+    FOREIGN KEY (dieta_pac_id) REFERENCES tb_pacientes(pac_id)
+);
+ 
+CREATE TABLE tb_cardapio (
+    cardapio_id INT AUTO_INCREMENT PRIMARY KEY,
+    ref_id INT NOT NULL,  -- Refere-se ao tipo da refeição (chave estrangeira para tb_tipo_refeicoes)
+    alimento_id INT NOT NULL,  -- Refere-se ao alimento (chave estrangeira para tb_alimentos)
+    quantidade DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento em gramas ou unidade (ex: 100g)
+    dieta_id INT NOT NULL,  -- Refere-se à dieta (chave estrangeira para a tabela tb_dieta)
+    FOREIGN KEY (ref_id) REFERENCES tb_tipos_refeicoes(tipo_refeicao_id),
+    FOREIGN KEY (alimento_id) REFERENCES tb_alimentos(alimento_id),
+    FOREIGN KEY (dieta_id) REFERENCES tb_dietas(dieta_id)  -- A tabela tb_dieta será explicada a seguir
 );
 
 CREATE TABLE tb_dados_antro (

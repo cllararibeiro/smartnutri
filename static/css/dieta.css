@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
     --verde-cabeçalho: #0a5247;
     --verde-botao-borda: #70883A;
@@ -21,51 +23,39 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
     width: 100%;
     height: 800px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: #faf9f8;
 }
 
-.nav-item-ex {
-    width: 50%;
-    height: 25%;
-    padding: 2px;
-    border: 1px solid green;
-    font-size: 18px;
-    background-color: white;
-    text-decoration: green;
-}
-
-a col-md-6 :hover {
-    background-color: #f9c62a;
-}
-
-.navbar {
-    padding: 2px 0;
+header {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
     background-color: var(--verde-padrao);
+    color: white;
+    padding: 10px 20px;
+    height: 80px;
+    gap: 36.8rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-toggler {
-    border: none;
+header > h1 {
+    font-size: 22px;
+    text-align: center;
+    color: var(--branco);
+    margin-top: 20px;
 }
 
-.navbar-toggler:focus {
-    box-shadow: none;
+.seta {
+    float: left;
 }
 
-.navbar-nav {
-    gap: 5px;
-}
-
-.nav-link {
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff;
-}
 
 .btn-lg {
     padding: 12px 30px;
@@ -232,7 +222,7 @@ button:hover {
 }
 
 .btn-gerar-pdf {
-    background-color: #2196F3;
+    background-color: var(--rosa);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -246,7 +236,7 @@ button:hover {
 }
 
 .btn-add {
-    background-color: #ff9800;
+    background-color: var(--rosa);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -279,6 +269,10 @@ footer {
     justify-content: space-around;
     text-align: center;
     padding-bottom: 20px;
+}
+
+p .text-white {
+    color: var(--azul);
 }
 
 .footer-left, .footer-center {

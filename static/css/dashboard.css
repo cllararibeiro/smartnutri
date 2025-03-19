@@ -50,7 +50,7 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #ffffff;
+    background-color: var(--branco);
     height: 100vh;
     border-radius: 0px 18px 18px 0px;
     position: fixed;
@@ -244,7 +244,7 @@ nav {
 
 .busca-container {
     display: flex;
-    gap: 20px;  
+    gap: 10px;  
     align-items: center;  
     margin-top: 20px;
 }
@@ -283,6 +283,14 @@ nav {
     align-items: center;
     justify-content: space-around;
     gap: 12px;
+}
+
+.pesquisar {
+    height: 24px;
+}
+
+.adicionar {
+    height: 24px;
 }
 
 .editar {

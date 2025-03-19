@@ -7,8 +7,8 @@
 
     <form method="get" action="{{ url_for('nutricionista.dashboard') }}" class="busca-container">
         <input type="text" name="busca" placeholder="Buscar paciente por nome..." value="{{ request.args.get('busca', '') }}">
-        <button id="busca-btn" type="submit">Pesquisar</button>
-        <button><a href="{{ url_for('nutricionista.cadastro_paciente') }}">Cadastrar Novo Paciente</a></button>
+        <a href="" id="busca-btn" type="submit"><img src="/static/img/search-alt-2-regular-24.png" class="pesquisar"></a>
+        <a href="{{ url_for('nutricionista.cadastro_paciente') }}"><img src="/static/img/adicionar.png" class="adicionar"></a>
     </form>
 
     <div id="dashboard">
@@ -29,7 +29,6 @@
                     <a href="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}"  method="POST">
                         <button>Realizar Consulta</button>
                     </a>
-                    
                 </div>
             </div>
         {% endfor %}

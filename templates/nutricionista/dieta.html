@@ -8,13 +8,10 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-verde text-white py-4" >
-            <div class="container">
-                <a class="navbar-brand" href="{{url_for('index')}}">
-                    <img src="/static/img/smartnutri.png" alt="logo" height="100">
-                </a>
-            </div>
-        </nav>
+        <a href="{{ url_for('nutricionista.dashboard') }}" class="btn-voltar">
+            <img src="/static/img/arrow-back-regular-24.png" class="seta">
+        </a>
+        <h1>Prescrição Dietética</h1>
     </header>
     
 
@@ -82,13 +79,12 @@
             <div class="d-flex justify-content-center gap-3">
                 <img src="/static/img/instagramicon.png " alt="Instagram" height="30">
                 <img src="/static/img/facebookicon.png" alt="Facebook" height="30">
-                <img src="/static/img/whatsappicon.png"alt="WhatsApp" height="30">
+                <img src="/static/img/whatsappicon.png" alt="WhatsApp" height="30">
             </div>
             <p class="mt-3">© 2024 SmartNutri | Caicó-RN</p>
             <p><a href="#" class="text-white">Termos de Uso</a> | <a href="#" class="text-white">Política de Privacidade</a></p>
         </div>
     </footer>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
@@ -134,23 +130,23 @@
 
         // Função para renderizar a prescrição final
         function renderPrescricaoFinal() {
-            prescricaoFinal.innerHTML = <h3>Resumo da Prescrição</h3>;
-            
+            prescricaoFinal.innerHTML = "<h3>Resumo da Prescrição</h3>";
+
             if (pacienteSelecionado) {
-                prescricaoFinal.innerHTML += <p><strong>Paciente:</strong> ${pacienteSelecionado}</p>;
+                prescricaoFinal.innerHTML += `<p><strong>Paciente:</strong> ${pacienteSelecionado}</p>`;
             }
-            if (refeicaoSelecionada) {
-                prescricaoFinal.innerHTML += <p><strong>Refeição:</strong> ${refeicaoSelecionada}</p>;
-            }
+            //if (refeicaoSelecionada) {
+               // prescricaoFinal.innerHTML += `<p><strong>Refeição:</strong> ${refeicaoSelecionada}</p>`;
+           // }
 
             // Para cada refeição, exibe seus alimentos
             for (const refeicao in prescricoes) {
                 const refeicaoContainer = document.createElement('div');
-                refeicaoContainer.innerHTML = <h4>${refeicao}:</h4>;
+                refeicaoContainer.innerHTML = `<h4>${refeicao}:</h4>`;
 
                 prescricoes[refeicao].forEach(item => {
                     const alimentoItem = document.createElement('p');
-                    alimentoItem.textContent = ${item.alimento} - ${item.quantidade}g;
+                    alimentoItem.textContent = `${item.alimento} - ${item.quantidade}g`;
                     refeicaoContainer.appendChild(alimentoItem);
                 });
 
@@ -167,20 +163,20 @@
 
             // Escreve paciente e refeição no PDF
             if (pacienteSelecionado) {
-                doc.text(Paciente: ${pacienteSelecionado}, 20, 30);
+                doc.text(`Paciente: ${pacienteSelecionado}`, 20, 30);
             }
             if (refeicaoSelecionada) {
-                doc.text(Refeição: ${refeicaoSelecionada}, 20, 40);
+                doc.text(`Refeição: ${refeicaoSelecionada}`, 20, 40);
             }
 
             // Para cada refeição, escreve os alimentos no PDF
             let yPosition = 50;
             for (const refeicao in prescricoes) {
-                doc.text(${refeicao}:, 20, yPosition);
+                doc.text(`${refeicao}:`, 20, yPosition);
                 yPosition += 10;
 
                 prescricoes[refeicao].forEach(item => {
-                    doc.text(${item.alimento} - ${item.quantidade}g, 20, yPosition);
+                    doc.text(`${item.alimento} - ${item.quantidade}g`, 20, yPosition);
                     yPosition += 10;
                 });
 

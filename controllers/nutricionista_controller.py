@@ -113,10 +113,10 @@ def detalhes_con(consulta_id):
     return redirect(url_for('nutricionista.historico_con'))
 
 
-@nutricionista_bp.route('/funcionalidades', methods=['GET', 'POST'])
+@nutricionista_bp.route('/dieta', methods=['GET', 'POST'])
 @login_required
-def funcionalidades():
-    return render_template('nutricionista/funcionalidades.html')
+def dieta():
+    return render_template('nutricionista/dieta.html')
 
 @nutricionista_bp.route('/cadastro_paciente', methods=['GET', 'POST'])
 @login_required

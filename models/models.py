@@ -135,7 +135,7 @@ class Cardapio(Base):
 
     tipo_refeicao = relationship('TipoRefeicao', back_populates='cardapios')
     alimento = relationship('Alimento')
-    dieta = relationship('Dieta')
+    dieta = relationship("Dieta", back_populates="cardapios")
 
 
 class Dieta(Base):
@@ -146,7 +146,7 @@ class Dieta(Base):
     dieta_objetivo = mapped_column(String(255))
 
     paciente = relationship('Paciente', back_populates='dietas')
-    cardapios = relationship('Cardapio', back_populates='dieta')
+    cardapios = relationship("Cardapio", back_populates="dieta", cascade="all, delete-orphan")
 
 class Consulta(Base):
     __tablename__ = 'tb_consultas'

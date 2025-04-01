@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dieta #{{ dieta.dieta_id }}</title>
+</head>
+<body>
+    <h1>Dieta de {{ dieta.paciente.pac_nome }}</h1>
+    <h2>Objetivo: {{ dieta.dieta_objetivo }}</h2>
+    
+    <h3>Cardápio</h3>
+    <table border="1">
+        <tr>
+            <th>Refeição</th>
+            <th>Alimento</th>
+            <th>Quantidade (g)</th>
+            <th>Calorias</th>
+            <th>Proteínas</th>
+            <th>Carboidratos</th>
+            <th>Gorduras</th>
+        </tr>
+        {% for item in cardapio %}
+        <tr>
+            <td>{{ item.TipoRefeicao.tipo_nome }}</td>
+            <td>{{ item.Alimento.alimento_nome }}</td>
+            <td>{{ item.Cardapio.quantidade }}</td>
+            <td>{{ (item.Alimento.alimento_calorias * item.Cardapio.quantidade / 100)|round(2) }}</td>
+            <td>{{ (item.Alimento.alimento_proteinas * item.Cardapio.quantidade / 100)|round(2) }}</td>
+            <td>{{ (item.Alimento.alimento_carboidratos * item.Cardapio.quantidade / 100)|round(2) }}</td>
+            <td>{{ (item.Alimento.alimento_gorduras * item.Cardapio.quantidade / 100)|round(2) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <h3>Totais</h3>
+    <p>Calorias: {{ total_calorias|round(2) }} kcal</p>
+    <p>Proteínas: {{ total_proteinas|round(2) }} g</p>
+    <p>Carboidratos: {{ total_carboidratos|round(2) }} g</p>
+    <p>Gorduras: {{ total_gorduras|round(2) }} g</p>
+    
+    <p><a href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a></p>
+</body>
+</html>

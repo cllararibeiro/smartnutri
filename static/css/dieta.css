@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+/* Cores originais conforme seu arquivo anterior */
 :root {
     --verde-cabeçalho: #0a5247;
     --verde-botao-borda: #70883A;
@@ -19,246 +18,228 @@
     --hover-nav: #5d6d31;
 }
 
-* {
+/* Estilos gerais */
+body {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    width: 100%;
-    height: 800px;
-    background-color: #faf9f8;
+    background-color: var(--bege);
 }
 
 header {
+    background-color: var(--verde-padrao);
+    color: var(--branco);
+    padding: 15px 20px;
     display: flex;
     align-items: center;
-    text-align: center;
-    width: 100%;
-    background-color: var(--verde-padrao);
-    color: white;
-    padding: 10px 20px;
-    height: 80px;
-    gap: 36.8rem;
+    gap: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header > h1 {
-    font-size: 22px;
-    text-align: center;
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
     color: var(--branco);
-    margin-top: 20px;
 }
 
-.seta {
-    float: left;
-}
-
-
-.btn-lg {
-    padding: 12px 30px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.main-content {
-    padding: 10px 0;
-}
-
-.text-content {
-    max-width: 600px;
-}
-
-.text-content h1 {
-    display: flex;
-    height: 300px;
-    width: 400px;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #202020;
-    text-align: left;
-}
-
-.text-content p {
-    font-size: 1.2rem;
-    color: #555;
+.btn-voltar {
+    color: var(--branco);
+    text-decoration: none;
 }
 
 .container {
     display: grid;
-    width: 100%;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 20px;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 20px auto;
+    padding: 0 20px;
 }
 
-.section {
-    padding: 20px;
-    background-color: #fff;
+.form-section, .preview-section {
+    background-color: var(--branco);
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+h2 {
+    color: var(--verde-padrao);
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Formulário */
+.form-group {
+    margin-bottom: 15px;
 }
 
 label {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
     display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--preto);
 }
 
-input, select, button {
+select, input {
     width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-}
-
-select {
-    cursor: pointer;
-}
-
-button {
-    background-color: #4CAF50;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-.refeicoes-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.refeicao {
     padding: 10px;
-    background-color: #e3f2fd;
-    border-radius: 8px;
+    border: 1px solid var(--verde-botao-borda);
+    border-radius: 4px;
+    font-size: 1rem;
 }
 
-.refeicao h3 {
-    text-align: center;
+/* Refeições e alimentos */
+.refeicao {
+    border: 1px solid var(--verde-medio);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: var(--branco);
+}
+
+.refeicao-header {
+    display: flex;
+    gap: 10px;
     margin-bottom: 10px;
 }
 
-.alimentos-lista {
+.refeicao-header select {
+    flex: 1;
+}
+
+.alimentos-container {
     margin-top: 10px;
-    display: flex;
-    flex-direction: column;
 }
 
-.alimento-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.alimento {
+    margin-bottom: 10px;
     padding: 10px;
+    background-color: var(--branco);
+    border-radius: 4px;
+    border: 1px solid var(--verde-claro);
+}
+
+.alimento-row {
+    display: flex;
+    gap: 10px;
     margin-bottom: 5px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.alimento-item button {
-    background-color: #f44336;
-    color: white;
-    padding: 5px 10px;
-    border: none;
+.alimento-row select, .alimento-row input {
+    flex: 1;
+}
+
+.nutri-info {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: var(--preto);
+}
+
+.nutri-info span {
+    display: inline-block;
+}
+
+/* Botões */
+button {
     cursor: pointer;
-}
-
-.alimento-item button:hover {
-    background-color: #d32f2f;
-}
-
-.prescricao-final {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f4f4f9;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.prescricao-final h3 {
-    font-size: 18px;
-    margin-bottom: 15px;
-    text-align: center;
-    color: #333;
-}
-
-.cardapio-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.cardapio-table th, .cardapio-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.cardapio-table th {
-    background-color: #f4f4f9;
-}
-
-.btn-gerar-pdf {
-    background-color: var(--rosa);
-    color: white;
-    padding: 10px 20px;
     border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.btn-gerar-pdf:hover {
-    background-color: #1976D2;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
 }
 
 .btn-add {
-    background-color: var(--rosa);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    border-radius: 4px;
+    background-color: var(--verde-padrao);
+    color: var(--branco);
+    margin-bottom: 15px;
 }
 
 .btn-add:hover {
-    background-color: #fb8c00;
+    background-color: var(--verde-medio);
 }
 
-.persistent-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.btn-primary {
+    background-color: var(--verde-padrao);
+    color: var(--branco);
+    padding: 10px 20px;
+    font-size: 1rem;
 }
 
+.btn-primary:hover {
+    background-color: var(--verde-medio);
+}
+
+.btn-secondary {
+    background-color: var(--azul);
+    color: var(--branco);
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 15px;
+}
+
+.btn-secondary:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-remove-refeicao, .btn-remove-alimento {
+    background-color: var(--rosa);
+    color: var(--branco);
+}
+
+.btn-remove-refeicao:hover, .btn-remove-alimento:hover {
+    background-color: #dc3545;
+}
+
+/* Pré-visualização */
+#preview-container {
+    margin-top: 15px;
+}
+
+.preview-refeicao {
+    margin-bottom: 20px;
+}
+
+.preview-refeicao h4 {
+    color: var(--verde-padrao);
+    margin-bottom: 5px;
+}
+
+.preview-refeicao ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+.preview-refeicao li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.preview-total {
+    background-color: rgba(10, 82, 71, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.preview-total h4 {
+    margin-top: 0;
+    color: var(--verde-padrao);
+}
+
+.preview-total p {
+    margin: 5px 0;
+}
+
+/* Rodapé */
 footer {
     padding: 40px 0;
-    color: white;
+    color: var(--branco);
     text-align: center;
     background-color: var(--verde-padrao);
 }
@@ -271,24 +252,8 @@ footer {
     padding-bottom: 20px;
 }
 
-p .text-white {
-    color: var(--azul);
-}
-
-.footer-left, .footer-center {
-    max-width: 300px;
-}
-
-.footer-left h3, .footer-center h3 {
-    font-size: 1.5rem;
-}
-
-.footer-bottom {
-    font-size: 0.9em;
-}
-
 .footer-bottom a {
-    color: white;
+    color: var(--branco);
     text-decoration: none;
     margin: 0 10px;
 }

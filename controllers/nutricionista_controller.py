@@ -4,7 +4,7 @@ from database.config import Session
 from datetime import datetime
 from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
-from models.models import Nutricionista, Paciente, Consulta, Dieta, RegistroConsulta, DadosAntropometricos
+from models.models import Nutricionista, Paciente, Consulta, Dieta, RegistroConsulta, DadosAntropometricos, Alimento, TipoRefeicao, Cardapio
 
 nutricionista_bp = Blueprint('nutricionista', __name__, url_prefix='/nutricionista', template_folder='templates')
 
@@ -116,7 +116,75 @@ def detalhes_con(consulta_id):
 @nutricionista_bp.route('/dieta', methods=['GET', 'POST'])
 @login_required
 def dieta():
-    return render_template('nutricionista/dieta.html')
+    if request.method == 'POST':
+        try:
+            # Obter dados do formulário
+            paciente_id = request.form.get('paciente')
+            objetivo = request.form.get('objetivo')
+            
+            # Criar nova dieta
+            nova_dieta = Dieta(
+                dieta_pac_id=paciente_id,
+                dieta_objetivo=objetivo
+            )
+            session.add(nova_dieta)
+            session.flush()  # Para obter o ID da dieta antes do commit
+            
+            # Processar itens do cardápio
+            refeicoes = request.form.getlist('refeicao[]')
+            alimentos = request.form.getlist('alimento[]')
+            quantidades = request.form.getlist('quantidade[]')
+            
+            for refeicao_id, alimento_id, quantidade in zip(refeicoes, alimentos, quantidades):
+                novo_item = Cardapio(
+                    ref_id=refeicao_id,
+                    alimento_id=alimento_id,
+                    quantidade=quantidade,
+                    dieta_id=nova_dieta.dieta_id
+                )
+                session.add(novo_item)
+            
+            session.commit()
+            flash('Dieta cadastrada com sucesso!', 'success')
+            return redirect(url_for('nutricionista.dieta'))
+            
+        except Exception as e:
+            session.rollback()
+            flash(f'Erro ao cadastrar dieta: {str(e)}', 'error')
+            return redirect(url_for('nutricionista.dieta'))
+    
+    # Buscar dados para o formulário
+    pacientes = session.query(Paciente).filter_by(pac_nutri_id=current_user.nutri_id).all()
+    alimentos = session.query(Alimento).order_by(Alimento.alimento_nome).all()
+    tipos_refeicao = session.query(TipoRefeicao).all()
+    
+    return render_template(
+        'nutricionista/dieta.html',
+        pacientes=pacientes,
+        alimentos=alimentos,
+        tipos_refeicao=tipos_refeicao
+    )
+
+@nutricionista_bp.route('/dieta/<int:dieta_id>')
+@login_required
+def visualizar_dieta(dieta_id):
+    dieta = session.query(Dieta).filter_by(dieta_id=dieta_id).first()
+    if not dieta or dieta.paciente.pac_nutri_id != current_user.nutri_id:
+        flash('Dieta não encontrada', 'error')
+        return redirect(url_for('nutricionista.dieta'))
+    
+    return render_template('nutricionista/visualizar_dieta.html', dieta=dieta)
+
+@nutricionista_bp.route('/dieta/<int:dieta_id>/pdf')
+@login_required
+def gerar_pdf_dieta(dieta_id):
+    dieta = session.query(Dieta).filter_by(dieta_id=dieta_id).first()
+    if not dieta or dieta.paciente.pac_nutri_id != current_user.nutri_id:
+        flash('Dieta não encontrada', 'error')
+        return redirect(url_for('nutricionista.dieta'))
+    
+    # Implementar geração de PDF aqui (usando WeasyPrint ou outra biblioteca)
+    # Retornar o PDF gerado
 
 @nutricionista_bp.route('/cadastro_paciente', methods=['GET', 'POST'])
 @login_required
@@ -146,3 +214,52 @@ def cadastro_paciente():
         return redirect(url_for('nutricionista.dashboard'))
 
     return render_template('nutricionista/cadastro_paciente.html')
+
+
+@nutricionista_bp.route('/dieta/<int:dieta_id>/visualizar')
+@login_required
+def visualizar_dieta_salva(dieta_id):
+    try:
+        print(f"Tentando acessar dieta_id: {dieta_id}")  # Log para depuração
+        
+        # Busca a dieta com o paciente relacionado
+        dieta = session.query(Dieta).join(Paciente).filter(
+            Dieta.dieta_id == dieta_id,
+            Paciente.pac_nutri_id == current_user.nutri_id
+        ).first()
+        
+        print(f"Dieta encontrada: {dieta is not None}")  # Log para depuração
+        
+        if not dieta:
+            flash('Dieta não encontrada ou você não tem permissão para acessá-la', 'error')
+            print("Redirecionando para dashboard - dieta não encontrada ou sem permissão")  # Log
+            return redirect(url_for('nutricionista.dashboard'))
+        
+        # Busca os itens do cardápio
+        cardapio = session.query(Cardapio, TipoRefeicao, Alimento)\
+            .join(TipoRefeicao)\
+            .join(Alimento)\
+            .filter(Cardapio.dieta_id == dieta_id)\
+            .order_by(TipoRefeicao.tipo_refeicao_id)\
+            .all()
+        
+        print(f"Itens do cardápio encontrados: {len(cardapio)}")  # Log para depuração
+        
+        # Cálculos nutricionais
+        total_calorias = sum(item.Alimento.alimento_calorias * item.Cardapio.quantidade / 100 for item in cardapio)
+        total_proteinas = sum(item.Alimento.alimento_proteinas * item.Cardapio.quantidade / 100 for item in cardapio)
+        total_carboidratos = sum(item.Alimento.alimento_carboidratos * item.Cardapio.quantidade / 100 for item in cardapio)
+        total_gorduras = sum(item.Alimento.alimento_gorduras * item.Cardapio.quantidade / 100 for item in cardapio)
+        
+        return render_template('nutricionista/visualizar_dieta_salva.html',
+                            dieta=dieta,
+                            cardapio=cardapio,
+                            total_calorias=total_calorias,
+                            total_proteinas=total_proteinas,
+                            total_carboidratos=total_carboidratos,
+                            total_gorduras=total_gorduras)
+    
+    except Exception as e:
+        print(f"Erro ao visualizar dieta: {str(e)}")  # Log para depuração
+        flash(f'Erro ao visualizar dieta: {str(e)}', 'error')
+        return redirect(url_for('nutricionista.dashboard'))

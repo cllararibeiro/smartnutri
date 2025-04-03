@@ -20,6 +20,36 @@ def dashboard():
 
     return render_template('nutricionista/dashboard.html', pacientes=pacientes)
 
+
+@nutricionista_bp.route('/cadastro_paciente', methods=['GET', 'POST'])
+@login_required
+def cadastro_paciente():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        data_nasc = request.form.get('data_nasc')
+        sexo = request.form.get('sexo')  
+        tel = request.form['telefone']
+        cpf = request.form['cpf']
+        doencas_preexistentes = request.form['doencas_preexistentes']
+        historico_familiar = request.form['historico_familiar']
+    
+        data_nasc_obj = datetime.strptime(data_nasc, '%Y-%m-%d') 
+        
+        hoje = datetime.today()
+        idade = hoje.year - data_nasc_obj.year - ((hoje.month, hoje.day) < (data_nasc_obj.month, data_nasc_obj.day))
+
+        paciente = Paciente(pac_nome=nome,pac_email=email,pac_data_nasc=data_nasc_obj,pac_idade=idade,
+            pac_sexo=sexo,pac_tel=tel,pac_cpf=cpf,pac_doencas_preexistentes=doencas_preexistentes,
+            pac_historico_familiar=historico_familiar,pac_nutri_id=current_user.nutri_id)
+        
+    
+        session.add(paciente)
+        session.commit()
+        return redirect(url_for('nutricionista.dashboard'))
+
+    return render_template('nutricionista/cadastro_paciente.html')
+
 @nutricionista_bp.route('/consulta/<int:paciente_id>', methods=['GET', 'POST'])
 @login_required
 def consulta(paciente_id):
@@ -77,7 +107,7 @@ def consulta(paciente_id):
         )
         session.add(dados_antro)
         session.commit()
-        return redirect(url_for('nutricionista.dashboard'))
+        return redirect(url_for('nutricionista.dieta'))
         
         return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade)
 
@@ -94,7 +124,8 @@ def historico_con():
 @login_required
 def historico_con_paciente(paciente_id):
     consultas = session.query(Consulta).filter_by(con_nutri_id=current_user.nutri_id, con_pac_id = paciente_id).all()
-    
+    dietas =  session.query(Consulta).filter_by(con_nutri_id=current_user.nutri_id, con_pac_id = paciente_id).all()
+
     return render_template('nutricionista/con_historico.html', consultas=consultas)
 
 @nutricionista_bp.route('/detalhes_con/<int:consulta_id>', methods=['GET'])
@@ -151,7 +182,7 @@ def dieta():
         except Exception as e:
             session.rollback()
             flash(f'Erro ao cadastrar dieta: {str(e)}', 'error')
-            return redirect(url_for('nutricionista.dieta'))
+            return redirect(url_for('nutricionista.dieta/<int:dieta_id>'))
     
     # Buscar dados para o formulário
     pacientes = session.query(Paciente).filter_by(pac_nutri_id=current_user.nutri_id).all()
@@ -165,16 +196,6 @@ def dieta():
         tipos_refeicao=tipos_refeicao
     )
 
-@nutricionista_bp.route('/dieta/<int:dieta_id>')
-@login_required
-def visualizar_dieta(dieta_id):
-    dieta = session.query(Dieta).filter_by(dieta_id=dieta_id).first()
-    if not dieta or dieta.paciente.pac_nutri_id != current_user.nutri_id:
-        flash('Dieta não encontrada', 'error')
-        return redirect(url_for('nutricionista.dieta'))
-    
-    return render_template('nutricionista/visualizar_dieta.html', dieta=dieta)
-
 @nutricionista_bp.route('/dieta/<int:dieta_id>/pdf')
 @login_required
 def gerar_pdf_dieta(dieta_id):
@@ -186,39 +207,9 @@ def gerar_pdf_dieta(dieta_id):
     # Implementar geração de PDF aqui (usando WeasyPrint ou outra biblioteca)
     # Retornar o PDF gerado
 
-@nutricionista_bp.route('/cadastro_paciente', methods=['GET', 'POST'])
+@nutricionista_bp.route('/visualizardieta/<int:dieta_id>')
 @login_required
-def cadastro_paciente():
-    if request.method == 'POST':
-        nome = request.form['nome']
-        email = request.form['email']
-        data_nasc = request.form.get('data_nasc')
-        sexo = request.form.get('sexo')  
-        tel = request.form['telefone']
-        cpf = request.form['cpf']
-        doencas_preexistentes = request.form['doencas_preexistentes']
-        historico_familiar = request.form['historico_familiar']
-    
-        data_nasc_obj = datetime.strptime(data_nasc, '%Y-%m-%d') 
-        
-        hoje = datetime.today()
-        idade = hoje.year - data_nasc_obj.year - ((hoje.month, hoje.day) < (data_nasc_obj.month, data_nasc_obj.day))
-
-        paciente = Paciente(pac_nome=nome,pac_email=email,pac_data_nasc=data_nasc_obj,pac_idade=idade,
-            pac_sexo=sexo,pac_tel=tel,pac_cpf=cpf,pac_doencas_preexistentes=doencas_preexistentes,
-            pac_historico_familiar=historico_familiar,pac_nutri_id=current_user.nutri_id)
-        
-    
-        session.add(paciente)
-        session.commit()
-        return redirect(url_for('nutricionista.dashboard'))
-
-    return render_template('nutricionista/cadastro_paciente.html')
-
-
-@nutricionista_bp.route('/dieta/<int:dieta_id>/visualizar')
-@login_required
-def visualizar_dieta_salva(dieta_id):
+def visualizar_dieta(dieta_id):
     try:
         print(f"Tentando acessar dieta_id: {dieta_id}")  # Log para depuração
         

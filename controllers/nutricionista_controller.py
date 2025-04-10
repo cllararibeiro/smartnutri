@@ -5,10 +5,15 @@ from datetime import datetime
 from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 from models.models import Nutricionista, Paciente, Consulta, Dieta, RegistroConsulta, DadosAntropometricos, Alimento, TipoRefeicao, Cardapio
+import logging
 
 nutricionista_bp = Blueprint('nutricionista', __name__, url_prefix='/nutricionista', template_folder='templates')
 
 session = Session()
+
+logger = logging.getLogger(__name__)
+logging.basicConfig( level=logging.INFO)
+
 
 @nutricionista_bp.route('/dashboard')
 @login_required
@@ -142,8 +147,6 @@ def detalhes_con(consulta_id):
 
         return render_template('nutricionista/detalhes_con.html', consulta=consulta, dados = dados, idade = idade)
     return redirect(url_for('nutricionista.historico_con'))
-
-
 @nutricionista_bp.route('/dieta', methods=['GET', 'POST'])
 @login_required
 def dieta():
@@ -162,28 +165,34 @@ def dieta():
             session.flush()  # Para obter o ID da dieta antes do commit
             
             # Processar itens do cardápio
-            refeicoes = request.form.getlist('refeicao[]')
-            alimentos = request.form.getlist('alimento[]')
-            quantidades = request.form.getlist('quantidade[]')
-            
+            refeicoes = request.form.getlist('refeicao[]')  # IDs das refeições
+            alimentos = request.form.getlist('alimento[]')  # IDs dos alimentos
+            quantidades = request.form.getlist('quantidade[]')  # Quantidades dos alimentos
+            logger.info(f" refeicoes: {refeicoes}")
+            logger.info(f" alimento: {alimentos}")
+            # Associa os alimentos corretamente às refeições e à dieta
             for refeicao_id, alimento_id, quantidade in zip(refeicoes, alimentos, quantidades):
+                # Criar o item no cardápio
                 novo_item = Cardapio(
-                    ref_id=refeicao_id,
-                    alimento_id=alimento_id,
-                    quantidade=quantidade,
-                    dieta_id=nova_dieta.dieta_id
+                    ref_id=refeicao_id,  # ID da refeição
+                    alimento_id=alimento_id,  # ID do alimento
+                    quantidade=quantidade,  # Quantidade
+                    dieta_id=nova_dieta.dieta_id  # Associando a dieta
                 )
                 session.add(novo_item)
             
+            # Salva todos os itens do cardápio
             session.commit()
+
+            # Sucesso na operação
             flash('Dieta cadastrada com sucesso!', 'success')
             return redirect(url_for('nutricionista.dieta'))
             
         except Exception as e:
-            session.rollback()
+            session.rollback()  # Em caso de erro, faz rollback
             flash(f'Erro ao cadastrar dieta: {str(e)}', 'error')
-            return redirect(url_for('nutricionista.dieta/<int:dieta_id>'))
-    
+            return redirect(url_for('nutricionista.dieta'))
+
     # Buscar dados para o formulário
     pacientes = session.query(Paciente).filter_by(pac_nutri_id=current_user.nutri_id).all()
     alimentos = session.query(Alimento).order_by(Alimento.alimento_nome).all()
@@ -195,6 +204,7 @@ def dieta():
         alimentos=alimentos,
         tipos_refeicao=tipos_refeicao
     )
+
 
 @nutricionista_bp.route('/dieta/<int:dieta_id>/pdf')
 @login_required

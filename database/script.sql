@@ -1,4 +1,4 @@
-create DATABASE db_smartnutri;
+CREATE DATABASE db_smartnutri;
 
 USE db_smartnutri;
 
@@ -70,40 +70,40 @@ CREATE TABLE tb_tipos_refeicoes (
 
 CREATE TABLE tb_alimentos (
     alimento_id INT AUTO_INCREMENT PRIMARY KEY,
-    alimento_nome VARCHAR(500) NOT NULL,  -- Nome do alimento
-    alimento_categoria VARCHAR(255),  -- Categoria do alimento (ex: Proteína, Carboidrato, etc.)
-    alimento_calorias DECIMAL(10, 2),  -- Calorias por 100g
-    alimento_proteinas DECIMAL(10, 2),  -- Proteínas por 100g
-    alimento_carboidratos DECIMAL(10, 2),  -- Carboidratos por 100g
-    alimento_gorduras DECIMAL(10, 2),  -- Gorduras por 100g
-    alimento_fibras DECIMAL(10, 2)  -- Fibras por 100g
+    alimento_nome VARCHAR(500) NOT NULL,  
+    alimento_categoria VARCHAR(255),  
+    alimento_calorias DECIMAL(10, 2),  
+    alimento_proteinas DECIMAL(10, 2),  
+    alimento_carboidratos DECIMAL(10, 2),  
+    alimento_gorduras DECIMAL(10, 2),  
+    alimento_fibras DECIMAL(10, 2) 
 );
  
  CREATE TABLE tb_substituicoes (
     substituicao_id INT AUTO_INCREMENT PRIMARY KEY,  
     alimento_original_id INT NOT NULL,  -- O alimento original que será substituído
     alimento_substituto_id INT NOT NULL,  -- O alimento que irá substituir o original
-    quantidade DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento substituto (em gramas ou outra unidade)
-    FOREIGN KEY (alimento_original_id) REFERENCES tb_alimentos(alimento_id),  -- Relacionamento com o alimento original
-    FOREIGN KEY (alimento_substituto_id) REFERENCES tb_alimentos(alimento_id)  -- Relacionamento com o alimento substituto
+    quantidade DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento substituto 
+    FOREIGN KEY (alimento_original_id) REFERENCES tb_alimentos(alimento_id),  
+    FOREIGN KEY (alimento_substituto_id) REFERENCES tb_alimentos(alimento_id) 
 );
  
  CREATE TABLE tb_dietas (
     dieta_id INT AUTO_INCREMENT PRIMARY KEY,
-    dieta_pac_id INT NOT NULL,  -- Paciente associado à dieta
+    dieta_pac_id INT NOT NULL,  
     dieta_objetivo VARCHAR(255),
     FOREIGN KEY (dieta_pac_id) REFERENCES tb_pacientes(pac_id)
 );
  
 CREATE TABLE tb_cardapio (
     cardapio_id INT AUTO_INCREMENT PRIMARY KEY,
-    ref_id INT NOT NULL,  -- Refere-se ao tipo da refeição (chave estrangeira para tb_tipo_refeicoes)
-    alimento_id INT NOT NULL,  -- Refere-se ao alimento (chave estrangeira para tb_alimentos)
-    quantidade DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento em gramas ou unidade (ex: 100g)
-    dieta_id INT NOT NULL,  -- Refere-se à dieta (chave estrangeira para a tabela tb_dieta)
+    ref_id INT NOT NULL,  
+    alimento_id INT NOT NULL,  
+    quantidade DECIMAL(10, 2) NOT NULL,  
+    dieta_id INT NOT NULL,  
     FOREIGN KEY (ref_id) REFERENCES tb_tipos_refeicoes(tipo_refeicao_id),
     FOREIGN KEY (alimento_id) REFERENCES tb_alimentos(alimento_id),
-    FOREIGN KEY (dieta_id) REFERENCES tb_dietas(dieta_id)  -- A tabela tb_dieta será explicada a seguir
+    FOREIGN KEY (dieta_id) REFERENCES tb_dietas(dieta_id)  
 );
 
 CREATE TABLE tb_dados_antro (
@@ -127,3 +127,30 @@ CREATE TABLE tb_dados_antro (
     dad_tmb DECIMAL(6,2) DEFAULT NULL,
     FOREIGN KEY (dad_con_id) REFERENCES tb_consultas(con_id)
 );
+
+INSERT INTO tb_tipos_refeicoes (tipo_nome) VALUES
+('Café da Manhã'),
+('Almoço'),
+('Lanche'),
+('Jantar'),
+('Ceia');
+
+INSERT INTO tb_alimentos (alimento_nome, alimento_categoria, alimento_calorias, alimento_proteinas, alimento_carboidratos, alimento_gorduras, alimento_fibras) VALUES
+('Arroz Integral', 'Carboidrato', 111.00, 2.60, 23.00, 0.90, 1.80),
+('Feijão Preto', 'Proteína', 127.00, 8.67, 22.50, 0.50, 8.00),
+('Frango Grelhado', 'Proteína', 165.00, 31.00, 0.00, 3.60, 0.00),
+('Brócolis', 'Vegetal', 55.00, 3.70, 11.00, 0.60, 5.10),
+('Banana', 'Fruta', 89.00, 1.10, 22.80, 0.30, 2.60),
+('Abacate', 'Fruta', 160.00, 2.00, 8.50, 14.66, 6.70),
+('Ovos', 'Proteína', 68.00, 5.50, 0.60, 4.80, 0.00),
+('Pão Integral', 'Carboidrato', 69.00, 3.60, 12.00, 1.10, 2.40);
+
+
+INSERT INTO tb_substituicoes (alimento_original_id, alimento_substituto_id, quantidade) VALUES
+(1, 8, 1.00),  -- Substituir Arroz Integral por Pão Integral (ambos são fontes de carboidrato)
+(3, 6, 1.00),  -- Substituir Frango Grelhado por Abacate (equivalente em termos de calorias e gordura saudável)
+(5, 2, 1.00),  -- Substituir Banana por Feijão Preto (substituição de fruta por fonte de proteína e carboidrato)
+(4, 7, 1.00),  -- Substituir Brócolis por Ovos (substituição de vegetal por fonte de proteína)
+(1, 4, 1.00);  -- Substituir Arroz Integral por Brócolis (substituição de carboidrato por vegetal com baixo índice glicêmico)
+
+

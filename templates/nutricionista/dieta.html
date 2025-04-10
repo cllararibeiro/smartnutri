@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescrição Dietética</title>
-    <link rel="stylesheet" href="/static/css/dieta.css">
-</head>
-<body>
-    <header>
-        <a href="{{ url_for('nutricionista.dashboard') }}" class="btn-voltar">
-            <img src="/static/img/arrow-back-regular-24.png" class="seta">
-        </a>
-        <h1>Prescrição Dietética</h1>
-    </header>
+{% extends "nutricionista/base.html" %}
 
+{% block title %}
+Prescrição Dietética
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/dieta.css">
     <div class="container">
         <div class="form-section">
             <h2>Nova Prescrição</h2>
@@ -50,191 +42,191 @@
             <button id="btn-gerar-pdf" class="btn-secondary" disabled>Gerar PDF</button>
         </div>
     </div>
+</div>
 
-    <!-- Templates para clones -->
-    <template id="template-refeicao">
-        <label for="refeicao">Refeição:</label>
-        <div class="refeicao">
-            <div class="refeicao-header">
-                <select class="tipo-refeicao" name="refeicao[]" required>
-                    <option value="">Selecione o tipo</option>
-                    {% for tipo in tipos_refeicao %}
-                    <option value="{{ tipo.tipo_refeicao_id }}">{{ tipo.tipo_nome }}</option>
-                    {% endfor %}
-                </select>
-                <button type="button" class="btn-remove-refeicao">Remover</button>
-            </div>
-            <div class="alimentos-container">
-                <!-- Alimentos serão adicionados aqui -->
-            </div>
-            <button type="button" class="btn-add-alimento">Adicionar Alimento</button>
+<!-- Templates para clones -->
+<template id="template-refeicao">
+    <label for="refeicao">Refeição:</label>
+    <div class="refeicao">
+        <div class="refeicao-header">
+            <select class="tipo-refeicao" name="refeicao[]" required>
+                <option value="">Selecione o tipo</option>
+                {% for tipo in tipos_refeicao %}
+                <option value="{{ tipo.tipo_refeicao_id }}">{{ tipo.tipo_nome }}</option>
+                {% endfor %}
+            </select>
+            <button type="button" class="btn-remove-refeicao">Remover</button>
         </div>
-    </template>
-
-    <template id="template-alimento">
-        <div class="alimento">
-            <div class="alimento-row">
-                <select class="alimento-select" name="alimento[]" required>
-                    <option value="">Selecione o alimento</option>
-                    {% for alimento in alimentos %}
-                    <option value="{{ alimento.alimento_id }}" 
-                        data-calorias="{{ alimento.alimento_calorias or 0 }}"
-                        data-proteinas="{{ alimento.alimento_proteinas or 0 }}"
-                        data-carboidratos="{{ alimento.alimento_carboidratos or 0 }}"
-                        data-gorduras="{{ alimento.alimento_gorduras or 0 }}">
-                        {{ alimento.alimento_nome }}
-                    </option>
-                    {% endfor %}
-                </select>
-                <input type="number" class="quantidade" name="quantidade[]" placeholder="Quantidade (g)" min="1" required>
-                <button type="button" class="btn-remove-alimento">Remover</button>
-            </div>
-            <div class="nutri-info">
-                <span>Calorias: <span class="calorias">0</span>kcal</span>
-                <span>Proteínas: <span class="proteinas">0</span>g</span>
-                <span>Carboidratos: <span class="carboidratos">0</span>g</span>
-                <span>Gorduras: <span class="gorduras">0</span>g</span>
-            </div>
+        <div class="alimentos-container">
+            <!-- Alimentos serão adicionados aqui -->
         </div>
-    </template>
+        <button type="button" class="btn-add-alimento">Adicionar Alimento</button>
+    </div>
+</template>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Adicionar primeira refeição
-            addRefeicao();
+<template id="template-alimento">
+    <div class="alimento">
+        <div class="alimento-row">
+            <select class="alimento-select" name="alimento[]" required>
+                <option value="">Selecione o alimento</option>
+                {% for alimento in alimentos %}
+                <option value="{{ alimento.alimento_id }}" 
+                    data-calorias="{{ alimento.alimento_calorias or 0 }}"
+                    data-proteinas="{{ alimento.alimento_proteinas or 0 }}"
+                    data-carboidratos="{{ alimento.alimento_carboidratos or 0 }}"
+                    data-gorduras="{{ alimento.alimento_gorduras or 0 }}">
+                    {{ alimento.alimento_nome }}
+                </option>
+                {% endfor %}
+            </select>
+            <input type="number" class="quantidade" name="quantidade[]" placeholder="Quantidade (g)" min="1" required>
+            <button type="button" class="btn-remove-alimento">Remover</button>
+        </div>
+        <div class="nutri-info">
+            <span>Calorias: <span class="calorias">0</span>kcal</span>
+            <span>Proteínas: <span class="proteinas">0</span>g</span>
+            <span>Carboidratos: <span class="carboidratos">0</span>g</span>
+            <span>Gorduras: <span class="gorduras">0</span>g</span>
+        </div>
+    </div>
+</template>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Adicionar primeira refeição
+        addRefeicao();
+        
+        // Evento para adicionar refeição
+        document.getElementById('btn-add-refeicao').addEventListener('click', addRefeicao);
+        
+        // Delegar eventos para elementos dinâmicos
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-remove-refeicao')) {
+                e.target.closest('.refeicao').remove();
+                updatePreview();
+            }
             
-            // Evento para adicionar refeição
-            document.getElementById('btn-add-refeicao').addEventListener('click', addRefeicao);
+            if (e.target.classList.contains('btn-add-alimento')) {
+                addAlimento(e.target.closest('.refeicao').querySelector('.alimentos-container'));
+            }
             
-            // Delegar eventos para elementos dinâmicos
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('btn-remove-refeicao')) {
-                    e.target.closest('.refeicao').remove();
-                    updatePreview();
-                }
-                
-                if (e.target.classList.contains('btn-add-alimento')) {
-                    addAlimento(e.target.closest('.refeicao').querySelector('.alimentos-container'));
-                }
-                
-                if (e.target.classList.contains('btn-remove-alimento')) {
-                    e.target.closest('.alimento').remove();
-                    updatePreview();
-                }
-            });
-            
-            // Atualizar informações nutricionais quando alimento é selecionado
-            document.addEventListener('change', function(e) {
-                if (e.target.classList.contains('alimento-select')) {
-                    const alimento = e.target.options[e.target.selectedIndex];
-                    const container = e.target.closest('.alimento');
-                    
-                    container.querySelector('.calorias').textContent = alimento.dataset.calorias || '0';
-                    container.querySelector('.proteinas').textContent = alimento.dataset.proteinas || '0';
-                    container.querySelector('.carboidratos').textContent = alimento.dataset.carboidratos || '0';
-                    container.querySelector('.gorduras').textContent = alimento.dataset.gorduras || '0';
-                    
-                    updatePreview();
-                }
-                
-                if (e.target.classList.contains('quantidade')) {
-                    updatePreview();
-                }
-            });
+            if (e.target.classList.contains('btn-remove-alimento')) {
+                e.target.closest('.alimento').remove();
+                updatePreview();
+            }
         });
         
-        function addRefeicao() {
-            const template = document.getElementById('template-refeicao');
-            const clone = template.content.cloneNode(true);
-            document.getElementById('refeicoes-container').appendChild(clone);
-            updatePreview();
-        }
+        // Atualizar informações nutricionais quando alimento é selecionado
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('alimento-select')) {
+                const alimento = e.target.options[e.target.selectedIndex];
+                const container = e.target.closest('.alimento');
+                
+                container.querySelector('.calorias').textContent = alimento.dataset.calorias || '0';
+                container.querySelector('.proteinas').textContent = alimento.dataset.proteinas || '0';
+                container.querySelector('.carboidratos').textContent = alimento.dataset.carboidratos || '0';
+                container.querySelector('.gorduras').textContent = alimento.dataset.gorduras || '0';
+                
+                updatePreview();
+            }
+            
+            if (e.target.classList.contains('quantidade')) {
+                updatePreview();
+            }
+        });
+    });
+    
+    function addRefeicao() {
+        const template = document.getElementById('template-refeicao');
+        const clone = template.content.cloneNode(true);
+        document.getElementById('refeicoes-container').appendChild(clone);
+        updatePreview();
+    }
+    
+    function addAlimento(container) {
+        const template = document.getElementById('template-alimento');
+        const clone = template.content.cloneNode(true);
+        container.appendChild(clone);
+        updatePreview();
+    }
+    
+    function updatePreview() {
+        const previewContainer = document.getElementById('preview-container');
+        previewContainer.innerHTML = '<h3>Resumo da Dieta</h3>';
         
-        function addAlimento(container) {
-            const template = document.getElementById('template-alimento');
-            const clone = template.content.cloneNode(true);
-            container.appendChild(clone);
-            updatePreview();
-        }
+        const pacienteSelect = document.getElementById('paciente');
+        const pacienteNome = pacienteSelect.options[pacienteSelect.selectedIndex]?.text || 'Paciente não selecionado';
+        const objetivo = document.getElementById('objetivo').value || 'Objetivo não definido';
         
-        function updatePreview() {
-            const previewContainer = document.getElementById('preview-container');
-            previewContainer.innerHTML = '<h3>Resumo da Dieta</h3>';
+        previewContainer.innerHTML += `
+            <p><strong>Paciente:</strong> ${pacienteNome}</p>
+            <p><strong>Objetivo:</strong> ${objetivo}</p>
+        `;
+        
+        let totalCalorias = 0;
+        let totalProteinas = 0;
+        let totalCarboidratos = 0;
+        let totalGorduras = 0;
+        
+        document.querySelectorAll('.refeicao').forEach(refeicao => {
+            const tipoRefeicao = refeicao.querySelector('.tipo-refeicao').value;
+            const tipoRefeicaoNome = refeicao.querySelector('.tipo-refeicao option:checked')?.text || 'Refeição';
             
-            const pacienteSelect = document.getElementById('paciente');
-            const pacienteNome = pacienteSelect.options[pacienteSelect.selectedIndex]?.text || 'Paciente não selecionado';
-            const objetivo = document.getElementById('objetivo').value || 'Objetivo não definido';
+            let refeicaoHTML = `<div class="preview-refeicao"><h4>${tipoRefeicaoNome}</h4><ul>`;
+            let refeicaoCalorias = 0;
+            let refeicaoProteinas = 0;
+            let refeicaoCarboidratos = 0;
+            let refeicaoGorduras = 0;
             
-            previewContainer.innerHTML += `
-                <p><strong>Paciente:</strong> ${pacienteNome}</p>
-                <p><strong>Objetivo:</strong> ${objetivo}</p>
-            `;
-            
-            let totalCalorias = 0;
-            let totalProteinas = 0;
-            let totalCarboidratos = 0;
-            let totalGorduras = 0;
-            
-            document.querySelectorAll('.refeicao').forEach(refeicao => {
-                const tipoRefeicao = refeicao.querySelector('.tipo-refeicao').value;
-                const tipoRefeicaoNome = refeicao.querySelector('.tipo-refeicao option:checked')?.text || 'Refeição';
+            refeicao.querySelectorAll('.alimento').forEach(alimento => {
+                const alimentoSelect = alimento.querySelector('.alimento-select');
+                const alimentoNome = alimentoSelect.options[alimentoSelect.selectedIndex]?.text || 'Alimento não selecionado';
+                const quantidade = alimento.querySelector('.quantidade').value || 0;
+                const calorias = parseFloat(alimentoSelect.options[alimentoSelect.selectedIndex]?.dataset.calorias || 0);
+                const proteinas = parseFloat(alimentoSelect.options[alimentoSelect.selectedIndex]?.dataset.proteinas || 0);
+                const carboidratos = parseFloat(alimentoSelect.options[alimentoSelect.selectedIndex]?.dataset.carboidratos || 0);
+                const gorduras = parseFloat(alimentoSelect.options[alimentoSelect.selectedIndex]?.dataset.gorduras || 0);
                 
-                let refeicaoHTML = `<div class="preview-refeicao"><h4>${tipoRefeicaoNome}</h4><ul>`;
-                let refeicaoCalorias = 0;
-                let refeicaoProteinas = 0;
-                let refeicaoCarboidratos = 0;
-                let refeicaoGorduras = 0;
+                const calTotal = (calorias * quantidade / 100).toFixed(2);
+                const protTotal = (proteinas * quantidade / 100).toFixed(2);
+                const carbTotal = (carboidratos * quantidade / 100).toFixed(2);
+                const gordTotal = (gorduras * quantidade / 100).toFixed(2);
                 
-                refeicao.querySelectorAll('.alimento').forEach(alimento => {
-                    const alimentoSelect = alimento.querySelector('.alimento-select');
-                    const alimentoNome = alimentoSelect.options[alimentoSelect.selectedIndex]?.text || 'Alimento não selecionado';
-                    const quantidade = alimento.querySelector('.quantidade').value || 0;
-                    const calorias = parseFloat(alimentoSelect.options[alimentoSelect.selectedIndex]?.dataset.calorias || 0);
-                    const proteinas = parseFloat(alimentoSelect.options[alimentoSelect.selectedIndex]?.dataset.proteinas || 0);
-                    const carboidratos = parseFloat(alimentoSelect.options[alimentoSelect.selectedIndex]?.dataset.carboidratos || 0);
-                    const gorduras = parseFloat(alimentoSelect.options[alimentoSelect.selectedIndex]?.dataset.gorduras || 0);
-                    
-                    const calTotal = (calorias * quantidade / 100).toFixed(2);
-                    const protTotal = (proteinas * quantidade / 100).toFixed(2);
-                    const carbTotal = (carboidratos * quantidade / 100).toFixed(2);
-                    const gordTotal = (gorduras * quantidade / 100).toFixed(2);
-                    
-                    refeicaoHTML += `
-                        <li>
-                            ${alimentoNome} - ${quantidade}g
-                            (Cal: ${calTotal}kcal, P: ${protTotal}g, C: ${carbTotal}g, G: ${gordTotal}g)
-                        </li>
-                    `;
-                    
-                    refeicaoCalorias += parseFloat(calTotal);
-                    refeicaoProteinas += parseFloat(protTotal);
-                    refeicaoCarboidratos += parseFloat(carbTotal);
-                    refeicaoGorduras += parseFloat(gordTotal);
-                });
+                refeicaoHTML += `
+                    <li>
+                        ${alimentoNome} - ${quantidade}g
+                        (Cal: ${calTotal}kcal, P: ${protTotal}g, C: ${carbTotal}g, G: ${gordTotal}g)
+                    </li>
+                `;
                 
-                refeicaoHTML += `</ul><p><strong>Total:</strong> ${refeicaoCalorias.toFixed(2)}kcal, P: ${refeicaoProteinas.toFixed(2)}g, C: ${refeicaoCarboidratos.toFixed(2)}g, G: ${refeicaoGorduras.toFixed(2)}g</p></div>`;
-                previewContainer.innerHTML += refeicaoHTML;
-                
-                totalCalorias += refeicaoCalorias;
-                totalProteinas += refeicaoProteinas;
-                totalCarboidratos += refeicaoCarboidratos;
-                totalGorduras += refeicaoGorduras;
+                refeicaoCalorias += parseFloat(calTotal);
+                refeicaoProteinas += parseFloat(protTotal);
+                refeicaoCarboidratos += parseFloat(carbTotal);
+                refeicaoGorduras += parseFloat(gordTotal);
             });
             
-            previewContainer.innerHTML += `
-                <div class="preview-total">
-                    <h4>Total Diário</h4>
-                    <p>Calorias: ${totalCalorias.toFixed(2)}kcal</p>
-                    <p>Proteínas: ${totalProteinas.toFixed(2)}g</p>
-                    <p>Carboidratos: ${totalCarboidratos.toFixed(2)}g</p>
-                    <p>Gorduras: ${totalGorduras.toFixed(2)}g</p>
-                </div>
-            `;
+            refeicaoHTML += `</ul><p><strong>Total:</strong> ${refeicaoCalorias.toFixed(2)}kcal, P: ${refeicaoProteinas.toFixed(2)}g, C: ${refeicaoCarboidratos.toFixed(2)}g, G: ${refeicaoGorduras.toFixed(2)}g</p></div>`;
+            previewContainer.innerHTML += refeicaoHTML;
             
-            // Habilitar/desabilitar botão de gerar PDF
-            document.getElementById('btn-gerar-pdf').disabled = 
-                document.querySelectorAll('.alimento').length === 0;
-        }
-    </script>
-</body>
-</html>
+            totalCalorias += refeicaoCalorias;
+            totalProteinas += refeicaoProteinas;
+            totalCarboidratos += refeicaoCarboidratos;
+            totalGorduras += refeicaoGorduras;
+        });
+        
+        previewContainer.innerHTML += `
+            <div class="preview-total">
+                <h4>Total Diário</h4>
+                <p>Calorias: ${totalCalorias.toFixed(2)}kcal</p>
+                <p>Proteínas: ${totalProteinas.toFixed(2)}g</p>
+                <p>Carboidratos: ${totalCarboidratos.toFixed(2)}g</p>
+                <p>Gorduras: ${totalGorduras.toFixed(2)}g</p>
+            </div>
+        `;
+        
+        // Habilitar/desabilitar botão de gerar PDF
+        document.getElementById('btn-gerar-pdf').disabled = 
+            document.querySelectorAll('.alimento').length === 0;
+    }
+</script>
+{% endblock %}

@@ -37,9 +37,13 @@ body {
 
 main {
     padding: 20px;
+    width: 100%;
     z-index: 1;
     padding-left: calc(82px + 20px);
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 nav {
@@ -331,6 +335,7 @@ nav {
     left: 60px; /* Ajuste para o botão de abrir sidebar */
     height: 60px;
     max-width: 180px;
+    width: 150px;
 }
 
 /* Texto central */
@@ -344,9 +349,10 @@ nav {
 
 /* Conteúdo principal */
 #content-wrapper {
-    margin-left: 250px;
     margin-top: 80px;
-    padding: 20px;
+    padding-left: 200px;
+    align-items: center;
+    justify-content: center;
 }
 
 

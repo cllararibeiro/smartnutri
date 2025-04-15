@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Dieta #{{ dieta.dieta_id }}</title>
+    <link rel="stylesheet" href="/static/css/visualizar_dieta_salva.css">
 </head>
 <body>
-    <h1>Dieta de {{ dieta.paciente.pac_nome }}</h1>
+    <header>
+        <a href="{{ url_for('nutricionista.historico_con') }}" class="btn-voltar">
+            <img src="/static/img/arrow-back-regular-24.png" class="seta">
+        </a>
+        <h1>Dieta de {{ dieta.paciente.pac_nome }}</h1>
+        
+    </header>
+    
     <h2>Objetivo: {{ dieta.dieta_objetivo }}</h2>
     
     <h3>Cardápio</h3>
-    <table border="1">
+    <table style="border:1px;" class="tb_dieta_pronta">
         <tr>
             <th>Refeição</th>
             <th>Alimento</th>
@@ -32,12 +40,14 @@
         {% endfor %}
     </table>
     
-    <h3>Totais</h3>
-    <p>Calorias: {{ total_calorias|round(2) }} kcal</p>
-    <p>Proteínas: {{ total_proteinas|round(2) }} g</p>
-    <p>Carboidratos: {{ total_carboidratos|round(2) }} g</p>
-    <p>Gorduras: {{ total_gorduras|round(2) }} g</p>
+    <div class="total">
+        <h3>Totais</h3>
+        <p>Calorias: {{ total_calorias|round(2) }} kcal</p>
+        <p>Proteínas: {{ total_proteinas|round(2) }} g</p>
+        <p>Carboidratos: {{ total_carboidratos|round(2) }} g</p>
+        <p>Gorduras: {{ total_gorduras|round(2) }} g</p>
+    </div>
     
-    <p><a href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a></p>
+    <a class="botao" href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
 </body>
 </html>

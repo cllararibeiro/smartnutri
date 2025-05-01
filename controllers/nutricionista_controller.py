@@ -112,7 +112,7 @@ def consulta(paciente_id):
         )
         session.add(dados_antro)
         session.commit()
-        return redirect(url_for('nutricionista.dieta'))
+        return redirect(url_for('nutricionista.dieta', paciente_id=paciente_id, consulta_id=consulta_obj.con_id))
         
         return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade)
 
@@ -147,63 +147,75 @@ def detalhes_con(consulta_id):
 
         return render_template('nutricionista/detalhes_con.html', consulta=consulta, dados = dados, idade = idade)
     return redirect(url_for('nutricionista.historico_con'))
-@nutricionista_bp.route('/dieta', methods=['GET', 'POST'])
+
+@nutricionista_bp.route('/dieta/<int:paciente_id>/<int:consulta_id>', methods=['GET', 'POST'])
 @login_required
-def dieta():
+def dieta(paciente_id, consulta_id):
     if request.method == 'POST':
         try:
-            # Obter dados do formulário
-            paciente_id = request.form.get('paciente')
-            objetivo = request.form.get('objetivo')
-            
             # Criar nova dieta
             nova_dieta = Dieta(
                 dieta_pac_id=paciente_id,
-                dieta_objetivo=objetivo
+                dieta_con_id=consulta_id 
             )
             session.add(nova_dieta)
-            session.flush()  # Para obter o ID da dieta antes do commit
-            
-            # Processar itens do cardápio
-            refeicoes = request.form.getlist('refeicao[]')  # IDs das refeições
-            alimentos = request.form.getlist('alimento[]')  # IDs dos alimentos
-            quantidades = request.form.getlist('quantidade[]')  # Quantidades dos alimentos
-            logger.info(f" refeicoes: {refeicoes}")
-            logger.info(f" alimento: {alimentos}")
-            # Associa os alimentos corretamente às refeições e à dieta
-            for refeicao_id, alimento_id, quantidade in zip(refeicoes, alimentos, quantidades):
-                # Criar o item no cardápio
+            session.commit()  # garante dieta_id para usar nos itens
+
+            # Captura dos dados
+            refeicoes = request.form.getlist('refeicao[]')  # lista de ids refeicoes
+            alimentos = request.form.getlist('alimento[]')  # lista de alimentos (todos juntos)
+            quantidades = request.form.getlist('quantidade[]')  # lista de quantidades (todos juntos)
+            refeicao_ids = request.form.getlist('refeicao_id[]')  # lista paralela com qual refeicao cada alimento pertence
+
+            # Verificações básicas
+            if not refeicoes or not alimentos or not quantidades or not refeicao_ids:
+                flash('Erro: Dados do formulário incompletos!', 'error')
+                return redirect(url_for('nutricionista.dieta', paciente_id=paciente_id, consulta_id=consulta_id))
+
+            # Todos os arrays devem ter o mesmo tamanho
+            if not (len(alimentos) == len(quantidades) == len(refeicao_ids)):
+                flash('Erro: Dados inconsistentes no formulário!', 'error')
+                return redirect(url_for('nutricionista.dieta', paciente_id=paciente_id, consulta_id=consulta_id))
+
+            # Iterar pelos alimentos
+            for alimento_id, quantidade, ref_id in zip(alimentos, quantidades, refeicao_ids):
+                try:
+                    quantidade_float = float(quantidade)
+                except ValueError:
+                    flash(f'Erro na quantidade: {quantidade}', 'error')
+                    return redirect(url_for('nutricionista.dieta', paciente_id=paciente_id, consulta_id=consulta_id))
+
                 novo_item = Cardapio(
-                    ref_id=refeicao_id,  # ID da refeição
-                    alimento_id=alimento_id,  # ID do alimento
-                    quantidade=quantidade,  # Quantidade
-                    dieta_id=nova_dieta.dieta_id  # Associando a dieta
+                    ref_id=ref_id,
+                    alimento_id=alimento_id,
+                    quantidade=quantidade_float,
+                    dieta_id=nova_dieta.dieta_id
                 )
                 session.add(novo_item)
-            
-            # Salva todos os itens do cardápio
+
             session.commit()
 
-            # Sucesso na operação
             flash('Dieta cadastrada com sucesso!', 'success')
-            return redirect(url_for('nutricionista.dieta'))
-            
-        except Exception as e:
-            session.rollback()  # Em caso de erro, faz rollback
-            flash(f'Erro ao cadastrar dieta: {str(e)}', 'error')
-            return redirect(url_for('nutricionista.dieta'))
+            return redirect(url_for('nutricionista.dashboard'))
 
-    # Buscar dados para o formulário
+        except Exception as e:
+            session.rollback()
+            flash(f'Erro ao cadastrar dieta: {str(e)}', 'error')
+            return redirect(url_for('nutricionista.dieta', paciente_id=paciente_id, consulta_id=consulta_id))
+
     pacientes = session.query(Paciente).filter_by(pac_nutri_id=current_user.nutri_id).all()
     alimentos = session.query(Alimento).order_by(Alimento.alimento_nome).all()
     tipos_refeicao = session.query(TipoRefeicao).all()
-    
+
     return render_template(
         'nutricionista/dieta.html',
         pacientes=pacientes,
         alimentos=alimentos,
-        tipos_refeicao=tipos_refeicao
+        tipos_refeicao=tipos_refeicao,
+        paciente_id=paciente_id,
+        consulta_id=consulta_id
     )
+
 
 
 @nutricionista_bp.route('/dieta/<int:dieta_id>/pdf')
@@ -235,6 +247,7 @@ def visualizar_dieta(dieta_id):
             flash('Dieta não encontrada ou você não tem permissão para acessá-la', 'error')
             print("Redirecionando para dashboard - dieta não encontrada ou sem permissão")  # Log
             return redirect(url_for('nutricionista.dashboard'))
+    
         
         # Busca os itens do cardápio
         cardapio = session.query(Cardapio, TipoRefeicao, Alimento)\

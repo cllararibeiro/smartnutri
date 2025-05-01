@@ -9,7 +9,7 @@ Prescrição Dietética
     <div class="container">
         <div class="form-section">
             <h2>Nova Prescrição</h2>
-            <form id="form-dieta" method="POST" action="{{ url_for('nutricionista.dieta') }}">
+            <form id="form-dieta" method="POST" action="{{ url_for('nutricionista.dieta', consulta_id=consulta_id, paciente_id=paciente_id) }}">
                 <div class="form-group">
                     <label for="paciente">Paciente:</label>
                     <select id="paciente" name="paciente" required>
@@ -88,6 +88,8 @@ Prescrição Dietética
             <span>Carboidratos: <span class="carboidratos">0</span>g</span>
             <span>Gorduras: <span class="gorduras">0</span>g</span>
         </div>
+        <!-- Hidden input to relate this alimento with its refeicao -->
+        <input type="hidden" class="refeicao-id-input" name="refeicao_id[]" value="">
     </div>
 </template>
 
@@ -107,7 +109,7 @@ Prescrição Dietética
             }
             
             if (e.target.classList.contains('btn-add-alimento')) {
-                addAlimento(e.target.closest('.refeicao').querySelector('.alimentos-container'));
+                addAlimento(e.target.closest('.refeicao').querySelector('.alimentos-container'), e.target.closest('.refeicao'));
             }
             
             if (e.target.classList.contains('btn-remove-alimento')) {
@@ -130,10 +132,20 @@ Prescrição Dietética
                 updatePreview();
             }
             
-            if (e.target.classList.contains('quantidade')) {
+            if (e.target.classList.contains('quantidade') || e.target.classList.contains('tipo-refeicao')) {
                 updatePreview();
             }
         });
+
+        // Atualiza o valor dos inputs refeicao_id dos alimentos toda vez que uma refeição é alterada
+        document.addEventListener('change', function(e){
+            if(e.target.classList.contains('tipo-refeicao')){
+                updateRefeicaoIds();
+            }
+        });
+
+        // Inicializa os inputs refeicao_id
+        updateRefeicaoIds();
     });
     
     function addRefeicao() {
@@ -141,13 +153,29 @@ Prescrição Dietética
         const clone = template.content.cloneNode(true);
         document.getElementById('refeicoes-container').appendChild(clone);
         updatePreview();
+        updateRefeicaoIds();
     }
     
-    function addAlimento(container) {
+    function addAlimento(container, refeicaoElement) {
         const template = document.getElementById('template-alimento');
         const clone = template.content.cloneNode(true);
         container.appendChild(clone);
         updatePreview();
+        updateRefeicaoIds();
+    }
+
+    function updateRefeicaoIds() {
+        // Para cada refeição
+        document.querySelectorAll('.refeicao').forEach(refeicao => {
+            const tipoRefeicaoSelect = refeicao.querySelector('.tipo-refeicao');
+            const refeicaoIdValue = tipoRefeicaoSelect.value;
+
+            // Atualiza todos inputs ocultos refeicao_id dentro dos alimentos desta refeição
+            refeicao.querySelectorAll('.alimento').forEach(alimentoDiv => {
+                const refeicaoIdInput = alimentoDiv.querySelector('.refeicao-id-input');
+                refeicaoIdInput.value = refeicaoIdValue;
+            });
+        });
     }
     
     function updatePreview() {

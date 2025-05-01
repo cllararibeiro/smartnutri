@@ -1,7 +1,3 @@
-CREATE DATABASE db_smartnutri;
-
-USE db_smartnutri;
-
 CREATE TABLE tb_nutricionista (
     nutri_id INT AUTO_INCREMENT PRIMARY KEY,
     nutri_nome VARCHAR(500) NOT NULL,
@@ -91,8 +87,9 @@ CREATE TABLE tb_alimentos (
  CREATE TABLE tb_dietas (
     dieta_id INT AUTO_INCREMENT PRIMARY KEY,
     dieta_pac_id INT NOT NULL,  
-    dieta_objetivo VARCHAR(255),
-    FOREIGN KEY (dieta_pac_id) REFERENCES tb_pacientes(pac_id)
+    dieta_con_id INT NOT NULL,
+    FOREIGN KEY (dieta_pac_id) REFERENCES tb_pacientes(pac_id),
+    FOREIGN KEY (dieta_con_id) REFERENCES tb_consultas(con_id)
 );
  
 CREATE TABLE tb_cardapio (

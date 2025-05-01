@@ -107,9 +107,10 @@ class Alimento(Base):
     alimento_carboidratos = mapped_column(DECIMAL(10, 2))
     alimento_gorduras = mapped_column(DECIMAL(10, 2))
     alimento_fibras = mapped_column(DECIMAL(10, 2))
-
+    
     substituicoes = relationship('Substituicao', back_populates='alimento_original', foreign_keys='Substituicao.alimento_original_id')
     substituicoes_substitutos = relationship('Substituicao', back_populates='alimento_substituto', foreign_keys='Substituicao.alimento_substituto_id')
+    cardapios = relationship('Cardapio', back_populates='alimento')
 
 
 class Substituicao(Base):
@@ -143,7 +144,7 @@ class Dieta(Base):
 
     dieta_id = mapped_column(Integer, primary_key=True, autoincrement=True)
     dieta_pac_id = mapped_column(Integer, ForeignKey('tb_pacientes.pac_id'), nullable=False)
-    dieta_objetivo = mapped_column(String(255))
+    dieta_con_id = mapped_column(Integer, ForeignKey('tb_consultas.con_id'), nullable=False)
 
     paciente = relationship('Paciente', back_populates='dietas')
     cardapios = relationship("Cardapio", back_populates="dieta", cascade="all, delete-orphan")

@@ -9,8 +9,6 @@ Ficha de Atendimento
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    
-    
     <div class="container">
         <form id="form" class="form" method="POST" action="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}">
             <input type="hidden" id="sexo" value="{{ sexo }}">
@@ -162,21 +160,6 @@ Ficha de Atendimento
 
         </form>
     </div>
-
-    <footer class="bg-verde text-white text-center py-4">
-        <div class="footer-container">
-            <h3>SmartNutri</h3>
-            <p>O melhor ecossistema de Nutrição do Brasil.</p>
-            <div class="d-flex justify-content-center gap-3">
-                <img src="/static/img/instagramicon.png " alt="Instagram" height="30">
-                <img src="/static/img/facebookicon.png" alt="Facebook" height="30">
-                <img src="/static/img/whatsappicon.png"alt="WhatsApp" height="30">
-            </div>
-            <p class="mt-3">© 2024 SmartNutri | Caicó-RN</p>
-            <p><a href="#" class="text-white">Termos de Uso</a> | <a href="#" class="text-white">Política de Privacidade</a></p>
-        </div>
-    </footer>
     
     <script src="/static/js/consulta.js"></script>
 {% endblock %}
-

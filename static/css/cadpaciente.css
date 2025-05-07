@@ -27,34 +27,75 @@
   font-family: "Poppins", sans-serif;
 }
 
+.bg-verde {
+  background-color:var(--verde-padrao);
+}
+
+.bg-bege{
+  background-color:  #e4dedc;
+}
+
+.btn-danger {
+  background-color: var(--rosa);
+}
+
+.btn-rosa {
+  background-color: var(--rosa);
+}
+
+.btn-azul {
+  background-color: var(--azul);
+}
+
+.btn-amarelo {
+  background-color:var(--amarelo) ;
+}
+
 body {
-  min-height: 100vh;
+  width: 100%;
+  height: auto;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #faf9f8;
+}
+
+.container1 {
   display: flex;
+  width: 100%;
+  height: 150px;
+  background-color: var(--verde-padrao);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-top: 0%;
+  justify-items: center;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: var(--branco); 
 }
 
 .container {
-  position: relative;
-  max-width: 800px;
-  width: 100%;
+  width: 60%;
+  height: auto;
   background-color: var(--verde-padrao);
-  padding: 25px;
+  padding: 80px;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  justify-items: center;
+  margin-left: 20%;
+  margin-bottom: 50px;
 }
 
-.container header {
-  font-size: 1.5rem;
+body header {
+  width: 100%;
+  height: 90px;
+  margin-bottom: 100px;
+}
+
+body h1 {
+  font-size: 2rem;
   color: #ffffff; 
   font-weight: 500;
   text-align: center;
 }
 
 .container .form {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .form .input-box {
@@ -146,6 +187,7 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   background: var(--rosa);
+  border-radius: 5px;
 }
 
 .form button:hover {
@@ -160,4 +202,40 @@ body {
   .form :where(.gender-option, .gender) {
     row-gap: 15px;
   }
+}
+
+footer {
+  padding: 40px 0;
+  color: white;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.footer-left, .footer-center {
+  max-width: 300px;
+}
+
+.footer-left h3, .footer-center h3 {
+  font-size: 1.5rem;
+}
+
+.footer-bottom {
+  font-size: 0.9em;
+}
+
+.footer-bottom a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
 }

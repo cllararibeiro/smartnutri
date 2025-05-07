@@ -19,12 +19,55 @@
 }
 
 /* Estilos gerais */
-body {
-    font-family: 'Poppins', sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: var(--bege);
-}
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .bg-verde {
+    background-color:var(--verde-padrao);
+  }
+  
+  .bg-bege{
+    background-color:  #e4dedc;
+  }
+  
+  .btn-danger {
+    background-color: var(--rosa);
+  }
+  
+  .btn-rosa {
+    background-color: var(--rosa);
+  }
+  
+  .btn-azul {
+    background-color: var(--azul);
+  }
+  
+  .btn-amarelo {
+    background-color:var(--amarelo) ;
+  }
+  
+  body {
+    width: 100%;
+    height: auto;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #faf9f8;
+  }
+  
+  .container1 {
+    display: flex;
+    width: 100%;
+    height: 150px;
+    background-color: var(--verde-padrao);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 0%;
+    justify-items: center;
+    align-items: center;
+  }
+
 
 header {
     background-color: var(--verde-padrao);
@@ -55,6 +98,9 @@ header h1 {
     width: 900px;
     margin: 20px auto;
     padding: 0 20px;
+    justify-items: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 .form-section, .preview-section {
@@ -62,6 +108,7 @@ header h1 {
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
 }
 
 h2 {
@@ -73,6 +120,9 @@ h2 {
 
 /* Formulário */
 .form-group {
+    padding-top: 10px;
+    padding-left: 0;
+    padding-right: 0;
     margin-bottom: 15px;
 }
 
@@ -85,7 +135,8 @@ label {
 
 select, input {
     width: 100%;
-    padding: 10px;
+    height: 20px;
+    padding: 20px;
     border: 1px solid var(--verde-botao-borda);
     border-radius: 4px;
     font-size: 1rem;
@@ -93,9 +144,8 @@ select, input {
 
 /* Refeições e alimentos */
 .refeicao {
-    border: 1px solid var(--verde-medio);
     border-radius: 8px;
-    padding: 15px;
+    padding: 0;
     margin-bottom: 15px;
     background-color: var(--branco);
 }
@@ -115,11 +165,10 @@ select, input {
 }
 
 .alimento {
-    margin-bottom: 10px;
+    margin: 10px;
     padding: 10px;
     background-color: var(--branco);
     border-radius: 4px;
-    border: 1px solid var(--verde-claro);
 }
 
 .alimento-row {
@@ -143,6 +192,11 @@ select, input {
     display: inline-block;
 }
 
+#preview-container {
+    padding: 20px;
+    margin-top: 20px;
+}
+
 /* Botões */
 button {
     cursor: pointer;
@@ -155,8 +209,7 @@ button {
 
 .btn-add {
     background-color: var(--verde-padrao);
-    color: var(--branco);
-    margin-bottom: 15px;
+    padding: 10px 20px;
 }
 
 .btn-add:hover {
@@ -240,25 +293,36 @@ button {
 /* Rodapé */
 footer {
     padding: 40px 0;
-    color: var(--branco);
+    color: white;
     text-align: center;
-    background-color: var(--verde-padrao);
-}
-
-.footer-container {
+  }
+  
+  .footer-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     text-align: center;
     padding-bottom: 20px;
-}
-
-.footer-bottom a {
-    color: var(--branco);
+  }
+  
+  .footer-left, .footer-center {
+    max-width: 300px;
+  }
+  
+  .footer-left h3, .footer-center h3 {
+    font-size: 1.5rem;
+  }
+  
+  .footer-bottom {
+    font-size: 0.9em;
+  }
+  
+  .footer-bottom a {
+    color: white;
     text-decoration: none;
     margin: 0 10px;
-}
-
-.footer-bottom a:hover {
+  }
+  
+  .footer-bottom a:hover {
     text-decoration: underline;
-}
+  }

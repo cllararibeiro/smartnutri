@@ -31,18 +31,6 @@ body {
     width: 100vw;
 }
 
-header {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    width: 100vw;
-    background-color: var(--verde-padrao);
-    color: white;
-    padding: 10px 20px;
-    height: 80px;
-    gap: 36.8rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
 header h1 {
     font-size: 22px;
@@ -60,6 +48,7 @@ table {
     padding: 1rem;
     border-collapse: collapse; 
     margin: 20px 0; 
+    width: 60rem;
 }
 
 thead {
@@ -76,15 +65,11 @@ a {
     color: var(--preto);
 }
 
-.seta {
-    float: left;
-}
-
 .consulta-info-1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80rem;
+    width: 60rem;
 }
 
 .h2-1 {

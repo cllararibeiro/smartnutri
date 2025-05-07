@@ -1,5 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "nutricionista/base.html" %}
+
+{% block title %}
+Ficha de Atendimento
+{% endblock %}
+
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +12,7 @@
     <link rel="stylesheet" href="/static/css/con_historico.css">
 </head>
 <body>
-    <header>
-        <a href="{{ url_for('nutricionista.historico_con') }}" class="btn-voltar">
-            <img src="/static/img/arrow-back-regular-24.png" class="seta">
-        </a>
-        <h1 class="detalhes">Detalhes da Consulta</h1>
-        
-    </header>
+    
     <div class="container">
         
 
@@ -120,4 +119,5 @@
 
     
 </body>
-</html>
+
+{% endblock %}

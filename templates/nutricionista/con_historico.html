@@ -1,19 +1,16 @@
 <!-- templates/nutricionista/consultas.html -->
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "nutricionista/base.html" %}
+
+{% block title %}
+Ficha de Atendimento
+{% endblock %}
+
+{% block content %}
     <link rel="stylesheet" href="/static/css/con_historico.css">
     <title>Consultas Realizadas</title>
 </head>
 <body>
-    <header>
-        <a href="{{ url_for('nutricionista.dashboard') }}" class="btn-voltar">
-            <img src="/static/img/arrow-back-regular-24.png" class="seta">
-        </a>
-        <h1>Consultas Realizadas</h1>
-    </header>
+    
 
     <!-- Verifica se há consultas -->
     {% if consultas %}
@@ -43,4 +40,5 @@
         <p>Não há consultas realizadas.</p>
     {% endif %}
 </body>
-</html>
+    
+{% endblock %}

@@ -6,14 +6,6 @@ Prescrição Dietética
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/dieta.css">
-    <nav class="navbar navbar-expand-lg bg-verde text-white py-4" >
-        <div class="container1">
-            <a class="navbar-brand" href="{{url_for('index')}}">
-                <img src="/static/img/smartnutri.png" alt="logo" height="100">
-            </a>
-        </div>
-    </nav>
-
     <div class="container">
         <div class="form-section">
             <h2>Nova Prescrição</h2>
@@ -37,9 +29,7 @@ Prescrição Dietética
                     <!-- Refeições serão adicionadas aqui -->
                 </div>
 
-                <button type="button" id="btn-add-refeicao" class="btn-add">
-                    <img src="/static/img/icons8-plus-64.png" alt="nova refeição" height="20">
-                </button>
+                <button type="button" id="btn-add-refeicao" class="btn-add">Adicionar Refeição</button>
                 <button type="submit" class="btn-primary">Salvar Dieta</button>
             </form>
         </div>
@@ -49,9 +39,7 @@ Prescrição Dietética
             <div id="preview-container">
                 <!-- Pré-visualização será gerada aqui -->
             </div>
-            <button id="btn-gerar-pdf" class="btn-secondary" alt="Gerar PDF">
-                <img src="/static/img/icons8-documento-50.png" alt="Gerar PDF" height="20">
-            </button>
+            <button id="btn-gerar-pdf" class="btn-secondary" disabled>Gerar PDF</button>
         </div>
     </div>
 </div>
@@ -67,9 +55,7 @@ Prescrição Dietética
                 <option value="{{ tipo.tipo_refeicao_id }}">{{ tipo.tipo_nome }}</option>
                 {% endfor %}
             </select>
-            <button type="button" class="btn-remove-refeicao" alt="remover refeição">
-                <img src="/static/img/icons8-remover-30.png" alt="Remover refeição" height="20">
-            </button>
+            <button type="button" class="btn-remove-refeicao">Remover</button>
         </div>
         <div class="alimentos-container">
             <!-- Alimentos serão adicionados aqui -->
@@ -94,9 +80,7 @@ Prescrição Dietética
                 {% endfor %}
             </select>
             <input type="number" class="quantidade" name="quantidade[]" placeholder="Quantidade (g)" min="1" required>
-            <button type="button" class="btn-remove-alimento">
-                <img src="/static/img/icons8-remover-30.png" alt="Remover alimento" height="20">
-            </button>
+            <button type="button" class="btn-remove-alimento">Remover</button>
         </div>
         <div class="nutri-info">
             <span>Calorias: <span class="calorias">0</span>kcal</span>
@@ -104,24 +88,10 @@ Prescrição Dietética
             <span>Carboidratos: <span class="carboidratos">0</span>g</span>
             <span>Gorduras: <span class="gorduras">0</span>g</span>
         </div>
-
+        <!-- Hidden input to relate this alimento with its refeicao -->
         <input type="hidden" class="refeicao-id-input" name="refeicao_id[]" value="">
     </div>
 </template>
-
-<footer class="bg-verde text-white text-center py-4">
-    <div class="container">
-        <h3>SmartNutri</h3>
-        <p>O melhor ecossistema de Nutrição do Brasil.</p>
-        <div class="d-flex justify-content-center gap-3">
-            <img src="/static/img/instagramicon.png " alt="Instagram" height="30">
-            <img src="/static/img/facebookicon.png" alt="Facebook" height="30">
-            <img src="/static/img/whatsappicon.png"alt="WhatsApp" height="30">
-        </div>
-        <p class="mt-3">© 2024 SmartNutri | Caicó-RN</p>
-        <p><a href="#" class="text-white">Termos de Uso</a> | <a href="#" class="text-white">Política de Privacidade</a></p>
-    </div>
-</footer>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

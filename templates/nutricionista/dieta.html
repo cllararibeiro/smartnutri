@@ -39,7 +39,9 @@ Prescrição Dietética
             <div id="preview-container">
                 <!-- Pré-visualização será gerada aqui -->
             </div>
-            <button id="btn-gerar-pdf" class="btn-secondary" disabled>Gerar PDF</button>
+            <button id="btn-gerar-pdf" class="btn-secondary" disabled>
+                Gerar PDF
+            </button>
         </div>
     </div>
 </div>
@@ -55,7 +57,9 @@ Prescrição Dietética
                 <option value="{{ tipo.tipo_refeicao_id }}">{{ tipo.tipo_nome }}</option>
                 {% endfor %}
             </select>
-            <button type="button" class="btn-remove-refeicao">Remover</button>
+            <button type="button" class="btn-remove-refeicao">
+                <img src="/static/img/icons8-remover-30.png" alt="remover refeição">
+            </button>
         </div>
         <div class="alimentos-container">
             <!-- Alimentos serão adicionados aqui -->
@@ -80,7 +84,9 @@ Prescrição Dietética
                 {% endfor %}
             </select>
             <input type="number" class="quantidade" name="quantidade[]" placeholder="Quantidade (g)" min="1" required>
-            <button type="button" class="btn-remove-alimento">Remover</button>
+            <button type="button" class="btn-remove-alimento">
+                <img src="/static/img/icons8-remover-30.png" alt="remover refeição">
+            </button>
         </div>
         <div class="nutri-info">
             <span>Calorias: <span class="calorias">0</span>kcal</span>

@@ -7,6 +7,13 @@
 </head>
 <body>
     <header>
+
+        <div id="header_content">
+            <button id="open_btn_header">
+                <i id="open_btn_icon" class="fa-solid fa-bars"></i>
+            </button>
+            <img src="/static/img/smartnutri.png" id="header_logo" alt="Logo">
+            <h1 id="welcome_text">Bem-vindo ao Sistema</h1>
         <a href="{{ url_for('nutricionista.historico_con') }}" class="btn-voltar">
             <img src="/static/img/arrow-back-regular-24.png" class="seta">
         </a>
@@ -39,6 +46,7 @@
         </tr>
         {% endfor %}
     </table>
+</div>
     
     <div class="total">
         <h3>Totais</h3>

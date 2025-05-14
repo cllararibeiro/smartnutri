@@ -23,7 +23,7 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--bege);
+    background-color: var(--branco);
 }
 
 header {
@@ -193,6 +193,14 @@ button {
 
 .btn-remove-refeicao:hover, .btn-remove-alimento:hover {
     background-color: #dc3545;
+}
+
+#btn-gerar-pdf {
+    background-color: var(--azul);
+    color: var(--branco);
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 15px;
 }
 
 /* Pré-visualização */

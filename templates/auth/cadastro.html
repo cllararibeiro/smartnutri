@@ -12,17 +12,13 @@
 
 <body>
     <div class="container">
-        <div class="form-image">
-            <img src="../static/assets/heartsaude.png" alt="">
-        </div>
-        <div class="form">
             <form action="{{ url_for('auth.cadastro') }}" method="POST">
                 <div class="form-header">
                     <div class="title">
                         <h1>Cadastre-se</h1>
                     </div>
                     <div class="login-button">
-                        <button><a href="{{ url_for('auth.login') }}">Ir para Login</a></button>
+                        <button type="button"><a href="{{ url_for('auth.login') }}">Ir para Login</a></button>
                     </div>
                 </div>
 
@@ -63,7 +59,6 @@
                     <button type="submit">Cadastrar</button>
                 </div>
             </form>
-        </div>
     </div>
 </body>
 

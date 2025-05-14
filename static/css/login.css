@@ -4,7 +4,7 @@
     --verde-cabeçalho: #0a5247;
     --verde-botao-borda: #70883A;
     --verde-claro: #bfd202;
-    --bege: #e4dedc;
+    --bege: #f4f0ef;
     --verde-medio: #6d872e;
     --verde-hover: #D9E021;
     --verde-padrao:#15ad52;
@@ -36,33 +36,26 @@ body {
 }
 
 .container {
-    width: 60%; /* Ajustar a largura do contêiner */
-    height: 70vh; /* Ajustar a altura do contêiner */
+    width: 30%;
+    height: 500px;
     display: flex;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
-}
-
-.form-image {
-    width: 50%; /* Manter a largura da imagem */
-    display: flex;
-    justify-content: center;
+    background-color: #fff;
+    justify-items: center;
     align-items: center;
-    background-color: var(--verde-padrao); /* Cor de fundo da imagem */
-    padding: 1rem;
-}
-
-.form-image img {
-    width: 40rem; /* Ajustar a largura da imagem */
+    border: 10px solid var(--verde-cabeçalho);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.212); /* Sombra do formulário */
 }
 
 .form {
-    width: 50%; /* Manter a largura do formulário */
+    width: 100%; /* Manter a largura do formulário */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Centralizar verticalmente */
     align-items: stretch; /* Esticar os elementos para ocupar todo o espaço */
     background-color: #ffffff; /* Cor de fundo do formulário */
-    padding: 2rem; /* Reduzir o padding para compactar */
 }
 
 .form-header {
@@ -75,11 +68,12 @@ body {
 
 .signup-button {
     display: flex;
-    width: 50%;
+    width: 70%;
     height: auto;
     justify-content: center; /* Centralizar o botão */
     margin-top: 1.2rem; /* Espaço acima do botão "Cadastrar" */
-    margin-left: 25%;
+    margin-left: 50%; /* Centralizar o botão "Cadastrar" */
+    transform: translateX(-50%); /* Ajustar para centralizar corretamente */
 }
 
 .signup-button button {
@@ -87,7 +81,6 @@ body {
     height: 40px;
     border: none;
     background-color: var(--verde-padrao); /* Cor do botão */
-    padding: 0.4rem 1rem;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -167,11 +160,12 @@ body {
 }
 
 .login-button {
-    width: 50%;
+    width: 70%;
     height: auto;
     margin-top: 1.2rem; /* Reduzir a margem para o botão de login */
     justify-content: center;
-    margin-left: 25%;
+    margin-left: 50%; /* Centralizar o botão "Login" */
+    transform: translateX(-50%); /* Ajustar para centralizar corretamente */
 }
 
 .login-button button {

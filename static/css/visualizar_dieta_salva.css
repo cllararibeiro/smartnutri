@@ -51,6 +51,7 @@ header h1 {
 
 .container {
     display: flex;
+    width: 80%;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -65,9 +66,7 @@ table {
     flex-direction: column;
     justify-content: center;
     padding: 1rem;
-    
-    border-collapse: collapse; 
-    margin: 20px 0; 
+    border-collapse: collapse;  
     table-layout: fixed;
 }
 
@@ -90,7 +89,6 @@ td, th {
 }
 
 .botao {
-    
     text-decoration: none;
     color: var(--branco);
     padding: 12px;

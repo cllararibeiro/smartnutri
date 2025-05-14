@@ -33,7 +33,7 @@ body {
 header {
     background-color: var(--verde-padrao);
     color: var(--branco);
-    padding: 15px;
+    padding: 20px;
     text-align: center;
     font-size: 24px;
 }
@@ -42,7 +42,6 @@ img {
     width: 2.25rem;
     height:auto;
     float: left;
-    
 }
 
 h1 {
@@ -52,23 +51,24 @@ h1 {
 
 .container {
     width: 100%;
-    max-width: 900px;
-    margin: 12px auto;
+    margin-left: -10%;
+    justify-content: space-between;
     background-color: var(--branco);
     padding: 20px;
     border-radius: 12px;
-    color:var(--verde-padrao);
+    color:var(--verde-cabeçalho);
     box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    
+    justify-content: center;
+    align-self: center;
 }
 
 .form-section {
-    margin-bottom: 15px;
+    padding: 20px;
 }
 
 label {

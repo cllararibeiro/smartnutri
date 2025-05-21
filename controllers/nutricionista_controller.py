@@ -114,8 +114,6 @@ def consulta(paciente_id):
         session.commit()
         return redirect(url_for('nutricionista.dieta', paciente_id=paciente_id, consulta_id=consulta_obj.con_id))
         
-        return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade)
-
     return render_template('nutricionista/consulta.html', sexo=sexo, paciente = paciente, idade = idade) 
 
 @nutricionista_bp.route('/historico_con', methods=['GET'])
@@ -277,3 +275,39 @@ def visualizar_dieta(dieta_id):
         print(f"Erro ao visualizar dieta: {str(e)}")  # Log para depuração
         flash(f'Erro ao visualizar dieta: {str(e)}', 'error')
         return redirect(url_for('nutricionista.dashboard'))
+    
+@nutricionista_bp.route("/relatorio/<int:paciente_id>", methods=["GET"])
+def relatorio_paciente(paciente_id):
+    paciente = session.query(Paciente).get(paciente_id)
+    consultas = session.query(Consulta).filter_by(con_pac_id=paciente_id).order_by(Consulta.con_data.desc()).all()
+    
+    con_ids = request.args.getlist("datas")
+    dados = []
+
+    if con_ids:
+        for con_id in con_ids:
+            consulta = session.query(Consulta).get(con_id)
+            dad = session.query(DadosAntropometricos).filter_by(dad_con_id=con_id).first()
+            dados.append({
+                "data": consulta.con_data.strftime('%d/%m/%Y'),
+                "peso": float(dad.dad_peso_atual),
+                "imc": float(dad.dad_imc),
+                "altura": float(dad.dad_altura) * 100,
+                "massa_gorda": float(dad.dad_massa_gorda),
+                "massa_magra": float(dad.dad_massa_muscular),
+                "dobra_abd": float(dad.dad_dobra_abdominal),
+                "dobra_coxa": float(dad.dad_dobra_coxa)
+            })
+
+    return render_template("nutricionista/relatorio_paciente.html",
+        paciente=paciente,
+        consultas=consultas,
+        datas=[d["data"] for d in dados],
+        pesos=[d["peso"] for d in dados],
+        imcs=[d["imc"] for d in dados],
+        alturas=[d["altura"] for d in dados],
+        massas_gordas=[d["massa_gorda"] for d in dados],
+        massas_musculares=[d["massa_magra"] for d in dados],
+        dobras_abd=[d["dobra_abd"] for d in dados],
+        dobras_coxa=[d["dobra_coxa"] for d in dados]
+    )

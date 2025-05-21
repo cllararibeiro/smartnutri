@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+<!-- templates/nutricionista/consultas.html -->
+{% extends "nutricionista/base.html" %}
+
+{% block title %}
+Ficha de Atendimento
+{% endblock %}
+
+{% block content %}
+
     <title>Dieta #{{ dieta.dieta_id }}</title>
     <link rel="stylesheet" href="/static/css/visualizar_dieta_salva.css">
-</head>
+
 <body>
     <header>
 
@@ -58,4 +63,4 @@
     
     <a class="botao" href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
 </body>
-</html>
+{% endblock %}

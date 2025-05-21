@@ -116,6 +116,10 @@ Ficha de Atendimento
             </div>
         </div>
     </div>
+    <a href="{{ url_for('nutricionista.relatorio_paciente', paciente_id=consulta.con_pac_id) }}">
+    <button>Acessar Relatório</button>
+    </a>
+
 
     
 </body>

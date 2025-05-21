@@ -1,0 +1,91 @@
+{% extends "nutricionista/base.html" %}
+
+{% block title %}
+Prescrição Dietética
+{% endblock %}
+
+{% block content %}
+<title>Relatório Corporal - {{ paciente.pac_nome }}</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="/static/css/relatorio.css">
+    <div class="container">
+        <h2>Relatório de Evolução Corporal</h2>
+        
+        <form method="GET">
+            <label>Selecione as datas para comparar:</label><br>
+            {% for consulta in consultas %}
+                <label>
+                    <input type="checkbox" name="datas" value="{{ consulta.con_id }}">
+                    {{ consulta.con_data.strftime('%d/%m/%Y') }}
+                </label>
+            {% endfor %}
+            <button type="submit">Comparar</button>
+        </form>
+
+        <canvas id="graficoEvolucao" width="400" height="200"></canvas>
+
+        <script>
+            const ctx = document.getElementById('graficoEvolucao');
+            const grafico = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ datas|tojson }},
+                    datasets: [
+                        {
+                            label: 'Peso (Kg)',
+                            data: {{ pesos|tojson }},
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                        },
+                        {
+                            label: 'Massa Gorda (Kg)',
+                            data: {{ massas_gordas|tojson }},
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)'
+                        },
+                        {
+                            label: 'Massa Livre de Gordura (Kg)',
+                            data: {{ massas_musculares|tojson }},
+                            backgroundColor: 'rgba(75, 192, 192, 0.5)'
+                        }
+                    ]
+                }
+            });
+        </script>
+
+        <h3>Análises Básicas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Parâmetro</th>
+                    {% for data in datas %}
+                        <th>{{ data }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Peso</td>{% for peso in pesos %}<td>{{ peso }} kg</td>{% endfor %}</tr>
+                <tr><td>IMC</td>{% for imc in imcs %}<td>{{ imc }}</td>{% endfor %}</tr>
+                <tr><td>Altura</td>{% for altura in alturas %}<td>{{ altura }} cm</td>{% endfor %}</tr>
+                <tr><td>Massa Gorda</td>{% for mg in massas_gordas %}<td>{{ mg }} kg</td>{% endfor %}</tr>
+                <tr><td>Massa Magra</td>{% for mm in massas_musculares %}<td>{{ mm }} kg</td>{% endfor %}</tr>
+                <!-- adicione mais linhas conforme necessário -->
+            </tbody>
+        </table>
+
+        <h3>Medidas Antropométricas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Medida</th>
+                    {% for data in datas %}
+                        <th>{{ data }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Dobra Abdominal</td>{% for v in dobras_abd %}<td>{{ v }} mm</td>{% endfor %}</tr>
+                <tr><td>Dobra Coxa</td>{% for v in dobras_coxa %}<td>{{ v }} mm</td>{% endfor %}</tr>
+                <!-- mais dobras -->
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

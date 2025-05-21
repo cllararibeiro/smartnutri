@@ -62,12 +62,12 @@ table {
 }
 
 table {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     padding: 1rem;
-    border-collapse: collapse;  
-    table-layout: fixed;
+    border-collapse: collapse; 
+    margin: 20px 0; 
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 th {
@@ -98,4 +98,15 @@ td, th {
     color: var(--branco);
     margin: 15px;
     font-size: 12px;
+}
+
+@media screen and (min-width: 768px) {
+  table,
+  .consulta-info-1 {
+    width: 60rem;
+  }
+
+  .dados-antro {
+    width: 80rem;
+  }
 }

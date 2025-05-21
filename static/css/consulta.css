@@ -50,14 +50,13 @@ h1 {
 }
 
 .container {
-    width: 100%;
-    margin-left: -10%;
-    justify-content: space-between;
-    background-color: var(--branco);
+    
+      /* Ajuste o valor de acordo com a largura da sua sidebar */
     padding: 20px;
     border-radius: 12px;
-    color:var(--verde-cabeçalho);
+    background-color: var(--branco);
     box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
+    
 }
 
 .form {
@@ -65,6 +64,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-self: center;
+    
 }
 
 .form-section {
@@ -109,7 +109,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    margin-right: 10px;
+    
     margin-top: 4px;
     transition: background-color 0.3s ease;
 

@@ -28,7 +28,8 @@
 }
 
 body {
-    width: 100vw;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 
@@ -43,13 +44,17 @@ header h1 {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 table {
     padding: 1rem;
     border-collapse: collapse; 
     margin: 20px 0; 
-    width: 60rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 thead {
@@ -70,7 +75,9 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 60rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .h2-1 {
@@ -88,7 +95,20 @@ a {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+@media screen and (min-width: 768px) {
+  table,
+  .consulta-info-1 {
+    width: 60rem;
+  }
+
+  .dados-antro {
     width: 80rem;
+  }
 }
 
 

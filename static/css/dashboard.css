@@ -36,14 +36,21 @@ body {
 }
 
 main {
-    padding: 20px;
-    width: 100%;
-    z-index: 1;
-    padding-left: calc(82px + 20px);
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+   
+    z-index: 1;
+    padding-left: calc(82px + 20px);
+    overflow-y: auto;
+}
+
+main {
+  margin-left: 250px; /* largura da sidebar */
+  padding: 20px;
+  width: calc(100% - 250px);
+  box-sizing: border-box;
 }
 
 nav {
@@ -350,9 +357,9 @@ nav {
 /* Conteúdo principal */
 #content-wrapper {
     margin-top: 80px;
-    padding-left: 200px;
-    align-items: center;
-    justify-content: center;
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 
@@ -374,4 +381,19 @@ nav {
 
 .btn-voltar {
     background-color: var(--verde-padrao);
+}
+
+body, html {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Ajuste no layout geral */
+
+
+@media (max-width: 768px) {
+  main {
+    margin-left: 0;
+    width: 100%;
+  }
 }

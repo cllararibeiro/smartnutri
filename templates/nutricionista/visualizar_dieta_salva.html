@@ -11,21 +11,7 @@ Ficha de Atendimento
     <link rel="stylesheet" href="/static/css/visualizar_dieta_salva.css">
 
 <body>
-    <header>
-
-        <div id="header_content">
-            <button id="open_btn_header">
-                <i id="open_btn_icon" class="fa-solid fa-bars"></i>
-            </button>
-            <img src="/static/img/smartnutri.png" id="header_logo" alt="Logo">
-            <h1 id="welcome_text">Bem-vindo ao Sistema</h1>
-        <a href="{{ url_for('nutricionista.historico_con') }}" class="btn-voltar">
-            <img src="/static/img/arrow-back-regular-24.png" class="seta">
-        </a>
-        <h1>Dieta de {{ dieta.paciente.pac_nome }}</h1>
-        
-    </header>
-    
+    <h1>Dieta de {{ dieta.paciente.pac_nome }}</h1>
     <h2>Objetivo: {{ dieta.dieta_objetivo }}</h2>
     
     <h3>Cardápio</h3>

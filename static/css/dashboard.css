@@ -47,7 +47,7 @@ main {
 }
 
 main {
-  margin-left: 250px; /* largura da sidebar */
+  margin-left: 180px; /* largura da sidebar */
   padding: 20px;
   width: calc(100% - 250px);
   box-sizing: border-box;
@@ -358,11 +358,16 @@ nav {
 #content-wrapper {
     margin-top: 80px;
     padding: 0 16px;
-    width: 100%;
+    
     box-sizing: border-box;
 }
 
-
+#content-wrapper .container-dieta {
+    margin-top: 80px;
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
 
 /* Botão de expandir a sidebar */
 #open_btn_header {

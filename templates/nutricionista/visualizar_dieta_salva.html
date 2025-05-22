@@ -37,16 +37,14 @@ Ficha de Atendimento
         </tr>
         {% endfor %}
     </table>
-</div>
-    
-    <div class="total">
-        <h3>Totais</h3>
+
+    <h3>Totais</h3>
         <p>Calorias: {{ total_calorias|round(2) }} kcal</p>
         <p>Proteínas: {{ total_proteinas|round(2) }} g</p>
         <p>Carboidratos: {{ total_carboidratos|round(2) }} g</p>
         <p>Gorduras: {{ total_gorduras|round(2) }} g</p>
-    </div>
-    
+</div>
+
     <a class="botao" href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
 </body>
 {% endblock %}

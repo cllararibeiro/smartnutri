@@ -81,12 +81,7 @@ td, th {
     padding: 12px; /* Espaçamento interno */
 }
 
-.total {
-    display: flex; 
-    flex-direction: column;
-    gap: 5px;
-    padding: 20px;
-}
+
 
 .botao {
     text-decoration: none;

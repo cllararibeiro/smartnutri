@@ -9,7 +9,8 @@ Ficha de Atendimento
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    <div class="container">
+    <section class="container">
+        <header>Ficha de Atendimento</header>
         <form id="form" class="form" method="POST" action="{{ url_for('nutricionista.consulta', paciente_id=paciente.pac_id) }}">
             <input type="hidden" id="sexo" value="{{ sexo }}">
             <input type="hidden" id="idade" value="{{ idade }}">
@@ -17,7 +18,7 @@ Ficha de Atendimento
             <!-- Seção Objetivos -->
             <section class="form-section">
                 <h2>Objetivos</h2>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="objetivos">Objetivos:</label>
                     <textarea id="objetivos" name="objetivos" placeholder="Ex.: Emagrecimento, ganho de massa muscular..."></textarea>
                 </div>
@@ -26,27 +27,26 @@ Ficha de Atendimento
             <!-- Seção Dados Antropométricos -->
             <section class="form-section">
                 <h2>Dados Antropométricos</h2>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="peso">Peso Atual (kg):</label>
                     <input type="number" id="peso" name="peso" step="0.1" required>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="altura">Altura (m):</label>
                     <input type="number" id="altura" name="altura" step="0.01" required>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <button type="button" onclick="calcularIMC()">Calcular IMC</button>
                 </div>
-                
-                <div class="input-group">
+                <div class="input-box">
                     <label for="imc">IMC:</label>
                     <input type="text" id="imc" name="imc" readonly>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="circunferenciaAbdominal">Circunferência Abdominal (cm):</label>
                     <input type="number" id="circunferenciaAbdominal" name="circunferenciaAbdominal" step="0.1">
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="circunferenciaQuadril">Circunferência do Quadril (cm):</label>
                     <input type="number" id="circunferenciaQuadril" name="circunferenciaQuadril" step="0.1">
                 </div>
@@ -55,7 +55,7 @@ Ficha de Atendimento
             <!-- Seletor de Método de Cálculo de Gordura -->
             <section class="form-section">
                 <h2>Selecione o Método de Cálculo de Gordura Corporal</h2>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="metodo">Método:</label>
                     <select id="metodo" name="metodo" onchange="toggleDobras()">
                         <option value="3">3 Dobras Cutâneas</option>
@@ -66,65 +66,64 @@ Ficha de Atendimento
 
             <section class="form-section" id="dobras-section">
                 <h2>Dobras Cutâneas</h2>            
-                
                 <div id="dobras" class="dobras-group">
-                    <div id="dobraAbdominalDiv" class="input-group" style="display: none;">
+                    <div id="dobraAbdominalDiv" class="input-box" style="display: none;">
                         <label for="dobraAbdominal">Dobra Abdominal (mm):</label>
                         <input type="number" id="dobraAbdominal" name="dobraAbdominal" step="0.1">
                     </div>
-                    <div id="dobraPeitoralDiv" class="input-group" style="display: none;">
+                    <div id="dobraPeitoralDiv" class="input-box" style="display: none;">
                         <label for="dobraPeitoral">Dobra Peitoral (mm):</label>
                         <input type="number" id="dobraPeitoral" name="dobraPeitoral" step="0.1">
                     </div>
-                    <div id="dobraCoxaDiv" class="input-group">
+                    <div id="dobraCoxaDiv" class="input-box">
                         <label for="dobraCoxa">Dobra da Coxa (mm):</label>
                         <input type="number" id="dobraCoxa" name="dobraCoxa" step="0.1">
                     </div>
-                    <div id="dobraAxilarDiv" class="input-group" style="display: none;">
+                    <div id="dobraAxilarDiv" class="input-box" style="display: none;">
                         <label for="dobraAxilar">Dobra Axilar (mm):</label>
                         <input type="number" id="dobraAxilar" name="dobraAxilar" step="0.1">
                     </div>
-                    <div id="dobraSubescapularDiv" class="input-group" style="display: none;">
+                    <div id="dobraSubescapularDiv" class="input-box" style="display: none;">
                         <label for="dobraSubescapular">Dobra Subescapular (mm):</label>
                         <input type="number" id="dobraSubescapular" name="dobraSubescapular" step="0.1">
                     </div>
-                    <div id="dobraSupraIliacaDiv" class="input-group" style="display: none;">
+                    <div id="dobraSupraIliacaDiv" class="input-box" style="display: none;">
                         <label for="dobraSupraIliaca">Dobra Supra-Iliaca (mm):</label>
                         <input type="number" id="dobraSupraIliaca" name="dobraSupraIliaca" step="0.1">
                     </div>
-                    <div id="dobraTricipitalDiv" class="input-group" style="display: none;">
+                    <div id="dobraTricipitalDiv" class="input-box" style="display: none;">
                         <label for="dobraTricipital">Dobra Tricipital (mm):</label>
                         <input type="number" id="dobraTricipital" name="dobraTricipital" step="0.1">
                     </div>
                 </div>
-            
-                <div class="input-group">
+                <div class="input-box">
                     <button type="button" onclick="calcularPercentualGordura()">Calcular Percentual de Gordura e Massa Magra</button>
                 </div>
-
-                <div class="input-group">
+                <div class="input-box">
                     <label for="percentualGordura">Percentual de Gordura (%):</label>
                     <input type="text" id="percentualGordura" name="percentualGordura" readonly>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="massaMagra">Massa Magra (kg):</label>
                     <input type="text" id="massaMagra" name="massaMagra" readonly>
                 </div>          
-                <div class="input-group">
+                <div class="input-box">
                     <label for="massaGorda">Massa Gorda (kg):</label>
                     <input type="text" id="massaGorda" name="massaGorda" readonly>
                 </div>    
-                <div class="input-group">
+                <div class="input-box">
                     <label for="tmb">Taxa Metabólica Basal (TMB):</label>
                     <input type="text" id="tmb" name="tmb" readonly>
                 </div>
-                <button type="button" onclick="calcularTMB()">Calcular TMB</button>
+                <div class="input-box">
+                    <button type="button" onclick="calcularTMB()">Calcular TMB</button>
+                </div>
             </section>
 
             <!-- Seção de Rotina -->
             <section class="form-section">
                 <h2>Rotina</h2>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="rotina">Rotina:</label>
                     <textarea id="rotina" name="rotina" placeholder="Ex.: Café da manhã, lanche, atividade física, horas de sono..."></textarea>
                 </div>
@@ -133,11 +132,11 @@ Ficha de Atendimento
             <!-- Seção de Preferências Alimentares -->
             <section class="form-section">
                 <h2>Preferências Alimentares</h2>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="preferencias">Preferências Alimentares:</label>
                     <textarea id="preferencias" name="preferencias" placeholder="Ex.: Gosta de carne, prefere alimentos vegetarianos"></textarea>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="aversoes">Aversões Alimentares:</label>
                     <textarea id="aversoes" name="aversoes" placeholder="Ex.: Não gosta de brócolis, aversão a leite"></textarea>
                 </div>
@@ -146,20 +145,18 @@ Ficha de Atendimento
             <!-- Seção de Observações -->
             <section class="form-section">
                 <h2>Observações</h2>
-                <div class="input-group">
+                <div class="input-box">
                     <label for="obs">Observações:</label>
                     <textarea id="obs" name="obs" placeholder="Vícios, falta de acessibilidade..."></textarea>
                 </div>
             </section>
-            
 
             <!-- Rodapé com botão de envio -->
             <div class="form-footer">
                 <button type="submit">Enviar Ficha</button>
             </div>
-
         </form>
-    </div>
+    </section>
     
     <script src="/static/js/consulta.js"></script>
 {% endblock %}

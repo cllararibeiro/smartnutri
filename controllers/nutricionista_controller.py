@@ -6,6 +6,11 @@ from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 from models.models import Nutricionista, Paciente, Consulta, Dieta, RegistroConsulta, DadosAntropometricos, Alimento, TipoRefeicao, Cardapio
 import logging
+from fpdf import FPDF
+from io import BytesIO
+
+
+
 
 nutricionista_bp = Blueprint('nutricionista', __name__, url_prefix='/nutricionista', template_folder='templates')
 
@@ -24,6 +29,18 @@ def dashboard():
     .order_by(desc(Paciente.pac_data_cadastro)).all() 
 
     return render_template('nutricionista/dashboard.html', pacientes=pacientes)
+
+@nutricionista_bp.route('/perfil')
+@login_required
+def perfil():
+    nutricionista_id = current_user.get_id()
+    nutricionista = session.get(Nutricionista, nutricionista_id)
+
+    if not nutricionista:
+        return "Nutricionista não encontrado", 404
+
+    return render_template('nutricionista/perfil.html', nutricionista=nutricionista)
+
 
 
 @nutricionista_bp.route('/cadastro_paciente', methods=['GET', 'POST'])
@@ -215,17 +232,6 @@ def dieta(paciente_id, consulta_id):
     )
 
 
-
-@nutricionista_bp.route('/dieta/<int:dieta_id>/pdf')
-@login_required
-def gerar_pdf_dieta(dieta_id):
-    dieta = session.query(Dieta).filter_by(dieta_id=dieta_id).first()
-    if not dieta or dieta.paciente.pac_nutri_id != current_user.nutri_id:
-        flash('Dieta não encontrada', 'error')
-        return redirect(url_for('nutricionista.dieta'))
-    
-    # Implementar geração de PDF aqui (usando WeasyPrint ou outra biblioteca)
-    # Retornar o PDF gerado
 
 @nutricionista_bp.route('/visualizardieta/<int:dieta_id>')
 @login_required

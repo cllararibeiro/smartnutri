@@ -1,0 +1,22 @@
+{% extends "nutricionista/base.html" %}
+
+{% block title %}Perfil do Nutricionista{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/perfil.css">
+
+<div class="perfil-container">
+    <div class="perfil-header">
+        <!-- Coloque uma imagem padrão por enquanto -->
+        <img src="/static/img/default_profile.png" alt="Foto de perfil" class="perfil-avatar" />
+        <div class="perfil-nome">{{ nutricionista.nutri_nome }}</div>
+    </div>
+
+    <div class="perfil-info">
+        <p><strong>Email:</strong> {{ nutricionista.nutri_email }}</p>
+        <p><strong>Telefone:</strong> {{ nutricionista.nutri_telefone }}</p>
+        <p><strong>CPF:</strong> {{ nutricionista.nutri_cpf }}</p>
+        <p><strong>CRN:</strong> {{ nutricionista.nutri_crn }}</p>
+    </div>
+</div>
+{% endblock %}

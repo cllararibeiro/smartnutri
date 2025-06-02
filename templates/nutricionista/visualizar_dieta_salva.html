@@ -10,7 +10,12 @@ Ficha de Atendimento
     <title>Dieta #{{ dieta.dieta_id }}</title>
     <link rel="stylesheet" href="/static/css/visualizar_dieta_salva.css">
 
-<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+<div id="conteudo-dieta">
+
     <h1>Dieta de {{ dieta.paciente.pac_nome }}</h1>
     <h2>Objetivo: {{ dieta.dieta_objetivo }}</h2>
     
@@ -43,8 +48,13 @@ Ficha de Atendimento
         <p>Proteínas: {{ total_proteinas|round(2) }} g</p>
         <p>Carboidratos: {{ total_carboidratos|round(2) }} g</p>
         <p>Gorduras: {{ total_gorduras|round(2) }} g</p>
-</div>
 
+</div>
     <a class="botao" href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
-</body>
+    <button id="btn-gerar-pdf" class="botao">Gerar PDF</button>
+
+
+
+ <script src="/static/js/visualizardieta.js"></script>
+
 {% endblock %}

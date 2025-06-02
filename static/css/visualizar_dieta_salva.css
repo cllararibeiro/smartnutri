@@ -84,16 +84,17 @@ td, th {
 
 
 .botao {
+    display: block;
+    width: max-content; /* Ajusta a largura conforme o conteúdo */
+    margin: 25px auto;  /* margem vertical 25px e horizontal automático centraliza */
     text-decoration: none;
     color: var(--branco);
     padding: 12px;
-    border: none;
     background-color: var(--rosa);
     border-radius: 7px;
-    color: var(--branco);
-    margin: 15px;
     font-size: 12px;
-}
+    border: none;}
+
 
 @media screen and (min-width: 768px) {
   table,

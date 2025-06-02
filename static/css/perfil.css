@@ -1,0 +1,66 @@
+.perfil-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+
+.perfil-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.perfil-foto {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.perfil-info h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+.perfil-info .especialidade {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.perfil-info .descricao {
+  font-size: 1rem;
+  color: #777;
+  margin-top: 10px;
+}
+
+.perfil-conteudo {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-secao {
+  margin-bottom: 20px;
+}
+
+.perfil-secao h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.perfil-secao ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.perfil-secao ul li {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px;
+}

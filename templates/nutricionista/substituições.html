@@ -1,64 +1,86 @@
-{% extends "nutricionista/base.html" %}
+{% extends 'nutricionista/base.html' %}
 
 {% block content %}
-<div class="container">
-    <h2>Substituições para {{ cardapio.alimento.alimento_nome }}</h2>
-    
-    <div class="row">
-        <div class="col-md-6">
-            <h3>Adicionar Nova Substituição</h3>
+<div class="container mt-4">
+    <h2>Substituições para Dieta #{{ dieta.dieta_id }}</h2>
+
+    <!-- Cardápio Atual -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Cardápio Atual</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for item in cardapio %}
+                <li class="list-group-item">
+                    <strong>{{ item.TipoRefeicao.tipo_nome }}:</strong>
+                    {{ item.Alimento.alimento_nome }} ({{ item.Cardapio.quantidade }}g)
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Formulário de Substituição -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Nova Substituição</h3>
+        </div>
+        <div class="card-body">
             <form method="POST">
-                <div class="form-group">
-                    <label>Alimento Substituto</label>
-                    <select name="alimento_substituto" class="form-control" required>
+                <div class="mb-3">
+                    <label class="form-label">Alimento Original</label>
+                    <select name="alimento_original" class="form-select" required>
                         {% for alimento in alimentos %}
                         <option value="{{ alimento.alimento_id }}">{{ alimento.alimento_nome }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Quantidade (g/ml)</label>
-                    <input type="number" step="0.01" name="quantidade" class="form-control" required 
-                           value="{{ cardapio.quantidade }}">
+
+                <div class="mb-3">
+                    <label class="form-label">Alimento Substituto</label>
+                    <select name="alimento_substituto" class="form-select" required>
+                        {% for alimento in alimentos %}
+                        <option value="{{ alimento.alimento_id }}">{{ alimento.alimento_nome }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Adicionar Substituição</button>
+
+                <div class="mb-3">
+                    <label class="form-label">Quantidade (g)</label>
+                    <input type="number" step="0.1" name="quantidade" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
         </div>
-        
-        <div class="col-md-6">
+    </div>
+
+    <!-- Lista de Substituições -->
+    <div class="card">
+        <div class="card-header">
             <h3>Substituições Cadastradas</h3>
-            {% if substituicoes %}
-            <table class="table">
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Alimento</th>
+                        <th>Original</th>
+                        <th>Substituto</th>
                         <th>Quantidade</th>
-                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for sub in substituicoes %}
                     <tr>
-                        <td>{{ sub.alimento_substituto.alimento_nome }}</td>
-                        <td>{{ sub.quantidade }}g</td>
-                        <td>
-                            <form method="POST" action="{{ url_for('nutricionista.remover_substituicao', substituicao_id=sub.substituicao_id) }}">
-                                <button type="submit" class="btn btn-danger btn-sm">Remover</button>
-                            </form>
-                        </td>
+                        <td>{{ sub.original_nome }}</td>
+                        <td>{{ sub.substituto_nome }}</td>
+                        <td>{{ sub.Substituicao.quantidade }}g</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            {% else %}
-            <p>Nenhuma substituição cadastrada para este alimento.</p>
-            {% endif %}
         </div>
     </div>
-    
-    <a href="{{ url_for('nutricionista.visualizar_dieta', dieta_id=cardapio.dieta_id) }}" 
-       class="btn btn-secondary mt-3">
-        Voltar para a Dieta
-    </a>
 </div>
 {% endblock %}

@@ -8,6 +8,8 @@ from models.models import Nutricionista, Paciente, Consulta, Dieta, RegistroCons
 import logging
 from fpdf import FPDF
 from io import BytesIO
+from models.models import Substituicao
+from sqlalchemy.orm import aliased
 
 
 
@@ -324,7 +326,7 @@ def relatorio_paciente(paciente_id):
 @nutricionista_bp.route('/substituicoes/<int:dieta_id>', methods=['GET', 'POST'])
 @login_required
 def gerenciar_substituicoes(dieta_id):
-    # Verificar permissão
+    # Verificação de permissão
     dieta = session.query(Dieta).join(Paciente).filter(
         Dieta.dieta_id == dieta_id,
         Paciente.pac_nutri_id == current_user.nutri_id
@@ -333,19 +335,19 @@ def gerenciar_substituicoes(dieta_id):
     if not dieta:
         flash('Dieta não encontrada ou sem permissão', 'error')
         return redirect(url_for('nutricionista.dashboard'))
-    
-    # Processar POST
+
+    # Processar formulário POST
     if request.method == 'POST':
         try:
             alimento_original_id = request.form.get('alimento_original')
             alimento_substituto_id = request.form.get('alimento_substituto')
             quantidade = request.form.get('quantidade')
             
-            # Validar dados
+            # Validação
             if not all([alimento_original_id, alimento_substituto_id, quantidade]):
-                flash('Todos os campos são obrigatórios', 'error')
+                flash('Preencha todos os campos', 'error')
                 return redirect(url_for('nutricionista.gerenciar_substituicoes', dieta_id=dieta_id))
-            
+
             nova_substituicao = Substituicao(
                 alimento_original_id=alimento_original_id,
                 alimento_substituto_id=alimento_substituto_id,
@@ -353,25 +355,21 @@ def gerenciar_substituicoes(dieta_id):
             )
             session.add(nova_substituicao)
             session.commit()
-            flash('Substituição cadastrada com sucesso!', 'success')
-        except ValueError:
-            flash('Quantidade inválida', 'error')
+            flash('Substituição cadastrada!', 'success')
         except Exception as e:
             session.rollback()
-            flash(f'Erro ao cadastrar substituição: {str(e)}', 'error')
+            flash(f'Erro: {str(e)}', 'error')
+
+    # Consulta otimizada para o template
+    AlimentoOriginal = aliased(Alimento)
+    AlimentoSubstituto = aliased(Alimento)
     
-    # Buscar dados para exibição
     cardapio = session.query(Cardapio, Alimento, TipoRefeicao)\
         .join(Alimento, Cardapio.alimento_id == Alimento.alimento_id)\
         .join(TipoRefeicao, Cardapio.ref_id == TipoRefeicao.tipo_refeicao_id)\
         .filter(Cardapio.dieta_id == dieta_id)\
         .all()
-    
-    # Usando aliases para evitar conflitos
-    from sqlalchemy.orm import aliased
-    AlimentoOriginal = aliased(Alimento)
-    AlimentoSubstituto = aliased(Alimento)
-    
+
     substituicoes = session.query(
         Substituicao,
         AlimentoOriginal.alimento_nome.label('original_nome'),
@@ -380,12 +378,10 @@ def gerenciar_substituicoes(dieta_id):
         AlimentoOriginal, Substituicao.alimento_original_id == AlimentoOriginal.alimento_id
     ).join(
         AlimentoSubstituto, Substituicao.alimento_substituto_id == AlimentoSubstituto.alimento_id
-    ).filter(
-        Substituicao.alimento_original_id.in_([item.Alimento.alimento_id for item in cardapio])
     ).all()
-    
+
     alimentos = session.query(Alimento).order_by(Alimento.alimento_nome).all()
-    
+
     return render_template(
         'nutricionista/substituicoes.html',
         dieta=dieta,
@@ -393,7 +389,6 @@ def gerenciar_substituicoes(dieta_id):
         substituicoes=substituicoes,
         alimentos=alimentos
     )
-
 
 
 @nutricionista_bp.route('/aplicar_substituicao/<int:dieta_id>/<int:alimento_original_id>/<int:alimento_substituto_id>', methods=['POST'])

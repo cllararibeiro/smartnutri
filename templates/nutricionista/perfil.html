@@ -1,28 +1,21 @@
 {% extends "nutricionista/base.html" %}
 
-{% block title %}Atualizar Perfil do Nutricionista{% endblock %}
+{% block title %}
+Atualizar Perfil do Nutricionista
+{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="/static/css/perfil.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<div class="perfil-container">
-  <div class="perfil-sidebar">
-    <div class="perfil-foto-wrapper">
-      <img src="/static/img/default_profile.png" alt="Foto de perfil">
-      <span class="editar-foto"><i class="fa-solid fa-camera"></i></span>
-    </div>
-    <h2>{{ nutricionista.nutri_nome }}</h2>
-    <ul>
-      <li><i class="fa-solid fa-user"></i> <span>Perfil</span></li>
-      <li><i class="fa-solid fa-clock-rotate-left"></i> <span>Histórico</span></li>
-    </ul>
-  </div>
-
   <div class="perfil-content">
+    <div class="perfil-sidebar">
+        <span class="editar-foto"><i class="fa-solid fa-camera"></i></span>
+        <img src="/static/img/whatsappicon.png" alt="Foto de perfil">
+    <h2>{{ nutricionista.nutri_nome }}</h2>
+  </div>
     <h1>Atualizar Dados do Nutricionista</h1>
-    <form method="POST" action="{% url 'atualizar_perfil' %}">
-      {% csrf_token %}
+    <form method="POST" action="{{ url_for('nutricionista.perfil') }}">
       <div class="perfil-info">
         <div class="info-group">
           <label for="nutri_email">Email</label>
@@ -44,7 +37,7 @@
 
       <div class="perfil-buttons">
         <button type="submit" class="btn-update">Salvar Alterações</button>
-        <a href="{% url 'perfil' %}" class="btn-cancel">Cancelar</a>
+          <a href="{{ url_for('nutricionista.perfil') }}" class="btn-cancel">Cancelar</a>
       </div>
     </form>
   </div>

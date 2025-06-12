@@ -1,66 +1,83 @@
-.perfil-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
-  border-radius: 8px;
-}
-
-.perfil-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.perfil-foto {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.perfil-info h1 {
-  margin: 0;
-  font-size: 2rem;
-  color: #333;
-}
-
-.perfil-info .especialidade {
-  font-size: 1.2rem;
-  color: #666;
-}
-
-.perfil-info .descricao {
-  font-size: 1rem;
-  color: #777;
-  margin-top: 10px;
-}
-
-.perfil-conteudo {
+.perfil-sidebar {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 250px;
 }
 
-.perfil-secao {
+.perfil-foto-wrapper {
+  align-items: center;
+  position: relative;
+  text-align: center;
+}
+
+.perfil-foto-wrapper img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.perfil-foto-wrapper .editar-foto {
+  display: flex;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #000000a6;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.perfil-content {
+  width: 80%;
+  height: 100%;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  margin-left: 50px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.info-group {
   margin-bottom: 20px;
 }
 
-.perfil-secao h2 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.perfil-secao ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.perfil-secao ul li {
-  font-size: 1rem;
-  color: #555;
+.info-group label {
+  display: block;
+  font-weight: bold;
   margin-bottom: 5px;
+}
+
+.info-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.perfil-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-update {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  text-decoration: none;
 }

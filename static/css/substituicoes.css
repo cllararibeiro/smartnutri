@@ -1,0 +1,10 @@
+* {
+    margin:0;
+    box-sizing: border-box;
+    padding:0;
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+}

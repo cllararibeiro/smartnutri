@@ -1,90 +1,66 @@
-{% extends 'nutricionista/base.html' %}
+{% extends "nutricionista/base.html" %}
+
+{% block title %}Substituições da Dieta #{{ dieta.dieta_id }}{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="/static/css/substituicoes.css">
+  <link rel="stylesheet" href="/static/css/substituicoes.css">
+<h2>Substituições da Dieta de {{ dieta.paciente.pac_nome }}</h2>
 
-<div class="container mt-4">
-    <h2>Substituições para Dieta #{{ dieta.dieta_id }}</h2>
+<div class = "cardnew">
+  <form method="POST">
+  <div>
+    <label>Alimento Original</label>
+    <select name="alimento_original" required>
+      {% for item in cardapio %}
+        <option value="{{ item.alimento_id }}">{{ item.alimento.alimento_nome }}</option>
+      {% endfor %}
+    </select>
+  </div>
 
-    <div class="cards">
-        <!-- Cardápio Atual -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h3>Cardápio Atual</h3>
-        </div>
-        <div class="card-body">
-            <ul class="list-group">
-                {% for item in cardapio %}
-                <li class="list-group-item">
-                    <strong>{{ item.TipoRefeicao.tipo_nome }}:</strong>
-                    {{ item.Alimento.alimento_nome }} ({{ item.Cardapio.quantidade }}g)
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
+  <div>
+    <label>Alimento Substituto</label>
+    <select name="alimento_substituto" required>
+      {% for alimento in alimentos %}
+        <option value="{{ alimento.alimento_id }}">{{ alimento.alimento_nome }}</option>
+      {% endfor %}
+    </select>
+  </div>
 
-    <!-- Formulário de Substituição -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h3>Nova Substituição</h3>
-        </div>
-        <div class="card-body">
-            <form method="POST">
-                <div class="mb-3">
-                    <label class="form-label">Alimento Original</label>
-                    <select name="alimento_original" class="form-select" required>
-                        {% for alimento in alimentos %}
-                        <option value="{{ alimento.alimento_id }}">{{ alimento.alimento_nome }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+  <div>
+    <label>Quantidade (g)</label>
+    <input type="number" step="0.1" name="quantidade" required>
+  </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Alimento Substituto</label>
-                    <select name="alimento_substituto" class="form-select" required>
-                        {% for alimento in alimentos %}
-                        <option value="{{ alimento.alimento_id }}">{{ alimento.alimento_nome }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+  <button type="submit">Salvar Substituição</button>
+</form>
 
-                <div class="mb-3">
-                    <label class="form-label">Quantidade (g)</label>
-                    <input type="number" step="0.1" name="quantidade" class="form-control" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Salvar</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Lista de Substituições -->
-    <div class="card">
-        <div class="card-header">
-            <h3>Substituições Cadastradas</h3>
-        </div>
-        <div class="card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Original</th>
-                        <th>Substituto</th>
-                        <th>Quantidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for sub in substituicoes %}
-                    <tr>
-                        <td>{{ sub.original_nome }}</td>
-                        <td>{{ sub.substituto_nome }}</td>
-                        <td>{{ sub.Substituicao.quantidade }}g</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    </div>
+<hr>
 </div>
+
+<div class = "tabelasubs">
+  <h3>Substituições Cadastradas</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Alimento Original</th>
+      <th>Substituto</th>
+      <th>Quantidade (g)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sub in dieta.substituicoes %}
+    <tr>
+      <td>{{ sub.alimento_original.alimento_nome }}</td>
+      <td>{{ sub.alimento_substituto.alimento_nome }}</td>
+      <td>{{ sub.quantidade }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3">Nenhuma substituição cadastrada.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+<a href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
 {% endblock %}

@@ -1,3 +1,5 @@
+create database db_smartnutri;
+
 CREATE TABLE tb_nutricionista (
     nutri_id INT AUTO_INCREMENT PRIMARY KEY,
     nutri_nome VARCHAR(500) NOT NULL,
@@ -75,21 +77,23 @@ CREATE TABLE tb_alimentos (
     alimento_fibras DECIMAL(10, 2) 
 );
  
- CREATE TABLE tb_substituicoes (
-    substituicao_id INT AUTO_INCREMENT PRIMARY KEY,  
-    alimento_original_id INT NOT NULL,  -- O alimento original que será substituído
-    alimento_substituto_id INT NOT NULL,  -- O alimento que irá substituir o original
-    quantidade DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento substituto 
-    FOREIGN KEY (alimento_original_id) REFERENCES tb_alimentos(alimento_id),  
-    FOREIGN KEY (alimento_substituto_id) REFERENCES tb_alimentos(alimento_id) 
-);
- 
  CREATE TABLE tb_dietas (
     dieta_id INT AUTO_INCREMENT PRIMARY KEY,
     dieta_pac_id INT NOT NULL,  
     dieta_con_id INT NOT NULL,
     FOREIGN KEY (dieta_pac_id) REFERENCES tb_pacientes(pac_id),
     FOREIGN KEY (dieta_con_id) REFERENCES tb_consultas(con_id)
+);
+ 
+  CREATE TABLE tb_substituicoes (
+    substituicao_id INT AUTO_INCREMENT PRIMARY KEY,  
+    dieta_id INT NOT NULL,
+    alimento_original_id INT NOT NULL,  -- O alimento original que será substituído
+    alimento_substituto_id INT NOT NULL,  -- O alimento que irá substituir o original
+    quantidade DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento substituto 
+    FOREIGN KEY (alimento_original_id) REFERENCES tb_alimentos(alimento_id),  
+    FOREIGN KEY (dieta_id) REFERENCES tb_dietas(dieta_id),
+    FOREIGN KEY (alimento_substituto_id) REFERENCES tb_alimentos(alimento_id) 
 );
  
 CREATE TABLE tb_cardapio (
@@ -143,11 +147,6 @@ INSERT INTO tb_alimentos (alimento_nome, alimento_categoria, alimento_calorias, 
 ('Pão Integral', 'Carboidrato', 69.00, 3.60, 12.00, 1.10, 2.40);
 
 
-INSERT INTO tb_substituicoes (alimento_original_id, alimento_substituto_id, quantidade) VALUES
-(1, 8, 1.00),  -- Substituir Arroz Integral por Pão Integral (ambos são fontes de carboidrato)
-(3, 6, 1.00),  -- Substituir Frango Grelhado por Abacate (equivalente em termos de calorias e gordura saudável)
-(5, 2, 1.00),  -- Substituir Banana por Feijão Preto (substituição de fruta por fonte de proteína e carboidrato)
-(4, 7, 1.00),  -- Substituir Brócolis por Ovos (substituição de vegetal por fonte de proteína)
-(1, 4, 1.00);  -- Substituir Arroz Integral por Brócolis (substituição de carboidrato por vegetal com baixo índice glicêmico)
+
 
 

@@ -213,7 +213,7 @@ def dieta(paciente_id, consulta_id):
             session.commit()
 
             flash('Dieta cadastrada com sucesso!', 'success')
-            return redirect(url_for('nutricionista.dashboard'))
+            return redirect(url_for('nutricionista.substituicoes', dieta_id=nova_dieta.dieta_id))
 
         except Exception as e:
             session.rollback()
@@ -233,13 +233,53 @@ def dieta(paciente_id, consulta_id):
         consulta_id=consulta_id
     )
 
+@nutricionista_bp.route('/substituicoes/<int:dieta_id>', methods=['GET', 'POST'])
+@login_required
+def substituicoes(dieta_id):
+    dieta = session.query(Dieta).filter_by(dieta_id=dieta_id).first()
+    if not dieta:
+        flash('Dieta não encontrada.', 'error')
+        return redirect(url_for('nutricionista.dashboard'))
+
+    if request.method == 'POST':
+        alimento_original_id = request.form.get('alimento_original')
+        alimento_substituto_id = request.form.get('alimento_substituto')
+        quantidade = request.form.get('quantidade')
+
+        if alimento_original_id and alimento_substituto_id and quantidade:
+            try:
+                quantidade_float = float(quantidade)
+                nova_substituicao = Substituicao(
+                    dieta_id=dieta_id,
+                    alimento_original_id=alimento_original_id,
+                    alimento_substituto_id=alimento_substituto_id,
+                    quantidade=quantidade_float
+                )
+                session.add(nova_substituicao)
+                session.commit()
+                flash('Substituição adicionada com sucesso!', 'success')
+            except Exception as e:
+                session.rollback()
+                flash(f'Erro ao adicionar substituição: {str(e)}', 'error')
+        else:
+            flash('Preencha todos os campos da substituição.', 'error')
+
+    # Buscar dados para o form
+    cardapio = session.query(Cardapio).filter_by(dieta_id=dieta_id).all()
+    alimentos = session.query(Alimento).order_by(Alimento.alimento_nome).all()
+
+    return render_template('nutricionista/substituicoes.html',
+                           dieta=dieta,
+                           cardapio=cardapio,
+                           alimentos=alimentos)
+
 
 
 @nutricionista_bp.route('/visualizardieta/<int:dieta_id>')
 @login_required
 def visualizar_dieta(dieta_id):
     try:
-        print(f"Tentando acessar dieta_id: {dieta_id}")  # Log para depuração
+        print(f"Tentando acessar dieta_id: {dieta_id}")  
         
         # Busca a dieta com o paciente relacionado
         dieta = session.query(Dieta).join(Paciente).filter(
@@ -264,6 +304,14 @@ def visualizar_dieta(dieta_id):
             .all()
         
         print(f"Itens do cardápio encontrados: {len(cardapio)}")  # Log para depuração
+
+        AlimentoOriginal = aliased(Alimento)
+        AlimentoSubstituto = aliased(Alimento)
+
+        substituicoes = session.query(Substituicao,AlimentoOriginal,AlimentoSubstituto).join(
+        AlimentoOriginal, Substituicao.alimento_original_id == AlimentoOriginal.alimento_id).join(
+        AlimentoSubstituto, Substituicao.alimento_substituto_id == AlimentoSubstituto.alimento_id).filter(
+        Substituicao.dieta_id == dieta_id).all()
         
         # Cálculos nutricionais
         total_calorias = sum(item.Alimento.alimento_calorias * item.Cardapio.quantidade / 100 for item in cardapio)
@@ -271,18 +319,20 @@ def visualizar_dieta(dieta_id):
         total_carboidratos = sum(item.Alimento.alimento_carboidratos * item.Cardapio.quantidade / 100 for item in cardapio)
         total_gorduras = sum(item.Alimento.alimento_gorduras * item.Cardapio.quantidade / 100 for item in cardapio)
         
+       
         return render_template('nutricionista/visualizar_dieta_salva.html',
-                            dieta=dieta,
-                            cardapio=cardapio,
-                            total_calorias=total_calorias,
-                            total_proteinas=total_proteinas,
-                            total_carboidratos=total_carboidratos,
-                            total_gorduras=total_gorduras)
+                               dieta=dieta,
+                               cardapio=cardapio,
+                               substituicoes=substituicoes,
+                               total_calorias=total_calorias,
+                               total_proteinas=total_proteinas,
+                               total_carboidratos=total_carboidratos,
+                               total_gorduras=total_gorduras)
     
     except Exception as e:
         print(f"Erro ao visualizar dieta: {str(e)}")  # Log para depuração
         flash(f'Erro ao visualizar dieta: {str(e)}', 'error')
-        return redirect(url_for('nutricionista.dashboard'))
+    
     
 @nutricionista_bp.route("/relatorio/<int:paciente_id>", methods=["GET"])
 def relatorio_paciente(paciente_id):
@@ -320,123 +370,3 @@ def relatorio_paciente(paciente_id):
         dobras_coxa=[d["dobra_coxa"] for d in dados]
     )
 
-
-
-
-@nutricionista_bp.route('/substituicoes/<int:dieta_id>', methods=['GET', 'POST'])
-@login_required
-def gerenciar_substituicoes(dieta_id):
-    # Verificação de permissão
-    dieta = session.query(Dieta).join(Paciente).filter(
-        Dieta.dieta_id == dieta_id,
-        Paciente.pac_nutri_id == current_user.nutri_id
-    ).first()
-    
-    if not dieta:
-        flash('Dieta não encontrada ou sem permissão', 'error')
-        return redirect(url_for('nutricionista.dashboard'))
-
-    # Processar formulário POST
-    if request.method == 'POST':
-        try:
-            alimento_original_id = request.form.get('alimento_original')
-            alimento_substituto_id = request.form.get('alimento_substituto')
-            quantidade = request.form.get('quantidade')
-            
-            # Validação
-            if not all([alimento_original_id, alimento_substituto_id, quantidade]):
-                flash('Preencha todos os campos', 'error')
-                return redirect(url_for('nutricionista.gerenciar_substituicoes', dieta_id=dieta_id))
-
-            nova_substituicao = Substituicao(
-                alimento_original_id=alimento_original_id,
-                alimento_substituto_id=alimento_substituto_id,
-                quantidade=float(quantidade)
-            )
-            session.add(nova_substituicao)
-            session.commit()
-            flash('Substituição cadastrada!', 'success')
-        except Exception as e:
-            session.rollback()
-            flash(f'Erro: {str(e)}', 'error')
-
-    # Consulta otimizada para o template
-    AlimentoOriginal = aliased(Alimento)
-    AlimentoSubstituto = aliased(Alimento)
-    
-    cardapio = session.query(Cardapio, Alimento, TipoRefeicao)\
-        .join(Alimento, Cardapio.alimento_id == Alimento.alimento_id)\
-        .join(TipoRefeicao, Cardapio.ref_id == TipoRefeicao.tipo_refeicao_id)\
-        .filter(Cardapio.dieta_id == dieta_id)\
-        .all()
-
-    substituicoes = session.query(
-        Substituicao,
-        AlimentoOriginal.alimento_nome.label('original_nome'),
-        AlimentoSubstituto.alimento_nome.label('substituto_nome')
-    ).join(
-        AlimentoOriginal, Substituicao.alimento_original_id == AlimentoOriginal.alimento_id
-    ).join(
-        AlimentoSubstituto, Substituicao.alimento_substituto_id == AlimentoSubstituto.alimento_id
-    ).all()
-
-    alimentos = session.query(Alimento).order_by(Alimento.alimento_nome).all()
-
-    return render_template(
-        'nutricionista/substituicoes.html',
-        dieta=dieta,
-        cardapio=cardapio,
-        substituicoes=substituicoes,
-        alimentos=alimentos
-    )
-
-
-@nutricionista_bp.route('/aplicar_substituicao/<int:dieta_id>/<int:alimento_original_id>/<int:alimento_substituto_id>', methods=['POST'])
-@login_required
-def aplicar_substituicao(dieta_id, alimento_original_id, alimento_substituto_id):
-    dieta = session.query(Dieta).join(Paciente).filter(
-        Dieta.dieta_id == dieta_id,
-        Paciente.pac_nutri_id == current_user.nutri_id
-    ).first()
-    
-    if not dieta:
-        flash('Dieta não encontrada ou sem permissão', 'error')
-        return redirect(url_for('nutricionista.dashboard'))
-    
-    # Buscar substituição
-    substituicao = session.query(Substituicao).filter(
-        Substituicao.alimento_original_id == alimento_original_id,
-        Substituicao.alimento_substituto_id == alimento_substituto_id
-    ).first()
-    
-    if not substituicao:
-        flash('Substituição não encontrada', 'error')
-        return redirect(url_for('nutricionista.gerenciar_substituicoes', dieta_id=dieta_id))
-    
-    try:
-        # Buscar itens do cardápio com o alimento original
-        itens_cardapio = session.query(Cardapio).filter(
-            Cardapio.dieta_id == dieta_id,
-            Cardapio.alimento_id == alimento_original_id
-        ).all()
-        
-        for item in itens_cardapio:
-            # Criar novo item com o substituto
-            novo_item = Cardapio(
-                ref_id=item.ref_id,
-                alimento_id=alimento_substituto_id,
-                quantidade=item.quantidade * substituicao.quantidade / 100,  # Ajuste proporcional
-                dieta_id=dieta_id
-            )
-            session.add(novo_item)
-            
-            # Opcional: remover o item original
-            # session.delete(item)
-        
-        session.commit()
-        flash('Substituição aplicada com sucesso!', 'success')
-    except Exception as e:
-        session.rollback()
-        flash(f'Erro ao aplicar substituição: {str(e)}', 'error')
-    
-    return redirect(url_for('nutricionista.visualizar_dieta', dieta_id=dieta_id))

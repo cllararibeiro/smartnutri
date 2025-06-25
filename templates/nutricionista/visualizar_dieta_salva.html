@@ -49,11 +49,40 @@ Ficha de Atendimento
         <p>Carboidratos: {{ total_carboidratos|round(2) }} g</p>
         <p>Gorduras: {{ total_gorduras|round(2) }} g</p>
 
-</div>
+    <div class="cardsub">
+        <div class="card-header">
+            <h3>Substituições Cadastradas</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Alimento Original</th>
+                        <th>Substituto</th>
+                        <th>Quantidade (g)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sub, original, substituto in substituicoes %}
+                    <tr>
+                        <td>{{ original.alimento_nome }}</td>
+                        <td>{{ substituto.alimento_nome }}</td>
+                        <td>{{ sub.quantidade }}g</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3">Nenhuma substituição cadastrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <a class="botao" href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
     <button id="btn-gerar-pdf" class="botao">Gerar PDF</button>
 
-
+</div>
 
  <script src="/static/js/visualizardieta.js"></script>
 

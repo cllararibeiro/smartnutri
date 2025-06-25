@@ -117,10 +117,12 @@ class Substituicao(Base):
     __tablename__ = 'tb_substituicoes'
 
     substituicao_id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    dieta_id = mapped_column(Integer, ForeignKey('tb_dietas.dieta_id'), nullable=False)
     alimento_original_id = mapped_column(Integer, ForeignKey('tb_alimentos.alimento_id'), nullable=False)
     alimento_substituto_id = mapped_column(Integer, ForeignKey('tb_alimentos.alimento_id'), nullable=False)
     quantidade = mapped_column(DECIMAL(10, 2), nullable=False)
 
+    dieta = relationship('Dieta', foreign_keys=[dieta_id], back_populates='substituicoes')
     alimento_original = relationship('Alimento', foreign_keys=[alimento_original_id], back_populates='substituicoes')
     alimento_substituto = relationship('Alimento', foreign_keys=[alimento_substituto_id], back_populates='substituicoes_substitutos')
 
@@ -148,6 +150,7 @@ class Dieta(Base):
 
     paciente = relationship('Paciente', back_populates='dietas')
     cardapios = relationship("Cardapio", back_populates="dieta", cascade="all, delete-orphan")
+    substituicoes = relationship('Substituicao', back_populates='dieta')
 
 class Consulta(Base):
     __tablename__ = 'tb_consultas'

@@ -32,7 +32,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--branco); /* Cor de fundo */
+    background:var(--bege);
 }
 
 .container {
@@ -46,32 +46,32 @@ body {
     border: 10px solid var(--verde-cabeçalho);
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.212); /* Sombra do formulário */
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.212); 
 }
 
 .form {
-    width: 100%; /* Manter a largura do formulário */
+    width: 100%; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centralizar verticalmente */
-    align-items: stretch; /* Esticar os elementos para ocupar todo o espaço */
-    background-color: #ffffff; /* Cor de fundo do formulário */
+    justify-content: center; 
+    align-items: stretch; 
+    background-color: #ffffff; 
 }
 
 .form-header {
-    margin-bottom: 1.6rem; /* Reduzir a margem inferior */
+    margin-bottom: 1.6rem; 
     display: flex;
-    flex-direction: column; /* Mudar para coluna para empilhar logo e título */
-    align-items: center; /* Centralizar horizontalmente */
+    flex-direction: column; 
+    align-items: center; 
     width: 100%;
 }
 
 .signup-button {
     display: flex;
-    width: 70%;
+    width: 50%;
     height: auto;
     justify-content: center; /* Centralizar o botão */
-    margin-top: 1.2rem; /* Espaço acima do botão "Cadastrar" */
+    margin-top: 0.5rem; /* Espaço acima do botão "Cadastrar" */
     margin-left: 50%; /* Centralizar o botão "Cadastrar" */
     transform: translateX(-50%); /* Ajustar para centralizar corretamente */
 }
@@ -86,18 +86,18 @@ body {
 }
 
 .signup-button button:hover {
-    background-color:#037936c5;; /* Cor do botão ao passar o mouse */
+    background-color:#037936c5;; 
 }
 
 .signup-button button a {
     text-decoration: none;
     font-weight: 500;
-    color: #fff; /* Cor do texto do botão */
+    color: #fff; 
     font-size: 15px;
 }
 
 .form-header h1 {
-    margin: 0; /* Remover margens do título */
+    margin: 0; 
 }
 
 .form-header h1::after {
@@ -105,14 +105,14 @@ body {
     display: block;
     width: 5rem;
     height: 0.3rem;
-    background-color: var(--verde-padrao); /* Linha abaixo do título */
+    background-color: var(--verde-padrao); 
     margin: 0 auto;
     border-radius: 10px;
 }
 
 .input-group {
     display: flex;
-    flex-direction: column; /* Mudado para coluna para centralizar os inputs */
+    flex-direction: column; 
     width: 100%; /* Para ocupar toda a largura */
 }
 
@@ -120,6 +120,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem; /* Reduzir a margem inferior */
+
 }
 
 .input-box input {
@@ -128,7 +129,7 @@ body {
     border: none;
     border-radius: 10px;
     box-shadow: 1px 1px 6px #0000001c;
-    font-size: 0.9rem; /* Aumentar o tamanho da fonte */
+    font-size: 0.90rem; /* Aumentar o tamanho da fonte */
 }
 
 .input-box input:hover {
@@ -140,7 +141,7 @@ body {
 }
 
 .input-box label {
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #000000c0; /* Cor do texto do label */
 }
@@ -160,7 +161,7 @@ body {
 }
 
 .login-button {
-    width: 70%;
+    width: 50%;
     height: auto;
     margin-top: 1.2rem; /* Reduzir a margem para o botão de login */
     justify-content: center;

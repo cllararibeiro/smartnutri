@@ -303,3 +303,14 @@ footer {
 .btn-custom-blue:hover {
     background-color: #f8830eeb; /* Cor do fundo quando o mouse passa sobre o botão */
 }
+
+/* Botões da seção Ações */
+.acao-btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .acao-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  

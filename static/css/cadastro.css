@@ -36,7 +36,7 @@ body {
 }
 
 .container {
-    width: 60%;
+    width: 40%;
     height: 500px;
     display: flex;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.212); /* Sombra do formulário */

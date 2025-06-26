@@ -10,11 +10,8 @@ Atualizar Perfil do Nutricionista
 
   <div class="perfil-content">
     <div class="perfil-sidebar">
-        <span class="editar-foto"><i class="fa-solid fa-camera"></i></span>
-        <img src="/static/img/whatsappicon.png" alt="Foto de perfil">
     <h2>{{ nutricionista.nutri_nome }}</h2>
   </div>
-    <h1>Atualizar Dados do Nutricionista</h1>
     <form method="POST" action="{{ url_for('nutricionista.perfil') }}">
       <div class="perfil-info">
         <div class="info-group">
@@ -37,7 +34,6 @@ Atualizar Perfil do Nutricionista
 
       <div class="perfil-buttons">
         <button type="submit" class="btn-update">Salvar Alterações</button>
-          <a href="{{ url_for('nutricionista.perfil') }}" class="btn-cancel">Cancelar</a>
       </div>
     </form>
   </div>

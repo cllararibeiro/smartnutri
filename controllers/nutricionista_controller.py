@@ -12,8 +12,6 @@ from models.models import Substituicao
 from sqlalchemy.orm import aliased
 
 
-
-
 nutricionista_bp = Blueprint('nutricionista', __name__, url_prefix='/nutricionista', template_folder='templates')
 
 session = Session()
@@ -25,23 +23,36 @@ logging.basicConfig( level=logging.INFO)
 @nutricionista_bp.route('/dashboard')
 @login_required
 def dashboard():
-    busca = request.args.get('busca', '')
+    busca = request.args.get('busca','')
+    print(f"Termo da busca: {busca}")
     pacientes = session.query(Paciente).filter(Paciente.pac_nome.like(f'%{busca}%'))\
     .filter_by(pac_nutri_id=current_user.nutri_id)\
     .order_by(desc(Paciente.pac_data_cadastro)).all() 
 
     return render_template('nutricionista/dashboard.html', pacientes=pacientes)
 
-@nutricionista_bp.route('/perfil')
+@nutricionista_bp.route('/perfil', methods=['GET', 'POST'])
 @login_required
 def perfil():
-    nutricionista_id = current_user.get_id()
-    nutricionista = session.get(Nutricionista, nutricionista_id)
+    nutricionista = session.query(Nutricionista).filter_by(nutri_id=current_user.nutri_id).first()
 
-    if not nutricionista:
-        return "Nutricionista não encontrado", 404
+    if request.method == 'POST':
+        nutricionista.nutri_email = request.form['nutri_email']
+        nutricionista.nutri_telefone = request.form['nutri_telefone']
+        nutricionista.nutri_cpf = request.form['nutri_cpf']
+        nutricionista.nutri_crn = request.form['nutri_crn']
+
+        try:
+            session.commit()
+            flash('Perfil atualizado com sucesso!', 'success')
+        except Exception as e:
+            session.rollback()
+            flash(f'Ocorreu um erro ao atualizar o perfil: {str(e)}', 'danger')
+
+        return redirect(url_for('nutricionista.perfil'))
 
     return render_template('nutricionista/perfil.html', nutricionista=nutricionista)
+
 
 
 

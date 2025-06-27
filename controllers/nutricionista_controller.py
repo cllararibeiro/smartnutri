@@ -68,7 +68,20 @@ def cadastro_paciente():
         cpf = request.form['cpf']
         doencas_preexistentes = request.form['doencas_preexistentes']
         historico_familiar = request.form['historico_familiar']
-    
+
+        
+        if session.query(Paciente).filter_by(pac_email=email).first():
+            flash('Este e-mail já está cadastrado para outro paciente.', 'danger')
+            return render_template('nutricionista/cadastro_paciente.html')
+
+        if session.query(Paciente).filter_by(pac_cpf=cpf).first():
+            flash('Este cpf já está cadastrado para outro paciente.', 'danger')
+            return render_template('nutricionista/cadastro_paciente.html')
+
+        if session.query(Paciente).filter_by(pac_tel=tel).first():
+            flash('Este telefone já está cadastrado para outro paciente.', 'danger')
+            return render_template('nutricionista/cadastro_paciente.html')
+        
         data_nasc_obj = datetime.strptime(data_nasc, '%Y-%m-%d') 
         
         hoje = datetime.today()
@@ -78,7 +91,7 @@ def cadastro_paciente():
             pac_sexo=sexo,pac_tel=tel,pac_cpf=cpf,pac_doencas_preexistentes=doencas_preexistentes,
             pac_historico_familiar=historico_familiar,pac_nutri_id=current_user.nutri_id)
         
-    
+        
         session.add(paciente)
         session.commit()
         return redirect(url_for('nutricionista.dashboard'))
@@ -359,13 +372,13 @@ def relatorio_paciente(paciente_id):
             dad = session.query(DadosAntropometricos).filter_by(dad_con_id=con_id).first()
             dados.append({
                 "data": consulta.con_data.strftime('%d/%m/%Y'),
-                "peso": float(dad.dad_peso_atual),
-                "imc": float(dad.dad_imc),
-                "altura": float(dad.dad_altura) * 100,
-                "massa_gorda": float(dad.dad_massa_gorda),
-                "massa_magra": float(dad.dad_massa_muscular),
-                "dobra_abd": float(dad.dad_dobra_abdominal),
-                "dobra_coxa": float(dad.dad_dobra_coxa)
+                "peso": float(dad.dad_peso_atual) if dad.dad_peso_atual is not None else 0.0,
+                "imc": float(dad.dad_imc)if dad.dad_imc is not None else 0.0,
+                "altura": float(dad.dad_altura) * 100 if dad.dad_altura is not None else 0.0,
+                "massa_gorda": float(dad.dad_massa_gorda) if dad.dad_massa_gorda is not None else 0.0,
+                "massa_magra": float(dad.dad_massa_muscular) if dad.dad_massa_muscular is not None else 0.0,
+                "dobra_abd": float(dad.dad_dobra_abdominal) if dad.dad_dobra_abdominal is not None else 0.0,
+                "dobra_coxa": float(dad.dad_dobra_coxa) if dad.dad_dobra_coxa is not None else 0.0
             })
 
     return render_template("nutricionista/relatorio_paciente.html",
@@ -380,4 +393,51 @@ def relatorio_paciente(paciente_id):
         dobras_abd=[d["dobra_abd"] for d in dados],
         dobras_coxa=[d["dobra_coxa"] for d in dados]
     )
+
+
+@nutricionista_bp.route('/editar_paciente/<int:paciente_id>', methods=['GET', 'POST'])
+@login_required
+def editar_paciente(paciente_id):
+    paciente = session.query(Paciente).get(paciente_id)
+    if not paciente:
+        flash("Paciente não encontrado.", "danger")
+        return redirect(url_for('nutricionista.dashboard'))
+
+    if request.method == 'POST':
+        novo_email = request.form.get('email')
+        novo_cpf = request.form.get('cpf')
+        novo_tel = request.form.get('telefone')
+
+        if session.query(Paciente).filter(Paciente.pac_email == novo_email, Paciente.pac_id != paciente_id).first():
+            flash('Este e-mail já está cadastrado para outro paciente.', 'danger')
+            return redirect(url_for('nutricionista.editar_paciente', paciente_id=paciente_id))
+
+        if session.query(Paciente).filter(Paciente.pac_cpf == novo_cpf, Paciente.pac_id != paciente_id).first():
+            flash('Este CPF já está cadastrado para outro paciente.', 'danger')
+            return redirect(url_for('nutricionista.editar_paciente', paciente_id=paciente_id))
+
+        if session.query(Paciente).filter(Paciente.pac_tel == novo_tel, Paciente.pac_id != paciente_id).first():
+            flash('Este telefone já está cadastrado para outro paciente.', 'danger')
+            return redirect(url_for('nutricionista.editar_paciente', paciente_id=paciente_id))
+    
+        paciente.pac_nome = request.form.get('nome')
+        paciente.pac_email = novo_email
+        paciente.pac_data_nasc = datetime.strptime(request.form.get('data_nasc'), '%Y-%m-%d')
+        paciente.pac_sexo = request.form.get('sexo')
+        paciente.pac_tel = novo_tel
+        paciente.pac_cpf = novo_cpf
+        paciente.pac_doencas_preexistentes = request.form.get('doencas_preexistentes')
+        paciente.pac_historico_familiar = request.form.get('historico_familiar')
+
+        hoje = datetime.today().date()
+        paciente.pac_idade = hoje.year - paciente.pac_data_nasc.year - (
+                (hoje.month, hoje.day) < (paciente.pac_data_nasc.month, paciente.pac_data_nasc.day)
+            )
+            
+
+        session.commit()
+        flash('Paciente atualizado com sucesso!', 'success')
+        return redirect(url_for('nutricionista.dashboard'))
+
+    return render_template('nutricionista/editar_paciente.html', paciente=paciente)
 

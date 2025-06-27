@@ -1,0 +1,70 @@
+{% extends "nutricionista/base.html" %}
+
+{% block title %}
+Atualizar Dados do Paciente
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="perfil-content">
+  <div class="perfil-sidebar">
+    <h2>{{ paciente.pac_nome }}</h2>
+  </div>
+
+  <form method="POST" action="{{ url_for('nutricionista.editar_paciente', paciente_id=paciente.pac_id) }}">
+    <div class="perfil-info">
+
+      <div class="info-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" value="{{ paciente.pac_nome }}" required>
+      </div>
+
+      <div class="info-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="{{ paciente.pac_email }}" required>
+      </div>
+
+      <div class="info-group">
+        <label for="telefone">Telefone</label>
+        <input type="tel" id="telefone" name="telefone" value="{{ paciente.pac_tel }}" required>
+      </div>
+
+      <div class="info-group">
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" name="cpf" value="{{ paciente.pac_cpf }}" required>
+      </div>
+
+      <div class="info-group">
+        <label for="data_nasc">Data de Nascimento</label>
+        <input type="date" id="data_nasc" name="data_nasc" value="{{ paciente.pac_data_nasc }}" required>
+      </div>
+
+      <div class="info-group">
+        <label for="sexo">Sexo</label>
+        <select id="sexo" name="sexo" required>
+          <option value="Feminino" {% if paciente.pac_sexo == 'Feminino' %}selected{% endif %}>Feminino</option>
+          <option value="Masculino" {% if paciente.pac_sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+        </select>
+      </div>
+
+      <div class="info-group">
+        <label for="doencas_preexistentes">Doenças Preexistentes</label>
+        <textarea id="doencas_preexistentes" name="doencas_preexistentes">{{ paciente.pac_doencas_preexistentes }}</textarea>
+      </div>
+
+      <div class="info-group">
+        <label for="historico_familiar">Histórico Familiar</label>
+        <textarea id="historico_familiar" name="historico_familiar">{{ paciente.pac_historico_familiar }}</textarea>
+      </div>
+
+    </div>
+
+    <div class="perfil-buttons">
+      <button type="submit" class="btn-update">Salvar Alterações</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+

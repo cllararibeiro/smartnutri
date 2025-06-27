@@ -16,16 +16,18 @@ Ficha de Atendimento
 
   <div class="container container-dieta">
     <h1 class="pagina-titulo">Detalhes da Consulta</h1>
-    <h2 class="pagina-titulo">
+  <h2 class="pagina-titulo">
       Caixa de seleção com a lista das consultas para poder mudar
-      <select>
-        <option>Consulta do dia xx/xx/xxxx</option>
-         <option>Consulta do dia xx/xx/xxxx</option>
-          <option>Consulta do dia xx/xx/xxxx</option>
-           <option>Consulta do dia xx/xx/xxxx</option>
+    <form method="GET" action="{{ url_for('nutricionista.detalhes_con', consulta_id=consulta.con_id) }}">
+      <select name="consulta_id" onchange="mudarConsulta(this)">
+        {% for c in consulta.paciente.consultas %}
+          <option value="{{ c.con_id }}" {% if c.con_id == consulta.con_id %}selected{% endif %}>
+          Consulta do dia {{ c.con_data.strftime('%d/%m/%Y') }}
+          </option>
+        {% endfor %}
       </select>
-
-    </h2>
+    </form>
+  </h2>
 
     <!-- Seção 1 -->
     <div class="box">
@@ -134,5 +136,12 @@ Ficha de Atendimento
       </a>
     </div>
   </div>
+
+  <script>
+    function mudarConsulta(select) {
+      const consultaId = select.value;
+      const rotaBase = "{{ url_for('nutricionista.detalhes_con', consulta_id=0).rsplit('/', 1)[0] }}";
+      window.location.href = rotaBase + '/' + consultaId;}
+  </script> 
 </body>
 {% endblock %}

@@ -6,7 +6,7 @@
     <h2>Meus Pacientes</h2>
 
     <form method="get" action="{{ url_for('nutricionista.dashboard') }}" class="busca-container">
-        <input type="text" name="busca" placeholder="Buscar paciente por nome..." value="">
+        <input type="text" name="busca" placeholder="Buscar paciente por nome..." value="" class="input">
         <input id="busca-btn" type="submit" value="Pesquisar" class="pesquisar"/>
         <a href="{{ url_for('nutricionista.cadastro_paciente') }}"><img src="/static/img/adicionar.png" class="adicionar"></a>
     </form>
@@ -16,10 +16,16 @@
             <div class="card">
                 <div class="editar">
                     <p><strong>{{ paciente.pac_nome }}</strong></p>
-                    <a href="{{ url_for('nutricionista.historico_con_paciente', paciente_id=paciente.pac_id) }}">
-                        <img src="/static/img/pencil-regular-24.png" class="lapis">
-                    </a>
+                    <div class="icones">
+                        <a href="{{ url_for('nutricionista.historico_con_paciente', paciente_id=paciente.pac_id) }}">
+                            <img src="/static/img/pencil-regular-24.png" class="lapis">
+                        </a>
+                        <a href="{{ url_for('nutricionista.historico_con') }}">
+                            <img src="/static/img/history.png" class="relogio">
+                        </a>
+                    </div>
                 </div>
+                
                 <div>
                     <p>Idade: {{ paciente.pac_idade }} anos</p>
                     <p>Telefone: {{ paciente.pac_tel }}</p>
@@ -30,6 +36,7 @@
                         <button>Realizar Consulta</button>
                     </a>
                 </div>
+                
             </div>
         {% endfor %}
     </div>

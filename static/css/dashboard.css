@@ -47,17 +47,15 @@ main {
 }
 
 main {
-  margin-left: 180px; /* largura da sidebar */
-  padding: 20px;
-  width: calc(100% - 250px);
-  box-sizing: border-box;
+    margin-left: 240px; /* Largura máxima da sidebar aberta */
+    padding: 20px;
+    width: calc(100% - 240px);
+    box-sizing: border-box;
 }
 
 nav {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
 }
-
-
 
 
 #sidebar {
@@ -263,7 +261,7 @@ nav {
     margin-top: 20px;
 }
 
-.busca-container input {
+.busca-container .input {
     padding: 8px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -300,7 +298,17 @@ nav {
 }
 
 .pesquisar {
+    text-indent: -9999px;
+    overflow: hidden;
+    width: 24px;
     height: 24px;
+    background-color: transparent;
+    background-image: url('/static/img/search-alt-2-regular-24.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border: none;
+    cursor: pointer;
 }
 
 .adicionar {
@@ -314,12 +322,27 @@ nav {
 
 }
 
+.icones {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 0px;
+}
+
 .lapis {
-    margin-top: 12px;
+    margin-top: 2px;
     color: var(--rosa);
     width: auto;
     height: 24px;
     padding-right: 0;
+}
+
+.relogio {
+    height: 23px;
+    width: auto;
+    font-weight: bolder;
 }
 
 
@@ -364,7 +387,7 @@ nav {
 #content-wrapper {
     margin-top: 80px;
     padding: 0 16px;
-    
+    margin-left: 0;
     box-sizing: border-box;
 }
 

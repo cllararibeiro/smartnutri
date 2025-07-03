@@ -1,10 +1,13 @@
 .container {
   max-width: 700px;
-  margin: 40px auto;
   padding: 30px 40px;
   background-color: var(--bege-claro);
   border-radius: 16px;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+}
+
+section {
+  margin: 0;
 }
 
 .container header {

@@ -20,9 +20,11 @@
                         <a href="{{ url_for('nutricionista.editar_paciente', paciente_id=paciente.pac_id) }}">
                             <img src="/static/img/pencil-regular-24.png" class="lapis">
                         </a>
+                    {% if consultas %}
                         <a href="{{ url_for('nutricionista.detalhes_con', consulta_id=consulta.con_id) }}">
                             <img src="/static/img/history.png" class="relogio">
                         </a>
+                    {% endif %}
                     </div>
                 </div>
                 

@@ -17,9 +17,8 @@ Ficha de Atendimento
   <div class="container container-dieta">
     <h1 class="pagina-titulo">Detalhes da Consulta</h1>
   <h2 class="pagina-titulo">
-      Caixa de seleção com a lista das consultas para poder mudar
-    <form method="GET" action="{{ url_for('nutricionista.detalhes_con', consulta_id=consulta.con_id) }}">
-      <select name="consulta_id" onchange="mudarConsulta(this)">
+    <form  method="GET" action="{{ url_for('nutricionista.detalhes_con', consulta_id=consulta.con_id) }}">
+      <select  class ="consultadata" name="consulta_id" onchange="mudarConsulta(this)">
         {% for c in consulta.paciente.consultas %}
           <option value="{{ c.con_id }}" {% if c.con_id == consulta.con_id %}selected{% endif %}>
           Consulta do dia {{ c.con_data.strftime('%d/%m/%Y') }}
@@ -133,6 +132,12 @@ Ficha de Atendimento
     <div class="relatorio-botao">
       <a href="{{ url_for('nutricionista.relatorio_paciente', paciente_id=consulta.con_pac_id) }}">
         <button><i class="fas fa-book"></i> Acessar Relatório</button>
+      </a>
+    </div>
+
+    <div class="relatorio-botao">
+      <a href="{{ url_for('nutricionista.visualizar_dieta', dieta_id=dieta.dieta_con_id) }}">
+        <button><i class="fas fa-book"></i> Acessar Dieta</button>
       </a>
     </div>
   </div>

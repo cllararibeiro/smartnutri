@@ -15,6 +15,18 @@
   max-width: 100%;
 }
 
+.consultadata {
+   background-color: var(--rosa);
+   color: white;
+   border: none;
+   padding: 10px 15px;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 12px;
+   margin-top: 10px;
+   transition: background-color 0.3s ease;
+}
+
 .box h2 {
   margin-bottom: 20px;
   color: var(--verde-cabeçalho);

@@ -28,8 +28,10 @@ def dashboard():
     pacientes = session.query(Paciente).filter(Paciente.pac_nome.like(f'%{busca}%'))\
     .filter_by(pac_nutri_id=current_user.nutri_id)\
     .order_by(desc(Paciente.pac_data_cadastro)).all() 
+    consulta = (session.query(Consulta).filter_by(con_nutri_id=current_user.nutri_id).order_by(Consulta.con_data.desc()).first())
 
-    return render_template('nutricionista/dashboard.html', pacientes=pacientes)
+
+    return render_template('nutricionista/dashboard.html', pacientes=pacientes, consulta=consulta)
 
 @nutricionista_bp.route('/perfil', methods=['GET', 'POST'])
 @login_required
@@ -52,8 +54,6 @@ def perfil():
         return redirect(url_for('nutricionista.perfil'))
 
     return render_template('nutricionista/perfil.html', nutricionista=nutricionista)
-
-
 
 
 @nutricionista_bp.route('/cadastro_paciente', methods=['GET', 'POST'])
@@ -179,6 +179,10 @@ def historico_con_paciente(paciente_id):
 def detalhes_con(consulta_id):
     consulta = session.query(Consulta).filter_by(con_id=consulta_id).first()
     dados = session.query(DadosAntropometricos).filter_by(dad_con_id=consulta_id).first()
+    paciente_id = consulta.con_pac_id
+    dieta = (session.query(Dieta).join(Consulta, Dieta.dieta_con_id == Consulta.con_id).filter(Dieta.dieta_pac_id == paciente_id).order_by(Consulta.con_data.desc()).first())
+
+
     if consulta:
         paciente = session.query(Paciente).get(consulta.con_pac_id)
         data_nasc = paciente.pac_data_nasc
@@ -186,7 +190,7 @@ def detalhes_con(consulta_id):
         hoje = datetime.today().date()
         idade = hoje.year - data_nasc_.year - ((hoje.month, hoje.day) < (data_nasc_.month, data_nasc_.day))
 
-        return render_template('nutricionista/detalhes_con.html', consulta=consulta, dados = dados, idade = idade)
+        return render_template('nutricionista/detalhes_con.html',consulta=consulta, dados=dados, idade=idade, dieta=dieta)
     return redirect(url_for('nutricionista.historico_con'))
 
 @nutricionista_bp.route('/dieta/<int:paciente_id>/<int:consulta_id>', methods=['GET', 'POST'])
@@ -436,7 +440,6 @@ def editar_paciente(paciente_id):
             
 
         session.commit()
-        flash('Paciente atualizado com sucesso!', 'success')
         return redirect(url_for('nutricionista.dashboard'))
 
     return render_template('nutricionista/editar_paciente.html', paciente=paciente)

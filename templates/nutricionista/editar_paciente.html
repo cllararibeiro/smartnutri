@@ -65,6 +65,25 @@ Atualizar Dados do Paciente
       <button type="submit" class="btn-update">Salvar Alterações</button>
     </div>
   </form>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for category, message in messages %}
+          <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <script>
+      setTimeout(function () {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function (alert) {
+          alert.style.opacity = '0'; // inicia desaparecimento
+          setTimeout(() => alert.remove(), 500); // remove do DOM após animação
+        });
+      },2000); // 4 segundos antes de começar a desaparecer
+</script>
 </div>
 {% endblock %}
 

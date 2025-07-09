@@ -18,9 +18,7 @@
             </button>
             
             <!-- Logo à esquerda -->
-            <link href="/templates/index.html" id="logo_link">
-                <img src="/static/img/smartnutri.png" id="header_logo" alt="Logo">
-        </link>
+            <a href="{{ url_for('nutricionista.dashboard') }}"><img src="/static/img/smartnutri.png" id="header_logo" alt="Logo"></a>
             
             <!-- Texto central -->
             <h1 id="welcome_text">Bem-vindo ao Sistema</h1>
@@ -50,14 +48,7 @@
                         </span>
                     </a>
                 </li>
-                <li class="side-item">
-                    <a href="{{ url_for('nutricionista.historico_con') }}">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="item-description">
-                            Histórico
-                        </span>
-                    </a>
-                </li>
+            
                 <li class="side-item">
                     <a href="{{ url_for('nutricionista.perfil') }}">
                         <i class="fa-solid fa-gear"></i>

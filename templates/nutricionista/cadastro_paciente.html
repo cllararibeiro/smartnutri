@@ -10,19 +10,20 @@ Ficha de Atendimento
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" type="text/css" href="/static/css/cadpaciente.css">
+    
   </head>
   <body>
     <section class="container">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          <div class="flash-messages">
-          {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
-           {% endfor %}
-          </div>
-        {% endif %}
-      {% endwith %}
       <header>Cadastro de paciente</header>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-container">
+              {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
       <form action="{{ url_for('nutricionista.cadastro_paciente') }}" method="POST" class="form">
         <div class="input-box">
             <label for="nome">Nome Completo</label>
@@ -69,6 +70,16 @@ Ficha de Atendimento
         <button>Cadastrar</button>
       </form>
     </section>
+    <script>
+      setTimeout(function () {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function (alert) {
+          alert.style.opacity = '0'; // inicia desaparecimento
+          setTimeout(() => alert.remove(), 500); // remove do DOM após animação
+        });
+      }, 2000); // 4 segundos antes de começar a desaparecer
+</script>
+
   </body>
 
 {% endblock %}

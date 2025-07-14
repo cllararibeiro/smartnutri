@@ -37,12 +37,34 @@ def dashboard():
 @login_required
 def perfil():
     nutricionista = session.query(Nutricionista).filter_by(nutri_id=current_user.nutri_id).first()
+    erros = {}
 
     if request.method == 'POST':
-        nutricionista.nutri_email = request.form['nutri_email']
-        nutricionista.nutri_telefone = request.form['nutri_telefone']
-        nutricionista.nutri_cpf = request.form['nutri_cpf']
-        nutricionista.nutri_crn = request.form['nutri_crn']
+        email = request.form['nutri_email']
+        telefone = request.form['nutri_telefone']
+        cpf = request.form['nutri_cpf']
+        crn = request.form['nutri_crn']
+        form = request.form
+
+        if session.query(Nutricionista).filter(Nutricionista.nutri_email == email, Nutricionista.nutri_id != current_user.nutri_id).first():
+            erros['nutri_email'] = 'Este e-mail já está em uso.'
+
+        if session.query(Nutricionista).filter(Nutricionista.nutri_telefone == telefone, Nutricionista.nutri_id != current_user.nutri_id).first():
+            erros['nutri_telefone'] = 'Este telefone já está em uso.'
+
+        if session.query(Nutricionista).filter(Nutricionista.nutri_cpf == cpf, Nutricionista.nutri_id != current_user.nutri_id).first():
+            erros['nutri_cpf'] = 'Este CPF já está em uso.'
+
+        if session.query(Nutricionista).filter(Nutricionista.nutri_crn == crn, Nutricionista.nutri_id != current_user.nutri_id).first():
+            erros['nutri_crn'] = 'Este CRN já está em uso.'
+
+        if erros:
+            return render_template('nutricionista/perfil.html', nutricionista=nutricionista, erros=erros, form=form)
+        
+        nutricionista.nutri_email = email
+        nutricionista.nutri_telefone = telefone
+        nutricionista.nutri_cpf = cpf
+        nutricionista.nutri_crn = crn
 
         try:
             session.commit()
@@ -50,10 +72,9 @@ def perfil():
         except Exception as e:
             session.rollback()
             flash(f'Ocorreu um erro ao atualizar o perfil: {str(e)}', 'danger')
-
         return redirect(url_for('nutricionista.perfil'))
-
-    return render_template('nutricionista/perfil.html', nutricionista=nutricionista)
+    
+    return render_template('nutricionista/perfil.html', nutricionista=nutricionista, erros={}, form={})
 
 
 @nutricionista_bp.route('/cadastro_paciente', methods=['GET', 'POST'])
@@ -68,19 +89,19 @@ def cadastro_paciente():
         cpf = request.form['cpf']
         doencas_preexistentes = request.form['doencas_preexistentes']
         historico_familiar = request.form['historico_familiar']
-
+        erros = {}
         
         if session.query(Paciente).filter_by(pac_email=email).first():
-            flash('Este e-mail já está cadastrado para outro paciente.', 'danger')
-            return render_template('nutricionista/cadastro_paciente.html')
+            erros['email'] = 'Este e-mail já está cadastrado.'
 
         if session.query(Paciente).filter_by(pac_cpf=cpf).first():
-            flash('Este cpf já está cadastrado para outro paciente.', 'danger')
-            return render_template('nutricionista/cadastro_paciente.html')
+            erros['cpf'] = 'Este CPF já está cadastrado.'
 
         if session.query(Paciente).filter_by(pac_tel=tel).first():
-            flash('Este telefone já está cadastrado para outro paciente.', 'danger')
-            return render_template('nutricionista/cadastro_paciente.html')
+            erros['telefone'] = 'Este telefone já está cadastrado.'
+
+        if erros:
+            return render_template('nutricionista/cadastro_paciente.html', erros=erros, form=request.form)
         
         data_nasc_obj = datetime.strptime(data_nasc, '%Y-%m-%d') 
         
@@ -96,7 +117,7 @@ def cadastro_paciente():
         session.commit()
         return redirect(url_for('nutricionista.dashboard'))
 
-    return render_template('nutricionista/cadastro_paciente.html')
+    return render_template('nutricionista/cadastro_paciente.html', erros={}, form={})
 
 @nutricionista_bp.route('/consulta/<int:paciente_id>', methods=['GET', 'POST'])
 @login_required
@@ -411,18 +432,19 @@ def editar_paciente(paciente_id):
         novo_email = request.form.get('email')
         novo_cpf = request.form.get('cpf')
         novo_tel = request.form.get('telefone')
+        erros = {}
+        
+        if session.query(Paciente).filter_by(pac_email=novo_email).first():
+            erros['email'] = 'Este e-mail já está cadastrado.'
 
-        if session.query(Paciente).filter(Paciente.pac_email == novo_email, Paciente.pac_id != paciente_id).first():
-            flash('Este e-mail já está cadastrado para outro paciente.', 'danger')
-            return redirect(url_for('nutricionista.editar_paciente', paciente_id=paciente_id))
+        if session.query(Paciente).filter_by(pac_cpf=novo_cpf).first():
+            erros['cpf'] = 'Este CPF já está cadastrado.'
 
-        if session.query(Paciente).filter(Paciente.pac_cpf == novo_cpf, Paciente.pac_id != paciente_id).first():
-            flash('Este CPF já está cadastrado para outro paciente.', 'danger')
-            return redirect(url_for('nutricionista.editar_paciente', paciente_id=paciente_id))
+        if session.query(Paciente).filter_by(pac_tel=novo_tel).first():
+            erros['telefone'] = 'Este telefone já está cadastrado.'
 
-        if session.query(Paciente).filter(Paciente.pac_tel == novo_tel, Paciente.pac_id != paciente_id).first():
-            flash('Este telefone já está cadastrado para outro paciente.', 'danger')
-            return redirect(url_for('nutricionista.editar_paciente', paciente_id=paciente_id))
+        if erros:
+            return render_template('nutricionista/editar_paciente.html', erros=erros, form=request.form, paciente=paciente)
     
         paciente.pac_nome = request.form.get('nome')
         paciente.pac_email = novo_email
@@ -442,5 +464,5 @@ def editar_paciente(paciente_id):
         session.commit()
         return redirect(url_for('nutricionista.dashboard'))
 
-    return render_template('nutricionista/editar_paciente.html', paciente=paciente)
+    return render_template('nutricionista/editar_paciente.html', paciente=paciente, erros ={}, form={})
 

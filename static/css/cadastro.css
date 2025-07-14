@@ -63,6 +63,12 @@ body {
 }
 
 
+.input-error {
+  color: #d10000;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
 
 .container {
     width: 40%;

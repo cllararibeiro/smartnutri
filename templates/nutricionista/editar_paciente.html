@@ -10,7 +10,7 @@ Atualizar Dados do Paciente
 
 <div class="perfil-content">
   <div class="perfil-sidebar">
-    <h2>{{ paciente.pac_nome }}</h2>
+    <h2>{{ form.get('nome', paciente.pac_nome) }}</h2>
   </div>
 
   <form method="POST" action="{{ url_for('nutricionista.editar_paciente', paciente_id=paciente.pac_id) }}">
@@ -18,45 +18,54 @@ Atualizar Dados do Paciente
 
       <div class="info-group">
         <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" value="{{ paciente.pac_nome }}" required>
+        <input type="text" id="nome" name="nome" value="{{ form.get('nome', paciente.pac_nome) }}" required>
       </div>
 
       <div class="info-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" value="{{ paciente.pac_email }}" required>
+        <input type="email" id="email" name="email" value="{{ form.get('email', paciente.pac_email) }}" required>
+        {% if erros.get('email') %}
+          <small class="input-error">{{ erros['email'] }}</small>
+        {% endif %}
       </div>
 
       <div class="info-group">
         <label for="telefone">Telefone</label>
-        <input type="tel" id="telefone" name="telefone" value="{{ paciente.pac_tel }}" required>
+        <input type="tel" id="telefone" name="telefone" value="{{ form.get('telefone', paciente.pac_tel) }}" required>
+        {% if erros.get('telefone') %}
+          <small class="input-error">{{ erros['telefone'] }}</small>
+        {% endif %}
       </div>
 
       <div class="info-group">
         <label for="cpf">CPF</label>
-        <input type="text" id="cpf" name="cpf" value="{{ paciente.pac_cpf }}" required>
+        <input type="text" id="cpf" name="cpf" value="{{ form.get('cpf', paciente.pac_cpf) }}" required>
+        {% if erros.get('cpf') %}
+          <small class="input-error">{{ erros['cpf'] }}</small>
+        {% endif %}
       </div>
 
       <div class="info-group">
         <label for="data_nasc">Data de Nascimento</label>
-        <input type="date" id="data_nasc" name="data_nasc" value="{{ paciente.pac_data_nasc }}" required>
+        <input type="date" id="data_nasc" name="data_nasc" value="{{ form.get('data_nasc', paciente.pac_data_nasc) }}" required>
       </div>
 
       <div class="info-group">
         <label for="sexo">Sexo</label>
         <select id="sexo" name="sexo" required>
-          <option value="Feminino" {% if paciente.pac_sexo == 'Feminino' %}selected{% endif %}>Feminino</option>
-          <option value="Masculino" {% if paciente.pac_sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+          <option value="Feminino" {% if form.get('sexo', paciente.pac_sexo) == 'Feminino' %}selected{% endif %}>Feminino</option>
+          <option value="Masculino" {% if form.get('sexo', paciente.pac_sexo) == 'Masculino' %}selected{% endif %}>Masculino</option>
         </select>
       </div>
 
       <div class="info-group">
         <label for="doencas_preexistentes">Doenças Preexistentes</label>
-        <textarea id="doencas_preexistentes" name="doencas_preexistentes">{{ paciente.pac_doencas_preexistentes }}</textarea>
+        <textarea id="doencas_preexistentes" name="doencas_preexistentes">{{ form.get('doencas_preexistentes', paciente.pac_doencas_preexistentes) }}</textarea>
       </div>
 
       <div class="info-group">
         <label for="historico_familiar">Histórico Familiar</label>
-        <textarea id="historico_familiar" name="historico_familiar">{{ paciente.pac_historico_familiar }}</textarea>
+        <textarea id="historico_familiar" name="historico_familiar">{{ form.get('historico_familiar', paciente.pac_historico_familiar) }}</textarea>
       </div>
 
     </div>
@@ -65,25 +74,6 @@ Atualizar Dados do Paciente
       <button type="submit" class="btn-update">Salvar Alterações</button>
     </div>
   </form>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <div class="flash-container">
-        {% for category, message in messages %}
-          <div class="alert {{ category }}">{{ message }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
 
-  <script>
-      setTimeout(function () {
-        const alerts = document.querySelectorAll('.alert');
-        alerts.forEach(function (alert) {
-          alert.style.opacity = '0'; // inicia desaparecimento
-          setTimeout(() => alert.remove(), 500); // remove do DOM após animação
-        });
-      },2000); // 4 segundos antes de começar a desaparecer
-</script>
 </div>
 {% endblock %}
-

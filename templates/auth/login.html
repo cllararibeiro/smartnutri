@@ -23,12 +23,19 @@
                 <div class="input-group">
                     <div class="input-box">
                         <label for="email">E-mail</label>
-                        <input id="email" type="email" name="email" placeholder="Digite seu nome de usuário ou e-mail" required>
+                        <input id="email" type="email" name="email" placeholder="Digite seu e-mail"
+                            value="{{ form.get('email', '') }}" required>
+                        {% if erros.get('email') %}
+                            <small class="input-error">{{ erros['email'] }}</small>
+                        {% endif %}
                     </div>
 
-                    <div class="input-box">
+                   <div class="input-box">
                         <label for="senha">Senha</label>
                         <input id="senha" type="password" name="senha" placeholder="Digite sua senha" required>
+                        {% if erros.get('senha') %}
+                            <small class="input-error">{{ erros['senha'] }}</small>
+                        {% endif %}
                     </div>
                 </div>
 

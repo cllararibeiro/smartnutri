@@ -30,18 +30,32 @@
 
                     <div class="input-box">
                         <label for="email">E-mail</label>
-                        <input id="email" type="email" name="email" placeholder="Digite seu e-mail" required>
+                        <input id="email" type="email" name="email" placeholder="Digite seu e-mail"
+                            value="{{ form.get('email', '') }}" required>
+                        {% if erros.get('email') %}
+                            <small class="input-error">{{ erros['email'] }}</small>
+                        {% endif %}
+                    </div>
+                    
+                   <div class="input-box">
+                        <label for="cpf">CPF</label>
+                        <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF"
+                            value="{{ form.get('cpf', '') }}" required>
+                        {% if erros.get('cpf') %}
+                            <small class="input-error">{{ erros['cpf'] }}</small>
+                        {% endif %}
                     </div>
 
-                    <div class="input-box">
-                        <label for="cpf">CPF</label>
-                        <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF" required>
-                    </div>
 
                     <div class="input-box">
                         <label for="telefone">Telefone</label>
-                        <input id="telefone" type="tel" name="telefone" placeholder="(xx) xxxx-xxxx" required>
+                        <input id="telefone" type="tel" name="telefone" placeholder="(xx) xxxx-xxxx"
+                            value="{{ form.get('telefone', '') }}" required>
+                        {% if erros.get('telefone') %}
+                            <small class="input-error">{{ erros['telefone'] }}</small>
+                        {% endif %}
                     </div>
+
 
                     <div class="input-box">
                         <label for="senha">Senha</label>
@@ -50,8 +64,13 @@
 
                     <div class="input-box">
                         <label for="crn">CRN</label>
-                        <input id="crn" type="text" name="crn" placeholder="Digite seu CRN" required>
+                        <input id="crn" type="text" name="crn" placeholder="Digite seu CRN"
+                            value="{{ form.get('crn', '') }}" required>
+                        {% if erros.get('crn') %}
+                            <small class="input-error">{{ erros['crn'] }}</small>
+                        {% endif %}
                     </div>
+
 
                 </div>
 

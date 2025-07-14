@@ -93,23 +93,9 @@ section {
   }
 }
 
-.flash-messages {
-  margin-top: 15px;
-}
-
-.alert {
-  padding: 12px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.alert-danger {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-.alert-success {
-  background-color: #d4edda;
-  color: #155724;
+.input-error {
+  color: #d10000;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
 }

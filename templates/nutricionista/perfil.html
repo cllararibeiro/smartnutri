@@ -8,34 +8,49 @@ Atualizar Perfil do Nutricionista
 <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <div class="perfil-content">
-    <div class="perfil-sidebar">
+<div class="perfil-content">
+  <div class="perfil-sidebar">
     <h2>{{ nutricionista.nutri_nome }}</h2>
   </div>
-    <form method="POST" action="{{ url_for('nutricionista.perfil') }}">
-      <div class="perfil-info">
-        <div class="info-group">
-          <label for="nutri_email">Email</label>
-          <input type="email" id="nutri_email" name="nutri_email" value="{{ nutricionista.nutri_email }}" required>
-        </div>
-        <div class="info-group">
-          <label for="nutri_telefone">Telefone</label>
-          <input type="tel" id="nutri_telefone" name="nutri_telefone" value="{{ nutricionista.nutri_telefone }}" required>
-        </div>
-        <div class="info-group">
-          <label for="nutri_cpf">CPF</label>
-          <input type="text" id="nutri_cpf" name="nutri_cpf" value="{{ nutricionista.nutri_cpf }}" required>
-        </div>
-        <div class="info-group">
-          <label for="nutri_crn">CRN</label>
-          <input type="text" id="nutri_crn" name="nutri_crn" value="{{ nutricionista.nutri_crn }}" required>
-        </div>
+  <form method="POST" action="{{ url_for('nutricionista.perfil') }}">
+    <div class="perfil-info">
+      <div class="info-group">
+        <label for="nutri_email">Email</label>
+        <input type="email" id="nutri_email" name="nutri_email" 
+               value="{{ form.get('nutri_email', nutricionista.nutri_email) }}" required>
+        {% if erros.get('nutri_email') %}
+          <small class="input-error">{{ erros['nutri_email'] }}</small>
+        {% endif %}
       </div>
+      <div class="info-group">
+        <label for="nutri_telefone">Telefone</label>
+        <input type="tel" id="nutri_telefone" name="nutri_telefone" 
+               value="{{ form.get('nutri_telefone', nutricionista.nutri_telefone) }}" required>
+        {% if erros.get('nutri_telefone') %}
+          <small class="input-error">{{ erros['nutri_telefone'] }}</small>
+        {% endif %}
+      </div>
+      <div class="info-group">
+        <label for="nutri_cpf">CPF</label>
+        <input type="text" id="nutri_cpf" name="nutri_cpf" 
+               value="{{ form.get('nutri_cpf', nutricionista.nutri_cpf) }}" required>
+        {% if erros.get('nutri_cpf') %}
+          <small class="input-error">{{ erros['nutri_cpf'] }}</small>
+        {% endif %}
+      </div>
+      <div class="info-group">
+        <label for="nutri_crn">CRN</label>
+        <input type="text" id="nutri_crn" name="nutri_crn" 
+               value="{{ form.get('nutri_crn', nutricionista.nutri_crn) }}" required>
+        {% if erros.get('nutri_crn') %}
+          <small class="input-error">{{ erros['nutri_crn'] }}</small>
+        {% endif %}
+      </div>
+    </div>
 
-      <div class="perfil-buttons">
-        <button type="submit" class="btn-update">Salvar Alterações</button>
-      </div>
-    </form>
-  </div>
+    <div class="perfil-buttons">
+      <button type="submit" class="btn-update">Salvar Alterações</button>
+    </div>
+  </form>
 </div>
 {% endblock %}

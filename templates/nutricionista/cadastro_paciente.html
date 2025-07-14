@@ -15,33 +15,39 @@ Ficha de Atendimento
   <body>
     <section class="container">
       <header>Cadastro de paciente</header>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <div class="flash-container">
-              {% for category, message in messages %}
-                <div class="alert {{ category }}">{{ message }}</div>
-              {% endfor %}
-            </div>
-          {% endif %}
-        {% endwith %}
       <form action="{{ url_for('nutricionista.cadastro_paciente') }}" method="POST" class="form">
         <div class="input-box">
             <label for="nome">Nome Completo</label>
             <input id="nome" type="text" name="nome" placeholder="" required>
         </div>
         <div class="input-box">
-            <label for="email">E-mail</label>
-            <input id="email" type="email" name="email" placeholder="" required>
-        </div>
+          <label for="email">E-mail</label>
+          <input id="email" type="email" name="email" placeholder="Digite o e-mail"
+              value="{{ form.get('email', '') }}" required>
+          {% if erros.get('email') %}
+              <small class="input-error">{{ erros['email'] }}</small>
+          {% endif %}
+      </div>
+
         <div class="input-box">
-            <label for="cpf">CPF</label>
-            <input id="cpf" type="text" name="cpf" placeholder="" required>
-        </div>
+          <label for="cpf">CPF</label>
+          <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF"
+              value="{{ form.get('cpf', '') }}" required>
+          {% if erros.get('cpf') %}
+              <small class="input-error">{{ erros['cpf'] }}</small>
+          {% endif %}
+      </div>
+
         <div class="column">
           <div class="input-box">
-            <label for="telefone">Telefone</label>
-            <input id="telefone" type="text" name="telefone" placeholder="(xx) xxxx-xxxx" required>
+              <label for="telefone">Telefone</label>
+              <input id="telefone" type="tel" name="telefone" placeholder="(xx) xxxx-xxxx"
+                  value="{{ form.get('telefone', '') }}" required>
+              {% if erros.get('telefone') %}
+                  <small class="input-error">{{ erros['telefone'] }}</small>
+              {% endif %}
           </div>
+
           <div class="input-box">
             <label for="data_nasc">Data de nascimento</label>
             <input id="data_nasc" type="date" name="data_nasc" placeholder="" required />

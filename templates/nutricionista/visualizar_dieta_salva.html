@@ -20,28 +20,32 @@ Ficha de Atendimento
     <h2>Objetivo: {{ dieta.dieta_objetivo }}</h2>
     
     <h3>Cardápio</h3>
-    <table style="border:1px;" class="tb_dieta_pronta">
-        <tr>
-            <th>Refeição</th>
-            <th>Alimento</th>
-            <th>Quantidade (g)</th>
-            <th>Calorias</th>
-            <th>Proteínas</th>
-            <th>Carboidratos</th>
-            <th>Gorduras</th>
-        </tr>
-        {% for item in cardapio %}
-        <tr>
-            <td>{{ item.TipoRefeicao.tipo_nome }}</td>
-            <td>{{ item.Alimento.alimento_nome }}</td>
-            <td>{{ item.Cardapio.quantidade }}</td>
-            <td>{{ (item.Alimento.alimento_calorias * item.Cardapio.quantidade / 100)|round(2) }}</td>
-            <td>{{ (item.Alimento.alimento_proteinas * item.Cardapio.quantidade / 100)|round(2) }}</td>
-            <td>{{ (item.Alimento.alimento_carboidratos * item.Cardapio.quantidade / 100)|round(2) }}</td>
-            <td>{{ (item.Alimento.alimento_gorduras * item.Cardapio.quantidade / 100)|round(2) }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+<table style="border:1px;" class="tb_dieta_pronta">
+    <tr>
+        <th>Refeição</th>
+        <th>Alimento</th>
+        <th>Quantidade (g)</th>
+        <th>Calorias</th>
+        <th>Proteínas</th>
+        <th>Carboidratos</th>
+        <th>Gorduras</th>
+    </tr>
+    {% for item in cardapio %}
+    <tr>
+        {% if loop.first or item.TipoRefeicao.tipo_nome != cardapio[loop.index0-1].TipoRefeicao.tipo_nome %}
+            <td rowspan="{{ cardapio|selectattr('TipoRefeicao.tipo_nome', 'equalto', item.TipoRefeicao.tipo_nome)|list|length }}">
+                {{ item.TipoRefeicao.tipo_nome }}
+            </td>
+        {% endif %}
+        <td>{{ item.Alimento.alimento_nome }}</td>
+        <td>{{ item.Cardapio.quantidade }}</td>
+        <td>{{ (item.Alimento.alimento_calorias * item.Cardapio.quantidade / 100)|round(2) }}</td>
+        <td>{{ (item.Alimento.alimento_proteinas * item.Cardapio.quantidade / 100)|round(2) }}</td>
+        <td>{{ (item.Alimento.alimento_carboidratos * item.Cardapio.quantidade / 100)|round(2) }}</td>
+        <td>{{ (item.Alimento.alimento_gorduras * item.Cardapio.quantidade / 100)|round(2) }}</td>
+    </tr>
+    {% endfor %}
+</table>
 
     <h3>Totais</h3>
         <p>Calorias: {{ total_calorias|round(2) }} kcal</p>

@@ -18,24 +18,51 @@
   --bege-claro:#f7f7f7;
 } 
  
+
+#content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
  h2 {
     margin-bottom: 20px;
     color: #2c3e50;
   }
 
+  h3 {
+    margin-bottom: 10px;
+  }
   .cardnew {
-    background: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 500px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
 
   form .form-group {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
+  }
+
+  .button {
+    width: 12rem;
+    height: 2rem;
+    background-color: var(--verde-padrao);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    margin-top: 10px;
   }
 
   label {
@@ -80,9 +107,16 @@
   }
 
   .tabelasubs {
-    max-width: 700px;
-    overflow-x: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 100%;
+    
   }
+  
 
   table {
     width: 100%;
@@ -111,6 +145,19 @@
     color: #777;
   }
 
+.abutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--rosa);
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  width: 13rem;
+  height: 3rem;
+  font-size: 15px;
+}
+
   .btn-back {
     display: inline-block;
     margin-top: 30px;
@@ -120,8 +167,16 @@
     transition: color 0.3s ease;
   }
 
+  .abutton:hover {
+    background-color: rgb(224, 87, 110);
+  }
+
   .btn-back:hover {
     color: #2980b9;
+  }
+
+  .button:hover {
+    background-color: green;
   }
 
   /* Responsividade simples */

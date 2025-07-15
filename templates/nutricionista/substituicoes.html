@@ -31,7 +31,7 @@
     <input type="number" step="0.1" name="quantidade" required>
   </div>
 
-  <button type="submit">Salvar Substituição</button>
+  <button class="button" type="submit">Salvar Substituição</button>
 </form>
 
 <hr>
@@ -39,28 +39,29 @@
 
 <div class = "tabelasubs">
   <h3>Substituições Cadastradas</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Alimento Original</th>
-      <th>Substituto</th>
-      <th>Quantidade (g)</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for sub in dieta.substituicoes %}
-    <tr>
-      <td>{{ sub.alimento_original.alimento_nome }}</td>
-      <td>{{ sub.alimento_substituto.alimento_nome }}</td>
-      <td>{{ sub.quantidade }}</td>
-    </tr>
-    {% else %}
-    <tr><td colspan="3">Nenhuma substituição cadastrada.</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Alimento Original</th>
+        <th>Substituto</th>
+        <th>Quantidade (g)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sub in dieta.substituicoes %}
+      <tr>
+        <td>{{ sub.alimento_original.alimento_nome }}</td>
+        <td>{{ sub.alimento_substituto.alimento_nome }}</td>
+        <td>{{ sub.quantidade }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="3">Nenhuma substituição cadastrada.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
 </div>
 
 
-<a href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
+<a class="abutton" href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
 {% endblock %}

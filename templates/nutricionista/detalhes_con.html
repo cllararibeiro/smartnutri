@@ -135,11 +135,15 @@ Ficha de Atendimento
       </a>
     </div>
 
-    <div class="relatorio-botao">
-      <a href="{{ url_for('nutricionista.visualizar_dieta', dieta_id=dieta.dieta_con_id) }}">
-        <button><i class="fas fa-book"></i> Acessar Dieta</button>
-      </a>
-    </div>
+    {% if dieta %}
+      <div class="relatorio-botao">
+        <a href="{{ url_for('nutricionista.visualizar_dieta', dieta_id=dieta.dieta_id) }}">
+          <button><i class="fas fa-book"></i> Acessar Dieta</button>
+        </a>
+      </div>
+    {% else %}
+      <p style="color: red;">Nenhuma dieta cadastrada para esta consulta.</p>
+    {% endif %}
   </div>
 
   <script>

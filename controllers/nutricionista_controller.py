@@ -201,7 +201,12 @@ def detalhes_con(consulta_id):
     consulta = session.query(Consulta).filter_by(con_id=consulta_id).first()
     dados = session.query(DadosAntropometricos).filter_by(dad_con_id=consulta_id).first()
     paciente_id = consulta.con_pac_id
-    dieta = (session.query(Dieta).join(Consulta, Dieta.dieta_con_id == Consulta.con_id).filter(Dieta.dieta_pac_id == paciente_id).order_by(Consulta.con_data.desc()).first())
+    dieta = (
+        session.query(Dieta)
+        .filter(Dieta.dieta_con_id == consulta_id)
+        .first()
+    )
+    #dieta = (session.query(Dieta).join(Consulta, Dieta.dieta_con_id == Consulta.con_id).filter(Dieta.dieta_pac_id == paciente_id).order_by(Consulta.con_data.desc()).first())
 
 
     if consulta:

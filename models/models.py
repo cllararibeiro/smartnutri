@@ -119,8 +119,9 @@ class Substituicao(Base):
     substituicao_id = mapped_column(Integer, primary_key=True, autoincrement=True)
     dieta_id = mapped_column(Integer, ForeignKey('tb_dietas.dieta_id'), nullable=False)
     alimento_original_id = mapped_column(Integer, ForeignKey('tb_alimentos.alimento_id'), nullable=False)
-    alimento_substituto_id = mapped_column(Integer, ForeignKey('tb_alimentos.alimento_id'), nullable=False)
     quantidade = mapped_column(DECIMAL(10, 2), nullable=False)
+    alimento_substituto_id = mapped_column(Integer, ForeignKey('tb_alimentos.alimento_id'), nullable=False)
+    quantidadesub = mapped_column(DECIMAL(10, 2), nullable=False)
 
     dieta = relationship('Dieta', foreign_keys=[dieta_id], back_populates='substituicoes')
     alimento_original = relationship('Alimento', foreign_keys=[alimento_original_id], back_populates='substituicoes')

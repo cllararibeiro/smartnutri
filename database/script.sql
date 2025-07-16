@@ -88,9 +88,10 @@ CREATE TABLE tb_alimentos (
   CREATE TABLE tb_substituicoes (
     substituicao_id INT AUTO_INCREMENT PRIMARY KEY,  
     dieta_id INT NOT NULL,
-    alimento_original_id INT NOT NULL,  -- O alimento original que será substituído
+    alimento_original_id INT NOT NULL,
+	quantidade DECIMAL(10, 2) NOT NULL,-- O alimento original que será substituído
     alimento_substituto_id INT NOT NULL,  -- O alimento que irá substituir o original
-    quantidade DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento substituto 
+    quantidadesub DECIMAL(10, 2) NOT NULL,  -- Quantidade do alimento substituto 
     FOREIGN KEY (alimento_original_id) REFERENCES tb_alimentos(alimento_id),  
     FOREIGN KEY (dieta_id) REFERENCES tb_dietas(dieta_id),
     FOREIGN KEY (alimento_substituto_id) REFERENCES tb_alimentos(alimento_id) 
@@ -145,8 +146,3 @@ INSERT INTO tb_alimentos (alimento_nome, alimento_categoria, alimento_calorias, 
 ('Abacate', 'Fruta', 160.00, 2.00, 8.50, 14.66, 6.70),
 ('Ovos', 'Proteína', 68.00, 5.50, 0.60, 4.80, 0.00),
 ('Pão Integral', 'Carboidrato', 69.00, 3.60, 12.00, 1.10, 2.40);
-
-
-
-
-

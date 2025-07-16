@@ -15,11 +15,11 @@ Ficha de Atendimento
 
 
 <div id="conteudo-dieta">
-
-    <h1>Dieta de {{ dieta.paciente.pac_nome }}</h1>
-    <h2>Objetivo: {{ dieta.dieta_objetivo }}</h2>
+    <div class = "titledieta">
+        <h1>Dieta de {{ dieta.paciente.pac_nome }}</h1>
+    </div>
     
-    <h3>Cardápio</h3>
+
 <table style="border:1px;" class="tb_dieta_pronta">
     <tr>
         <th>Refeição</th>
@@ -62,6 +62,7 @@ Ficha de Atendimento
                 <thead>
                     <tr>
                         <th>Alimento Original</th>
+                        <th>Quantidade (g)</th>
                         <th>Substituto</th>
                         <th>Quantidade (g)</th>
                     </tr>
@@ -70,8 +71,9 @@ Ficha de Atendimento
                     {% for sub, original, substituto in substituicoes %}
                     <tr>
                         <td>{{ original.alimento_nome }}</td>
-                        <td>{{ substituto.alimento_nome }}</td>
                         <td>{{ sub.quantidade }}g</td>
+                        <td>{{ substituto.alimento_nome }}</td>
+                        <td>{{ sub.quantidadesub }}g</td>
                     </tr>
                     {% else %}
                     <tr>

@@ -18,6 +18,11 @@
   </div>
 
   <div>
+    <label>Quantidade (g)</label>
+    <input type="number" step="0.1" name="quantidade" required>
+  </div>
+
+  <div>
     <label>Alimento Substituto</label>
     <select name="alimento_substituto" required>
       {% for alimento in alimentos %}
@@ -43,6 +48,7 @@
     <thead>
       <tr>
         <th>Alimento Original</th>
+        <th>Quantidade (g)</th>
         <th>Substituto</th>
         <th>Quantidade (g)</th>
       </tr>
@@ -51,8 +57,9 @@
       {% for sub in dieta.substituicoes %}
       <tr>
         <td>{{ sub.alimento_original.alimento_nome }}</td>
-        <td>{{ sub.alimento_substituto.alimento_nome }}</td>
         <td>{{ sub.quantidade }}</td>
+        <td>{{ sub.alimento_substituto.alimento_nome }}</td>
+        <td>{{ sub.quantidadesub }}</td>
       </tr>
       {% else %}
       <tr><td colspan="3">Nenhuma substituição cadastrada.</td></tr>

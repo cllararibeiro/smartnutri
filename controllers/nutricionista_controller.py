@@ -293,16 +293,19 @@ def substituicoes(dieta_id):
     if request.method == 'POST':
         alimento_original_id = request.form.get('alimento_original')
         alimento_substituto_id = request.form.get('alimento_substituto')
+        quantidadesub = request.form.get('quantidadesub')
         quantidade = request.form.get('quantidade')
 
-        if alimento_original_id and alimento_substituto_id and quantidade:
+        if alimento_original_id and alimento_substituto_id and quantidade and quantidadesub:
             try:
                 quantidade_float = float(quantidade)
+                quantidadesub_float = float(quantidadesub)
                 nova_substituicao = Substituicao(
                     dieta_id=dieta_id,
                     alimento_original_id=alimento_original_id,
+                    quantidade=quantidade_float,
                     alimento_substituto_id=alimento_substituto_id,
-                    quantidade=quantidade_float
+                    quantidadesub=quantidadesub_float
                 )
                 session.add(nova_substituicao)
                 session.commit()

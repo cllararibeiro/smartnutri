@@ -24,14 +24,23 @@ logging.basicConfig( level=logging.INFO)
 @login_required
 def dashboard():
     busca = request.args.get('busca','')
-    print(f"Termo da busca: {busca}")
-    pacientes = session.query(Paciente).filter(Paciente.pac_nome.like(f'%{busca}%'))\
-    .filter_by(pac_nutri_id=current_user.nutri_id)\
-    .order_by(desc(Paciente.pac_data_cadastro)).all() 
-    consulta = (session.query(Consulta).filter_by(con_nutri_id=current_user.nutri_id).order_by(Consulta.con_data.desc()).first())
+    pacientes = session.query(Paciente)\
+        .filter(Paciente.pac_nome.like(f'%{busca}%'))\
+        .filter_by(pac_nutri_id=current_user.nutri_id)\
+        .order_by(desc(Paciente.pac_data_cadastro))\
+        .all()
 
+    # Para cada paciente, vamos pegar a consulta mais recente
+    consultas_recentes = {}
+    for paciente in pacientes:
+        consulta = (session.query(Consulta)
+                    .filter_by(con_pac_id=paciente.pac_id)
+                    .order_by(Consulta.con_data.desc())
+                    .first())
+        consultas_recentes[paciente.pac_id] = consulta
 
-    return render_template('nutricionista/dashboard.html', pacientes=pacientes, consulta=consulta)
+    return render_template('nutricionista/dashboard.html', pacientes=pacientes, consultas_recentes=consultas_recentes)
+
 
 @nutricionista_bp.route('/perfil', methods=['GET', 'POST'])
 @login_required

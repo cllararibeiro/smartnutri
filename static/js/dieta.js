@@ -86,13 +86,10 @@
         const previewContainer = document.getElementById('preview-container');
         previewContainer.innerHTML = '<h3>Resumo da Dieta</h3>';
         
-        const pacienteSelect = document.getElementById('paciente');
-        const pacienteNome = pacienteSelect.options[pacienteSelect.selectedIndex]?.text || 'Paciente não selecionado';
-        const objetivo = document.getElementById('objetivo').value || 'Objetivo não definido';
+        const pacienteNome = document.getElementById('paciente')?.dataset.nome || 'Paciente não selecionado';
         
         previewContainer.innerHTML += `
             <p><strong>Paciente:</strong> ${pacienteNome}</p>
-            <p><strong>Objetivo:</strong> ${objetivo}</p>
         `;
         
         let totalCalorias = 0;
@@ -156,7 +153,4 @@
             </div>
         `;
         
-        // Habilitar/desabilitar botão de gerar PDF
-        document.getElementById('btn-gerar-pdf').disabled = 
-            document.querySelectorAll('.alimento').length === 0;
     }

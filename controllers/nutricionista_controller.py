@@ -274,13 +274,13 @@ def dieta(paciente_id, consulta_id):
             flash(f'Erro ao cadastrar dieta: {str(e)}', 'error')
             return redirect(url_for('nutricionista.dieta', paciente_id=paciente_id, consulta_id=consulta_id))
 
-    pacientes = session.query(Paciente).filter_by(pac_nutri_id=current_user.nutri_id).all()
+    paciente = session.query(Paciente).filter_by(pac_id=paciente_id).first()
     alimentos = session.query(Alimento).order_by(Alimento.alimento_nome).all()
     tipos_refeicao = session.query(TipoRefeicao).all()
 
     return render_template(
         'nutricionista/dieta.html',
-        pacientes=pacientes,
+        paciente=paciente,
         alimentos=alimentos,
         tipos_refeicao=tipos_refeicao,
         paciente_id=paciente_id,
@@ -442,14 +442,15 @@ def editar_paciente(paciente_id):
         novo_tel = request.form.get('telefone')
         erros = {}
         
-        if session.query(Paciente).filter_by(pac_email=novo_email).first():
+        if session.query(Paciente).filter(Paciente.pac_email == novo_email, Paciente.pac_id != paciente_id).first():
             erros['email'] = 'Este e-mail já está cadastrado.'
 
-        if session.query(Paciente).filter_by(pac_cpf=novo_cpf).first():
+        if session.query(Paciente).filter(Paciente.pac_cpf == novo_cpf, Paciente.pac_id != paciente_id).first():
             erros['cpf'] = 'Este CPF já está cadastrado.'
 
-        if session.query(Paciente).filter_by(pac_tel=novo_tel).first():
+        if session.query(Paciente).filter(Paciente.pac_tel == novo_tel, Paciente.pac_id != paciente_id).first():
             erros['telefone'] = 'Este telefone já está cadastrado.'
+
 
         if erros:
             return render_template('nutricionista/editar_paciente.html', erros=erros, form=request.form, paciente=paciente)

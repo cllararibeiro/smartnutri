@@ -49,28 +49,26 @@
                     </a>
                 </li>
             
-                <li class="side-item">
+               <li class="side-item">
                     <a href="{{ url_for('nutricionista.perfil') }}">
-                        <i class="fa-solid fa-gear"></i>
-                        <span class="item-description">
-                           Perfil
-                        </span>
+                        <i class="fa-solid fa-user-circle"></i>
+                        <span class="item-description">Perfil</span>
                     </a>
                 </li>
+
             </ul>
             <button id="open_btn">
                 <i id="open_btn_icon" class="fa-solid fa-chevron-right"></i>
             </button>
         </div>
 
-        <div id="logout">
-            <a href="{{ url_for('auth.logout') }}" id="logout_btn">
+       <div id="logout">
+            <a href="{{ url_for('auth.logout') }}" id="logout_btn" style="color: #000;">
                 <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="item-description">
-                    Logout
-                </span>
+                <span class="item-description">Logout</span>
             </a>
-        </div>        
+        </div>
+
     </nav>
 
     <!-- Conteúdo Principal -->

@@ -81,7 +81,12 @@ td, th {
     padding: 12px; /* Espaçamento interno */
 }
 
-
+.botoes-acoes {
+    display: flex;
+    gap: 10px; /* espaço entre os botões */
+    margin-top: 20px;
+    flex-wrap: wrap; /* opcional, quebra em telas pequenas */
+}
 
 .botao {
     display: block;

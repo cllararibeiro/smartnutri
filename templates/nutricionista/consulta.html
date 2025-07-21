@@ -29,18 +29,19 @@ Ficha de Atendimento
                 <h2>Dados Antropométricos</h2>
                 <div class="input-box">
                     <label for="peso">Peso Atual (kg):</label>
-                    <input type="number" id="peso" name="peso" step="0.1" required>
+                    <input type="number" id="peso" name="peso" step="0.1" oninput="calcularIMC(); calcularTMB()" step="any" required>
                 </div>
                 <div class="input-box">
                     <label for="altura">Altura (m):</label>
-                    <input type="number" id="altura" name="altura" step="0.01" required>
-                </div>
-                <div class="input-box">
-                    <button type="button" onclick="calcularIMC()">Calcular IMC</button>
+                    <input type="number" id="altura" name="altura" step="0.01" oninput="calcularIMC();calcularTMB()" step="any" required>
                 </div>
                 <div class="input-box">
                     <label for="imc">IMC:</label>
                     <input type="text" id="imc" name="imc" readonly>
+                </div>
+                <div class="input-box">
+                    <label for="tmb">Taxa Metabólica Basal (TMB):</label>
+                    <input type="text" id="tmb" name="tmb"  readonly>
                 </div>
                 <div class="input-box">
                     <label for="circunferenciaAbdominal">Circunferência Abdominal (cm):</label>
@@ -111,13 +112,6 @@ Ficha de Atendimento
                     <label for="massaGorda">Massa Gorda (kg):</label>
                     <input type="text" id="massaGorda" name="massaGorda" readonly>
                 </div>    
-                <div class="input-box">
-                    <label for="tmb">Taxa Metabólica Basal (TMB):</label>
-                    <input type="text" id="tmb" name="tmb" readonly>
-                </div>
-                <div class="input-box">
-                    <button type="button" onclick="calcularTMB()">Calcular TMB</button>
-                </div>
             </section>
 
             <!-- Seção de Rotina -->

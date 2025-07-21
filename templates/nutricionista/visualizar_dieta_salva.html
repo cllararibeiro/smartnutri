@@ -85,8 +85,11 @@ Ficha de Atendimento
         </div>
     </div>
 
+<div class="botoes-acoes">
     <a class="botao" href="{{ url_for('nutricionista.dashboard') }}">Voltar ao Dashboard</a>
+    <a class="botao" href="{{ url_for('nutricionista.substituicoes', dieta_id=dieta.dieta_id) }}">Adicionar Substituições</a>
     <button id="btn-gerar-pdf" class="botao">Gerar PDF</button>
+</div>
 
 </div>
 

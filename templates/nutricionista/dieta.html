@@ -12,17 +12,8 @@ Prescrição Dietética
             <form id="form-dieta" method="POST" action="{{ url_for('nutricionista.dieta', consulta_id=consulta_id, paciente_id=paciente_id) }}">
                 <div class="form-group">
                     <label for="paciente">Paciente:</label>
-                    <select id="paciente" name="paciente" required>
-                        <option value="">Selecione o paciente</option>
-                        {% for paciente in pacientes %}
-                        <option value="{{ paciente.pac_id }}">{{ paciente.pac_nome }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="objetivo">Objetivo da Dieta:</label>
-                    <input type="text" id="objetivo" name="objetivo" required>
+                    <input type="text" id="paciente" name="paciente" value="{{ paciente.pac_nome }}" readonly>
+                    <input type="hidden" name="paciente_id" value="{{ paciente.pac_id }}">
                 </div>
 
                 <div id="refeicoes-container">
@@ -39,9 +30,6 @@ Prescrição Dietética
             <div id="preview-container">
                 <!-- Pré-visualização será gerada aqui -->
             </div>
-            <button id="btn-gerar-pdf" class="btn-secondary" disabled>
-                Gerar PDF
-            </button>
         </div>
     </div>
 </div>

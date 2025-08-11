@@ -89,11 +89,6 @@
         const previewContainer = document.getElementById('preview-container');
         previewContainer.innerHTML = '<h3>Resumo da Dieta</h3>';
         
-        const pacienteNome = document.getElementById('paciente')?.dataset.nome || 'Paciente não selecionado';
-        
-        previewContainer.innerHTML += `
-            <p><strong>Paciente:</strong> ${pacienteNome}</p>
-        `;
         
         let totalCalorias = 0;
         let totalProteinas = 0;

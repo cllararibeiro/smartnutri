@@ -50,6 +50,9 @@
 
         // Inicializa os inputs refeicao_id
         updateRefeicaoIds();
+
+        
+        
     });
     
     function addRefeicao() {
@@ -153,4 +156,6 @@
             </div>
         `;
         
+        
+
     }

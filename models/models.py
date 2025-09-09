@@ -65,28 +65,6 @@ class RegistroConsulta(Base):
     consultas = relationship('Consulta', back_populates='registro_consulta')
 
 
-class Exame(Base):
-    __tablename__ = 'tb_exames'
-
-    exame_id = mapped_column(Integer, primary_key=True, autoincrement=True)
-    exame_nome = mapped_column(String(500), nullable=False)
-    tipo_exame = mapped_column(String(500), nullable=False)
-
-    resultados_exames = relationship('ResultadoExame', back_populates='exame')
-
-
-class ResultadoExame(Base):
-    __tablename__ = 'tb_resultados_exames'
-
-    res_exame_id = mapped_column(Integer, primary_key=True, autoincrement=True)
-    res_exame_con_id = mapped_column(Integer, ForeignKey('tb_consultas.con_id'), nullable=False)
-    res_exame_exame_id = mapped_column(Integer, ForeignKey('tb_exames.exame_id'), nullable=False)
-    res_exame_resultado = mapped_column(String(500), nullable=False)
-
-    exame = relationship('Exame', back_populates='resultados_exames')
-    consulta = relationship('Consulta', back_populates='resultados_exames')
-
-
 class TipoRefeicao(Base):
     __tablename__ = 'tb_tipos_refeicoes'
 
@@ -166,8 +144,7 @@ class Consulta(Base):
     paciente = relationship('Paciente', back_populates='consultas')
     registro_consulta = relationship('RegistroConsulta', back_populates='consultas')
     dados_antropometricos = relationship('DadosAntropometricos', back_populates='consulta')
-    resultados_exames = relationship('ResultadoExame', back_populates='consulta')
-
+   
 
 class DadosAntropometricos(Base):
     __tablename__ = 'tb_dados_antro'

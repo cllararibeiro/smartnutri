@@ -35,12 +35,6 @@ CREATE TABLE tb_registro_consulta (
     reg_con_aversoes TEXT
 );
 
-CREATE TABLE tb_exames (
-    exame_id INT AUTO_INCREMENT PRIMARY KEY,
-    exame_nome VARCHAR(500) NOT NULL,
-    tipo_exame VARCHAR(500) NOT NULL
-);
-
 CREATE TABLE tb_consultas (
     con_id INT AUTO_INCREMENT PRIMARY KEY,
     con_data DATETIME NOT NULL,
@@ -52,14 +46,7 @@ CREATE TABLE tb_consultas (
     FOREIGN KEY (con_reg_con_id) REFERENCES tb_registro_consulta(reg_con_id)
 );
 
-CREATE TABLE tb_resultados_exames (
-    res_exame_id INT AUTO_INCREMENT PRIMARY KEY,
-    res_exame_con_id INT NOT NULL,
-    res_exame_exame_id INT NOT NULL,
-    res_exame_resultado VARCHAR(500) NOT NULL,
-    FOREIGN KEY (res_exame_con_id) REFERENCES tb_consultas(con_id),
-    FOREIGN KEY (res_exame_exame_id) REFERENCES tb_exames(exame_id)
-);
+
 
 CREATE TABLE tb_tipos_refeicoes (
     tipo_refeicao_id INT AUTO_INCREMENT PRIMARY KEY,
